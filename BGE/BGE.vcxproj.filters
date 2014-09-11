@@ -29,9 +29,6 @@
     <Filter Include="Labs">
       <UniqueIdentifier>{f09f20fd-b65f-4670-9e98-ec489fae4c53}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Labs\OVRKill">
-      <UniqueIdentifier>{d4fdf9a6-dec9-41c6-a284-39e14bda0d61}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Kinect2">
       <UniqueIdentifier>{be702c50-cf5b-403e-bbc9-c798d56d7530}</UniqueIdentifier>
     </Filter>
@@ -106,12 +103,6 @@
     </ClCompile>
     <ClCompile Include="PhysicsController.cpp">
       <Filter>Controllers</Filter>
-    </ClCompile>
-    <ClCompile Include="FBO.cpp">
-      <Filter>Labs\OVRKill</Filter>
-    </ClCompile>
-    <ClCompile Include="ShaderFunctions.cpp">
-      <Filter>Labs\OVRKill</Filter>
     </ClCompile>
     <ClCompile Include="RiftController.cpp">
       <Filter>Controllers</Filter>
@@ -288,15 +279,6 @@
     </ClInclude>
     <ClInclude Include="KinematicMotionState.h">
       <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="OVR_Shaders.h">
-      <Filter>Labs\OVRKill</Filter>
-    </ClInclude>
-    <ClInclude Include="FBO.h">
-      <Filter>Labs\OVRKill</Filter>
-    </ClInclude>
-    <ClInclude Include="ShaderFunctions.h">
-      <Filter>Labs\OVRKill</Filter>
     </ClInclude>
     <ClInclude Include="RiftController.h">
       <Filter>Controllers</Filter>

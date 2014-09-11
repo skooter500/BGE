@@ -133,7 +133,6 @@
     <ClCompile Include="Content.cpp" />
     <ClCompile Include="CubeTest.cpp" />
     <ClCompile Include="Cylinder.cpp" />
-    <ClCompile Include="FBO.cpp" />
     <ClCompile Include="FPSController.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameComponent.cpp" />
@@ -150,7 +149,6 @@
     <ClCompile Include="PhysicsGame1.cpp" />
     <ClCompile Include="PhysicsController.cpp" />
     <ClCompile Include="RiftController.cpp" />
-    <ClCompile Include="ShaderFunctions.cpp" />
     <ClCompile Include="SoundSystem.cpp" />
     <ClCompile Include="Steerable3DController.cpp" />
     <ClCompile Include="Sphere.cpp" />
@@ -196,7 +194,6 @@
     <ClInclude Include="Content.h" />
     <ClInclude Include="CubeTest.h" />
     <ClInclude Include="Cylinder.h" />
-    <ClInclude Include="FBO.h" />
     <ClInclude Include="FPSController.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameComponent.h" />
@@ -206,14 +203,12 @@
     <ClInclude Include="Model.h" />
     <ClInclude Include="ModelTest.h" />
     <ClInclude Include="MotionState.h" />
-    <ClInclude Include="OVR_Shaders.h" />
     <ClInclude Include="Params.h" />
     <ClInclude Include="PhysicsCamera.h" />
     <ClInclude Include="PhysicsFactory.h" />
     <ClInclude Include="PhysicsGame1.h" />
     <ClInclude Include="PhysicsController.h" />
     <ClInclude Include="RiftController.h" />
-    <ClInclude Include="ShaderFunctions.h" />
     <ClInclude Include="SoundSystem.h" />
     <ClInclude Include="Steerable3DController.h" />
     <ClInclude Include="Sphere.h" />
