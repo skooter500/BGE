@@ -20,7 +20,6 @@
 #include "Lab7.h"
 #include "Lab8.h"
 #include "Buddha.h"
-#include "VRGame2.h"
 #include "Game.h"
 #include <iostream>
 #include <stdio.h>
@@ -48,9 +47,9 @@ int main(int argc, char *argv[])
 {
 	// Check out the Kinect1/Kinect2 branches to get this demo:	
 	// http://www.youtube.com/watch?v=EEbVHxOkTxw
-	Params::Load("vrgame");
+	Params::Load("default");
 
-	shared_ptr<Game> game = make_shared<VRGame2>();
+	shared_ptr<Game> game = make_shared<SceneGraphGame>();
 	game->Run();
 	
 	return 0;
