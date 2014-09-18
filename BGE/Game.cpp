@@ -185,6 +185,13 @@ void Game::PrintVector(string message, glm::vec3 v)
 	PrintText(ss.str());
 }
 
+void Game::PrintQuat(string message, glm::quat q)
+{
+	stringstream ss;
+	ss << message << "(" << q.x << ", " << q.y << ", " << q.z << ", " << q.w << ")";
+	PrintText(ss.str());
+}
+
 void Game::PrintFloat(string message, float f)
 {
 	stringstream ss;

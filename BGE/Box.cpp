@@ -8,8 +8,9 @@ using namespace BGE;
 Box::Box(float width, float height, float depth):GameComponent(true)
 {	
 	transform->diffuse = glm::vec3(RandomFloat(),RandomFloat(),RandomFloat());
-	transform->specular = glm::vec3(0,0,0);
+	transform->specular = glm::vec3(1, 1, 1);
 	transform->ambient = glm::vec3(0.1f, 0.1f, 0.1f);
+
 	tag = "Box";
 	transform->scale = glm::vec3(width, height, depth);
 }

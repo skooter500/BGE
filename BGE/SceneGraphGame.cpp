@@ -44,8 +44,14 @@ bool SceneGraphGame::Initialise()
 
 void SceneGraphGame::Update(float timeDelta)
 {
-	selfExample->transform->Yaw(timeDelta * speed * speed);	
-	station->transform->Yaw(timeDelta * speed * speed);
+	if (selfExample != nullptr)
+	{
+		selfExample->transform->Yaw(timeDelta * speed * speed);
+	}
+	if (station != nullptr)
+	{
+		station->transform->Yaw(timeDelta * speed * speed);
+	}
 	Game::Update(timeDelta);
 }
 
@@ -54,6 +60,7 @@ void SceneGraphGame::CreateScene()
 	float componentCount = 10.0f;
 	float current = 0.0f;
 	shared_ptr<GameComponent> partFollower = make_shared<GameComponent>(true);
+	partFollower->Attach(make_shared<VectorDrawer>());
 	Attach(partFollower);
 
 	selfExample = make_shared<GameComponent>(true);
@@ -116,15 +123,16 @@ void SceneGraphGame::CreateScene()
 
 	shared_ptr<GameComponent> transporter = make_shared<GameComponent>(true);
 	transporter->transform->position = glm::vec3(0, 5, 0);
-	transporter->Attach(Content::LoadModel("transporter"));
+	transporter->Attach(Content::LoadModel("cobramk3"));
 	carController->parent->Attach(transporter);
 
-	//// Create some steering components to chase each other
+	// Create some steering components to chase each other
 	ship4 = make_shared<GameComponent>(true);
 	// Create some steering components to chase each other
 	ship4->tag = "Steerable";
 	ship4->transform->scale = glm::vec3(2, 2, 2);
 	ship4->Attach(Content::LoadModel("krait", glm::rotate(glm::mat4(1), 180.0f, Transform::basisUp)));
+	ship4->Attach(make_shared<VectorDrawer>());
 	ship4->transform->specular = glm::vec3(1.2f, 1.2f, 1.2f);
 	shared_ptr<SteeringController> ship4Controller = make_shared<SteeringController>();
 
@@ -138,7 +146,7 @@ void SceneGraphGame::CreateScene()
 	ship4Controller->route->waypoints.push_back(ship4Controller->transform->position + glm::vec3(0, 0, -15));
 	ship4Controller->route->looped = true;
 	ship4Controller->route->draw = true;
-
+	
 	Attach(ship4);
 
 	// Load a textured model

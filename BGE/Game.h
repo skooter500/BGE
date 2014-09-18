@@ -92,6 +92,7 @@ namespace BGE
 		void PrintText(string message);
 		void PrintVector(string message, glm::vec3 v);
 		void PrintFloat(string message, float f);
+		void PrintQuat(string message, glm::quat q);
 		void PrintAll();
 
 		static shared_ptr<Game> Instance();

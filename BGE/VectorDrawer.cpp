@@ -1,5 +1,6 @@
 #include "VectorDrawer.h"
 #include "LineDrawer.h"
+#include "Game.h"
 
 using namespace BGE;
 using namespace std;
@@ -22,6 +23,7 @@ VectorDrawer::VectorDrawer(glm::vec3 scale)
 	colours.push_back(glm::vec3(1,1,1));
 	colours.push_back(glm::vec3(1,0,0));
 	colours.push_back(glm::vec3(0,1,0));
+	tag = "VectorDrawer";
 }
 
 
@@ -52,6 +54,8 @@ void VectorDrawer::Draw()
 
 		LineDrawer::DrawArrowLine(glm::vec3(point0), glm::vec3(point1), colours[i / step], arrowOrientations[i / step]);
 	}
+
+	Game::Instance()->PrintQuat("Quat:", transform->orientation);
 }
 
 

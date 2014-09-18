@@ -15,7 +15,7 @@ Buddha::Buddha(void)
 bool Buddha::Initialise()
 {	
 	
-	soundSystem->PlaySound("Buddha", glm::vec3(0,0,0));
+	//soundSystem->PlaySound("Buddha", glm::vec3(0,0,0));
 	
 	// 500 in the constructor indicates the number of particles in the effect. 
 	// You may need to compile in release mode or reduce the number of particles to get an acceptable framerate
@@ -28,12 +28,12 @@ bool Buddha::Initialise()
 
 	// make a circle of fountains
 
-	buddha = make_shared<GameComponent>();
-	buddha->transform = make_shared<Transform>();
+	SetGround(make_shared<Ground>());
+
+	buddha = make_shared<GameComponent>(true);
 	buddha->Attach(Content::LoadModel("buddha"));
 	buddha->transform->position = glm::vec3(0,0,0);
 	buddha->transform->scale = glm::vec3(10,10,10);
-	buddha->transform->diffuse = glm::vec3(1.2f, 1.2f, 1.2f);
 	Attach(buddha);
 
 	buddhaFountain0 = make_shared<FountainEffect>(500);

@@ -119,15 +119,15 @@ void SteeringController::Update(float timeDelta)
 	if (transform->look != Transform::basisLook)
 	{
 		// Make a quaternion from the vectors
-		glm::mat4 rotationMatrix = glm::lookAt(glm::vec3(0), transform->look, transform->up);
+		/*glm::mat4 rotationMatrix = glm::lookAt(glm::vec3(0), transform->look, transform->up);
 		rotationMatrix = glm::transpose(rotationMatrix);
-		transform->orientation = glm::quat(rotationMatrix);
+		transform->orientation = glm::quat(rotationMatrix);*/
 
 		// Alternatively
 		glm::vec3 axis = glm::cross(Transform::basisLook, transform->look);
+		axis = glm::normalize(axis);
 		float angle = glm::acos(glm::dot(Transform::basisLook, transform->look));
-		transform->orientation = glm::angleAxis(angle, axis);
-
+		transform->orientation = glm::angleAxis(glm::degrees(angle), axis);
 	}
 
 	GameComponent::Update(timeDelta);
