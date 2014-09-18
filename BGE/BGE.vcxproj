@@ -41,8 +41,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Users\Bryan\Documents\Projects\BGE\Dependencies\LeapSDK\include;..\Dependencies\FMOD\inc;..\Dependencies\LibOVR\Include;..\Dependencies\SDL2-2.0.3\include;..\Dependencies\glew-1.10.0\include;..\Dependencies\glm-0.9.4.3\glm;..\Dependencies\SDL_ttf;..\Dependencies\bullet3\src;..\Dependencies\Kinect\v2.0\inc;..\Dependencies\Speech\v11.0\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\Bryan\Documents\Projects\BGE\Dependencies\LeapSDK\lib\x86;..\Dependencies\Speech\v11.0\Include;..\Dependencies\FMOD\lib;..\Dependencies\LibOVR\Lib\Win32\VS2013;..\Dependencies\SDL2-2.0.3\lib\x86;..\Dependencies\SDL_ttf\VisualC\Win32\Release;..\Dependencies\glew-1.10.0\lib\Release\Win32;..\Dependencies\bullet3\lib;..\Dependencies\Kinect\v2.0\Lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\Dependencies\LeapSDK\include;..\Dependencies\FMOD\inc;..\Dependencies\LibOVR\Include;..\Dependencies\SDL2-2.0.3\include;..\Dependencies\glew-1.10.0\include;..\Dependencies\glm-0.9.4.3\glm;..\Dependencies\SDL_ttf;..\Dependencies\bullet3\src;..\Dependencies\Kinect\v2.0\inc;..\Dependencies\Speech\v11.0\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\Dependencies\LeapSDK\lib\x86;..\Dependencies\Speech\v11.0\Include;..\Dependencies\FMOD\lib;..\Dependencies\LibOVR\Lib\Win32\VS2013;..\Dependencies\SDL2-2.0.3\lib\x86;..\Dependencies\SDL_ttf\VisualC\Win32\Release;..\Dependencies\glew-1.10.0\lib\Release\Win32;..\Dependencies\bullet3\lib;..\Dependencies\Kinect\v2.0\Lib\x86;$(LibraryPath)</LibraryPath>
     <ExecutablePath>$(ExecutablePath)</ExecutablePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
