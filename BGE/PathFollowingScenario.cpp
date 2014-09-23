@@ -28,7 +28,7 @@ void PathFollowingScenario::Initialise()
 	
 	// Create the fighter
 	shared_ptr<GameComponent> fighter = make_shared<GameComponent>(true);
-	fighter->tag = "Steerable";
+	fighter->tag = "steerable";
 	fighter->transform->scale = glm::vec3(4, 4, 4);
 	fighter->transform->specular = glm::vec3(1.2f, 1.2f, 1.2f);
 	shared_ptr<SteeringController> fighterController = make_shared<SteeringController>();
@@ -42,7 +42,7 @@ void PathFollowingScenario::Initialise()
 
 	// Now create the enemy
 	shared_ptr<GameComponent> enemy = make_shared<GameComponent>(true);
-	enemy->tag = "Steerable";
+	enemy->tag = "steerable";
 	enemy->transform->scale = glm::vec3(4, 4, 4);
 	enemy->transform->specular = glm::vec3(1.2f, 1.2f, 1.2f);
 	shared_ptr<SteeringController> enemyController = make_shared<SteeringController>();
@@ -61,10 +61,9 @@ void PathFollowingScenario::Initialise()
 	fighter->Attach(stateMachine);
 	stateMachine->SwicthState(make_shared<IdleState>(stateMachine, enemyController));
 	
-
 	// Now set up the camera
 	game->camFollower = make_shared<GameComponent>(true);
-
+	game->camFollower->tag = "steerable";
 	shared_ptr<SteeringController> camController = make_shared<SteeringController>();
 	game->camFollower->Attach(camController);
 	camController->offset = glm::vec3(0, 4, 4);

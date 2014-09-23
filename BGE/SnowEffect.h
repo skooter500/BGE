@@ -7,7 +7,7 @@ namespace BGE
 		public ParticleEffect
 	{
 	public:
-		SnowEffect(void);
+		SnowEffect(bool hasTransform = false);
 		~SnowEffect(void);
 
 		bool Initialise();

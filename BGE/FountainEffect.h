@@ -7,8 +7,8 @@ namespace BGE
 		public ParticleEffect
 	{
 	public:
-		FountainEffect(void);
-		FountainEffect(int numParticles);
+		FountainEffect(bool hasTransform = false);
+		FountainEffect(int numParticles, bool hasTransform = false);
 		~FountainEffect(void);
 
 		bool Initialise();

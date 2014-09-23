@@ -74,8 +74,9 @@ void FlockingScenario::Initialise()
 		for (float z = -range; z < range; z += dist)
 		{
 			shared_ptr<Sphere> obstacle = make_shared<Sphere>(10);
-			obstacle->tag = "Obstacle";
+			obstacle->tag = "obstacle";
 			obstacle->transform->position = glm::vec3(x, 0, z);
+			obstacle->Initialise();
 			game->Attach(obstacle);
 		}
 	}

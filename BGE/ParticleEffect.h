@@ -15,7 +15,7 @@ namespace BGE
 		public GameComponent
 	{
 	public:
-		ParticleEffect(void);
+		ParticleEffect(bool hasTransform = false);
 		~ParticleEffect(void);
 
 		bool Initialise();

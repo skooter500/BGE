@@ -36,12 +36,12 @@ bool Buddha::Initialise()
 	buddha->transform->scale = glm::vec3(10,10,10);
 	Attach(buddha);
 
-	buddhaFountain0 = make_shared<FountainEffect>(500);
+	buddhaFountain0 = make_shared<FountainEffect>(500, true);
 	buddhaFountain0->transform->position = glm::vec3(-30, 0, 0);
 	buddhaFountain0->transform->diffuse = glm::vec3(1,1, 0);
 	Attach(buddhaFountain0);
 
-	buddhaFountain1 = make_shared<FountainEffect>(500);
+	buddhaFountain1 = make_shared<FountainEffect>(500, true);
 	buddhaFountain1->transform->position = glm::vec3(-30, 50, 0);
 	buddhaFountain1->transform->diffuse = glm::vec3(1,1, 0);
 	Attach(buddhaFountain1);
@@ -50,7 +50,7 @@ bool Buddha::Initialise()
 	for (int i = 0 ; i < NUM_FOUNTAINS ; i ++)
 	{
 		fountainTheta = ((glm::pi<float>() * 2.0f) / NUM_FOUNTAINS) * i;
-		shared_ptr<FountainEffect> fountain = make_shared<FountainEffect>(500);
+		shared_ptr<FountainEffect> fountain = make_shared<FountainEffect>(500, true);
 		if (i % 2 == 0)
 		{
 			fountain->transform->diffuse = glm::vec3(1,0,0);

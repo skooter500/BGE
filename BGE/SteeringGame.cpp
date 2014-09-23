@@ -14,7 +14,7 @@ SteeringGame::SteeringGame(void)
 {
 	lastPressed = false;
 	camFollowing = false;
-	//scenarios.push_back(make_shared<PathFollowingScenario>());
+	scenarios.push_back(make_shared<PathFollowingScenario>());
 	scenarios.push_back(make_shared<ObstacleAvoidanceScenario>());
 	scenarios.push_back(make_shared<FlockingScenario>());
 	
@@ -35,18 +35,10 @@ bool SteeringGame::Initialise()
 
 void SteeringGame::Reset()
 {
-	list<shared_ptr<GameComponent>>::iterator it = children.begin();
-	while (it != children.end())
-	{
-		if ((*it)->tag == "Steerable" || (*it)->tag == "Route" || (*it)->tag == "Obstacle")
-		{
-			it = children.erase(it);
-		}
-		else
-		{
-			++ it;
-		}
-	}
+	ClearChildrenWithTag("steerable");
+	ClearChildrenWithTag("route");
+	ClearChildrenWithTag("obstacle");
+	
 	if (ground != nullptr)
 	{
 		children.remove(ground);

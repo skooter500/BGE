@@ -16,7 +16,7 @@ vector<shared_ptr<GameComponent>> SteeringController::steerables;
 
 SteeringController::SteeringController(void)
 {
-	tag = "SteeringController";
+	tag = "steeringController";
 	force = glm::vec3(0);
 	acceleration = glm::vec3(0);
 	mass = 1.0f;
@@ -588,9 +588,9 @@ glm::vec3 SteeringController::CalculateWeightedPrioritised()
 	int tagged = 0;
 	if (IsOn(behaviour_type::separation) || IsOn(behaviour_type::cohesion) || IsOn(behaviour_type::alignment))
 	{
-		//tagged = TagNeighboursSimple(Params::GetFloat("tag_range"));
+		tagged = TagNeighboursSimple(Params::GetFloat("tag_range"));
 	}
-	tagged = TagNeighboursSimple(Params::GetFloat("tag_range"));
+	
 
 	if (IsOn(behaviour_type::separation) && (tagged > 0))
 	{

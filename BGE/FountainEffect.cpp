@@ -3,12 +3,12 @@
 
 using namespace BGE;
 
-FountainEffect::FountainEffect(void):numParticles(1000)
+FountainEffect::FountainEffect(bool hasTransform) :numParticles(1000), ParticleEffect(hasTransform)
 {
 	transform->diffuse = glm::vec3(1, 1, 1);
 }
 
-FountainEffect::FountainEffect(int numParticles)
+FountainEffect::FountainEffect(int numParticles, bool hasTransform) : ParticleEffect(hasTransform)
 {
 	this->numParticles = numParticles;	
 }

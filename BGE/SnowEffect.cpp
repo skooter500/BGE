@@ -3,7 +3,7 @@
 
 using namespace BGE;
 
-SnowEffect::SnowEffect(void)
+SnowEffect::SnowEffect(bool hasTransform) :ParticleEffect(hasTransform)
 {
 	textureName = "snowflake";
 }
