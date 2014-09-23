@@ -5,15 +5,13 @@ using namespace BGE;
 
 FountainEffect::FountainEffect(void):numParticles(1000)
 {
-	
+	transform->diffuse = glm::vec3(1, 1, 1);
 }
 
 FountainEffect::FountainEffect(int numParticles)
 {
-	this->numParticles = numParticles;
-	
+	this->numParticles = numParticles;	
 }
-
 
 FountainEffect::~FountainEffect(void)
 {
@@ -21,7 +19,6 @@ FountainEffect::~FountainEffect(void)
 
 bool FountainEffect::Initialise()
 {
-	transform->diffuse = glm::vec3(0,0,1);
 	for (int i = 0 ; i < numParticles ; i ++)
 	{
 		Particle p;
@@ -42,9 +39,10 @@ void FountainEffect::InitParticle(Particle & p)
 	p.velocity.y = glm::abs<float>(p.velocity.y);
 	
 	// Give the particle a random colour
-	p.diffuse.r = transform->diffuse.r * RandomClamped(0, 1);
-	p.diffuse.g = transform->diffuse.g * RandomClamped(0, 1);
-	p.diffuse.b = transform->diffuse.b * RandomClamped(0, 1);
+	float colourScale = RandomClamped(0, 1);
+	p.diffuse.r = transform->diffuse.r * colourScale;
+	p.diffuse.g = transform->diffuse.g * colourScale;
+	p.diffuse.b = transform->diffuse.b * colourScale;
 	p.age = 0;
 	p.alive = true;
 	// Random sizes also

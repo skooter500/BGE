@@ -30,10 +30,6 @@ GLuint * Model::dumpPrivateContents(void) {
 bool Model::Initialise()
 {
 	GameComponent::Initialise();
-	if (!Game::Instance()->initialised)
-	{
-		return false;
-	}
 
 	if (initialised)
 	{

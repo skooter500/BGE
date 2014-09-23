@@ -12,17 +12,30 @@ Sphere::Sphere(float radius):GameComponent(true)
 
 	tag = "Sphere";
 	transform->scale = glm::vec3(radius, radius, radius);
+	initialised = false;
 }
 
 bool Sphere::Initialise()
 {
-	std::shared_ptr<Model> model(Content::LoadModel("sphere"));
-	model->drawMode = Model::draw_modes::single_material;
-	Attach(model);
-	return model->Initialise();
+	if (!initialised)
+	{
+		std::shared_ptr<Model> model(Content::LoadModel("sphere")); 
+		model->drawMode = Model::draw_modes::single_material;
+		Attach(model);
+		initialised = true;
+		return GameComponent::Initialise();
+	}
+	else
+	{
+		return true;
+	}
+}
+
+void Sphere::Update(float timeDelta)
+{
+	GameComponent::Update(timeDelta);
 }
 
 Sphere::~Sphere(void)
 {
-	cout << "Sphere destructor" << "endl";
 }

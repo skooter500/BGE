@@ -17,10 +17,18 @@ Cylinder::Cylinder(float radius, float height):GameComponent(true)
 
 bool Cylinder::Initialise()
 {
-	shared_ptr<Model> model = Content::LoadModel("cyl");
-	model->drawMode = Model::draw_modes::single_material;
-	Attach(model);
-	return model->Initialise();
+	if (!initialised)
+	{
+		std::shared_ptr<Model> model(Content::LoadModel("cyl"));
+		model->drawMode = Model::draw_modes::single_material;
+		Attach(model);
+		initialised = true;
+		return GameComponent::Initialise();
+	}
+	else
+	{
+		return true;
+	}
 }
 
 void Cylinder::Draw()

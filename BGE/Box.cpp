@@ -1,7 +1,6 @@
 #include "Box.h"
 #include "Model.h"
 #include "Content.h"
-#include "VectorDrawer.h"
 
 using namespace BGE;
 
@@ -13,15 +12,23 @@ Box::Box(float width, float height, float depth):GameComponent(true)
 
 	tag = "Box";
 	transform->scale = glm::vec3(width, height, depth);
+	initialised = false;
 }
 
 bool Box::Initialise()
 {
-	shared_ptr<Model> model = Content::LoadModel("cube");
-	model->drawMode = Model::draw_modes::single_material;
-	Attach(model);
-	return model->Initialise();
-	
+	if (!initialised)
+	{
+		shared_ptr<Model> model = Content::LoadModel("cube");
+		model->drawMode = Model::draw_modes::single_material;
+		Attach(model);
+		initialised = true;
+		return GameComponent::Initialise();
+	}
+	else
+	{
+		return true;
+	}
 }
 
 void Box::Update(float timeDelta)

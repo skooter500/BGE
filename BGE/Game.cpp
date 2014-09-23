@@ -58,121 +58,6 @@ shared_ptr<Ground> Game::GetGround()
 	return ground;
 }
 
-bool Game::Initialise() {
-
-	int x = SDL_WINDOWPOS_CENTERED;
-	int y = SDL_WINDOWPOS_CENTERED;
-
-	if (Params::GetBool("riftEnabled"))
-	{
-		shared_ptr<RiftController> riftController = make_shared<RiftController>();
-		this->riftController = riftController;
-		// This needs to be done first so we can get the screen resolution of the rift
-		riftController->Connect();
-		if (!Params::ExistsKey("width"))
-		{
-			Params::SetFloat("width", riftController->hmd->Resolution.w);
-			Params::SetFloat("height", riftController->hmd->Resolution.h);
-		}
-		//x = riftController->hmd->WindowsPos.x;
-		//y = riftController->hmd->WindowsPos.y;
-		camera->Attach(riftController);
-	}
-	else
-	{
-		if (!Params::ExistsKey("width"))
-		{
-			Params::SetFloat("width", 800);
-			Params::SetFloat("height", 600);
-		}
-		shared_ptr<GameComponent> controller = make_shared<FPSController>();
-		camera->Attach(controller);
-	}
-	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_JOYSTICK) < 0) {
-		return false;
-	}
-
-	/* Turn on double buffering with a 24bit Z buffer.
-	* You may need to change this to 16 or 32 for your system */
-	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
-
-	SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
-	SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 4);
-
-	Uint32 flags = SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | (Params::GetBool("fullScreen") ? SDL_WINDOW_FULLSCREEN : 0);
-
-	int display = Params::GetFloat("display");
-	SDL_Rect bounds;
-	SDL_GetDisplayBounds(display, &bounds);
-	window = SDL_CreateWindow("",
-		SDL_WINDOWPOS_UNDEFINED_DISPLAY(display),
-		SDL_WINDOWPOS_UNDEFINED_DISPLAY(display),
-		Params::GetFloat("width"),
-		Params::GetFloat("height"),
-		flags);
-
-	//if (Params::GetBool("riftEnabled"))
-	//{
-	//	
-
-	//	//ovrHmd_AttachToWindow(riftController->hmd, window, NULL, NULL);
-	//}
-	//else
-	//{
-	//	window = SDL_CreateWindow("", x, y, Params::GetFloat("width"), Params::GetFloat("height"), flags);
-	//}
-	
-	context = SDL_GL_CreateContext(window);
-
-	/* This makes our buffer swap syncronized with the monitor's vertical refresh */
-	//SDL_GL_SetSwapInterval(1);
-
-	keyState = SDL_GetKeyboardState(NULL);
-	glewExperimental = GL_TRUE;
-	GLenum err = glewInit();
-	if (GLEW_OK != err)
-	{
-		char msg[2048];
-		sprintf(msg, "glewInit failed with error: %s", glewGetErrorString(err));
-		throw BGE::Exception(msg);
-	}
-
-	/* Turn on double buffering with a 24bit Z buffer.
-	*You may need to change this to 16 or 32 for your system */
-	
-	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
-
-	SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
-	SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 4);
-	
-	glViewport(0, 0, Params::GetFloat("width"), Params::GetFloat("height"));
-
-	//// Enable depth test
-	glEnable(GL_DEPTH_TEST);
-	// Accept fragment if it closer to the camera than the former one
-	glDepthFunc(GL_LESS);
-
-	//glEnable(GL_CULL_FACE);
-	//glCullFace(GL_BACK);
-	
-
-	if (TTF_Init() < 0)
-	{
-		throw BGE::Exception("Could not init TTF");
-	}
-	font = TTF_OpenFont("Content/arial.ttf",fontSize); // Open a font & set the font size
-	
-	LineDrawer::Instance()->Initialise();
-
-
-	running = true;
-	initialised = true;
-	
-	return GameComponent::Initialise();
-}
-
 void Game::PrintText(string message, glm::vec2 position)
 {
 	messages.push_back(PrintMessage(message, position));
@@ -518,6 +403,11 @@ void Game::DeletePhysicsConstraints()
 	}
 }
 
+bool Game::Initialise()
+{
+	return GameComponent::Initialise();
+}
+
 bool BGE::Game::PreInitialise()
 {
 	instance = dynamic_pointer_cast<Game>(This());
@@ -550,6 +440,115 @@ bool BGE::Game::PreInitialise()
 	dynamicsWorld->setGravity(btVector3(0, 0, 0));
 
 	physicsFactory = make_shared<PhysicsFactory>(dynamicsWorld);
+
+	int x = SDL_WINDOWPOS_CENTERED;
+	int y = SDL_WINDOWPOS_CENTERED;
+
+	if (Params::GetBool("riftEnabled"))
+	{
+		shared_ptr<RiftController> riftController = make_shared<RiftController>();
+		this->riftController = riftController;
+		// This needs to be done first so we can get the screen resolution of the rift
+		riftController->Connect();
+		if (!Params::ExistsKey("width"))
+		{
+			Params::SetFloat("width", riftController->hmd->Resolution.w);
+			Params::SetFloat("height", riftController->hmd->Resolution.h);
+		}
+		//x = riftController->hmd->WindowsPos.x;
+		//y = riftController->hmd->WindowsPos.y;
+		camera->Attach(riftController);
+	}
+	else
+	{
+		if (!Params::ExistsKey("width"))
+		{
+			Params::SetFloat("width", 800);
+			Params::SetFloat("height", 600);
+		}
+		shared_ptr<GameComponent> controller = make_shared<FPSController>();
+		camera->Attach(controller);
+	}
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_JOYSTICK) < 0) {
+		return false;
+	}
+
+	/* Turn on double buffering with a 24bit Z buffer.
+	* You may need to change this to 16 or 32 for your system */
+	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
+
+	SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
+	SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 4);
+
+	Uint32 flags = SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | (Params::GetBool("fullScreen") ? SDL_WINDOW_FULLSCREEN : 0);
+
+	int display = Params::GetFloat("display");
+	SDL_Rect bounds;
+	SDL_GetDisplayBounds(display, &bounds);
+	window = SDL_CreateWindow("",
+		SDL_WINDOWPOS_UNDEFINED_DISPLAY(display),
+		SDL_WINDOWPOS_UNDEFINED_DISPLAY(display),
+		Params::GetFloat("width"),
+		Params::GetFloat("height"),
+		flags);
+
+	//if (Params::GetBool("riftEnabled"))
+	//{
+	//	
+
+	//	//ovrHmd_AttachToWindow(riftController->hmd, window, NULL, NULL);
+	//}
+	//else
+	//{
+	//	window = SDL_CreateWindow("", x, y, Params::GetFloat("width"), Params::GetFloat("height"), flags);
+	//}
+
+	context = SDL_GL_CreateContext(window);
+
+	/* This makes our buffer swap syncronized with the monitor's vertical refresh */
+	//SDL_GL_SetSwapInterval(1);
+
+	keyState = SDL_GetKeyboardState(NULL);
+	glewExperimental = GL_TRUE;
+	GLenum err = glewInit();
+	if (GLEW_OK != err)
+	{
+		char msg[2048];
+		sprintf(msg, "glewInit failed with error: %s", glewGetErrorString(err));
+		throw BGE::Exception(msg);
+	}
+
+	/* Turn on double buffering with a 24bit Z buffer.
+	*You may need to change this to 16 or 32 for your system */
+
+	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
+
+	SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
+	SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 4);
+
+	glViewport(0, 0, Params::GetFloat("width"), Params::GetFloat("height"));
+
+	//// Enable depth test
+	glEnable(GL_DEPTH_TEST);
+	// Accept fragment if it closer to the camera than the former one
+	glDepthFunc(GL_LESS);
+
+	//glEnable(GL_CULL_FACE);
+	//glCullFace(GL_BACK);
+
+
+	if (TTF_Init() < 0)
+	{
+		throw BGE::Exception("Could not init TTF");
+	}
+	font = TTF_OpenFont("Content/arial.ttf", fontSize); // Open a font & set the font size
+
+	LineDrawer::Instance()->Initialise();
+
+	running = true;
+	initialised = true;
 
 	return true;
 }

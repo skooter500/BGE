@@ -33,7 +33,7 @@ void ObstacleAvoidanceScenario::Initialise()
 	Params::Load("default");
 	shared_ptr<SteeringGame> game = dynamic_pointer_cast<SteeringGame>(Game::Instance());
 
-	shared_ptr<GameComponent> leader = make_shared<GameComponent>(true);
+	shared_ptr<GameComponent>leader = make_shared<GameComponent>(true);
 	leader->tag = "Steerable";
 	shared_ptr<SteeringController> leaderController = make_shared<SteeringController>();
 	leader->Attach(leaderController);
@@ -43,8 +43,6 @@ void ObstacleAvoidanceScenario::Initialise()
 	//leaderController->TurnOn(SteeringController::behaviour_type::separation);
 	//leaderController->TurnOn(SteeringController::behaviour_type::wall_avoidance);
 	leaderController->targetPos = glm::vec3(10, 100, -550);
-	this->leaderController = leaderController;
-	
 	leader->Attach(Content::LoadModel("viper", glm::rotate(glm::mat4(1), 180.0f, Transform::basisUp)));
 	leader->transform->scale = glm::vec3(5,5,5);
 	game->Attach(leader);

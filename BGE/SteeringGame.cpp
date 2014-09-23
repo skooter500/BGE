@@ -14,7 +14,7 @@ SteeringGame::SteeringGame(void)
 {
 	lastPressed = false;
 	camFollowing = false;
-	scenarios.push_back(make_shared<PathFollowingScenario>());
+	//scenarios.push_back(make_shared<PathFollowingScenario>());
 	scenarios.push_back(make_shared<ObstacleAvoidanceScenario>());
 	scenarios.push_back(make_shared<FlockingScenario>());
 	

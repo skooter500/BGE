@@ -1,4 +1,5 @@
 #include "SceneGraphGame.h"
+#include "Sphere.h"
 
 using namespace BGE;
 
@@ -173,9 +174,9 @@ void SceneGraphGame::CreateScene()
 		pathFollowerController->route->looped = true;
 	}
 
-	shared_ptr<FountainEffect> fountain = make_shared<FountainEffect>(1000);
+	shared_ptr<FountainEffect> fountain = make_shared<FountainEffect>(1000);	
 	partFollower->Attach(fountain);
-	partFollower->transform->diffuse = glm::vec3(0, 1, 1);
+	fountain->transform->diffuse = glm::vec3(1, 0, 0);
 }
 
 
