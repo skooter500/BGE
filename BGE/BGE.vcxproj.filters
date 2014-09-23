@@ -221,6 +221,9 @@
     <ClCompile Include="KinectAudioStream.cpp">
       <Filter>Kinect2</Filter>
     </ClCompile>
+    <ClCompile Include="Capsule.cpp">
+      <Filter>Prefabs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -396,6 +399,9 @@
     </ClInclude>
     <ClInclude Include="KinectAudioStream.h">
       <Filter>Kinect2</Filter>
+    </ClInclude>
+    <ClInclude Include="Capsule.h">
+      <Filter>Prefabs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -30,7 +30,7 @@ glm::vec3 SceneGraphGame::NextPosition(float step, float steps)
 
 bool SceneGraphGame::Initialise()
 {	
-	dynamicsWorld->setGravity(btVector3(0,0,0));
+	dynamicsWorld->setGravity(btVector3(0,-9,0));
 	
 	camera->transform->position = glm::vec3(-10,20,20);
 	camera->transform->look = glm::vec3(0, 0, 1); 
@@ -58,7 +58,7 @@ void SceneGraphGame::Update(float timeDelta)
 
 void SceneGraphGame::CreateScene()
 {
-	float componentCount = 10.0f;
+	float componentCount = 11.0f;
 	float current = 0.0f;
 	shared_ptr<GameComponent> partFollower = make_shared<GameComponent>(true);
 	partFollower->Attach(make_shared<VectorDrawer>());
@@ -67,11 +67,9 @@ void SceneGraphGame::CreateScene()
 	selfExample = make_shared<GameComponent>(true);
 	selfExample->Attach(Content::LoadModel("ferdelance", glm::rotate(glm::mat4(1), 180.0f, glm::vec3(0, 1, 0))));
 	selfExample->transform->specular = glm::vec3(1.2f, 1.2f, 1.2f);
-
 	selfExample->Attach(make_shared<VectorDrawer>(glm::vec3(5, 5, 5)));
 	selfExample->transform->position = NextPosition(current++, componentCount);
-	Attach(selfExample);
-
+	Attach(selfExample);	
 	station = make_shared<GameComponent>(true);
 	station->transform->ambient = glm::vec3(0.2f, 0.2, 0.2f);
 	station->transform->specular = glm::vec3(1.2f, 1.2f, 1.2f);
@@ -113,7 +111,12 @@ void SceneGraphGame::CreateScene()
 	Attach(ship3);
 
 	// Create some physics components using the factory
-	physicsFactory->CreateBox(5, 5, 5, NextPosition(current++, componentCount), glm::quat());
+	physicsFactory->CreateCapsule(3, 1, NextPosition(current++, componentCount), glm::quat());
+
+	glm::vec3 rp = NextPosition(current++, componentCount);
+	rp.y = 20;
+	physicsFactory->CreateCapsuleRagdoll(rp);
+
 	physicsFactory->CreateFromModel("monkey", NextPosition(current++, componentCount), glm::quat(), glm::vec3(5, 5, 5));
 
 	//// Create a physics car

@@ -9,6 +9,7 @@
 #include "Model.h"
 #include "dirent.h"
 #include "Utils.h"
+#include "Capsule.h"
 using namespace BGE;
 
 const float standardMass = 10.0f;
@@ -303,4 +304,155 @@ shared_ptr<PhysicsController> PhysicsFactory::CreateRandomObject(glm::vec3 point
 	int which = rand() % names.size();
 	string name = names[which];
 	return CreateFromModel(name, point, q, scale);
+}
+
+shared_ptr<PhysicsController> PhysicsFactory::CreateCapsule(float radius, float height, glm::vec3 pos, glm::quat quat)
+{
+	btCollisionShape* capsuleShape = new btCapsuleShape(btScalar(radius), btScalar(height));
+	btScalar mass = 1;
+	btVector3 inertia(0, 0, 0);
+	capsuleShape->calculateLocalInertia(mass, inertia);
+
+	// This is a container for the box model
+	shared_ptr<GameComponent> cap = make_shared<Capsule>(radius, height);
+	cap->transform->position = pos;
+	Game::Instance()->Attach(cap);
+
+	// Create the rigid body
+	btDefaultMotionState * motionState = new btDefaultMotionState(btTransform(GLToBtQuat(quat)
+		, GLToBtVector(pos)));
+	btRigidBody::btRigidBodyConstructionInfo rigidBodyCI(mass, motionState, capsuleShape, inertia);
+	btRigidBody * body = new btRigidBody(rigidBodyCI);
+	body->setCollisionFlags(body->getCollisionFlags() | btCollisionObject::CF_CUSTOM_MATERIAL_CALLBACK);
+	dynamicsWorld->addRigidBody(body);
+
+	// Create the physics component and add it to the box
+	shared_ptr<PhysicsController> component = make_shared<PhysicsController>(capsuleShape, body, motionState);
+	body->setUserPointer(component.get());
+	component->tag = "capsule";
+	cap->Attach(component);
+
+	return component;
+}
+
+/*
+*example how to use each joins
+*
+*physicsFactory->right_upper_leg_right_lower_leg->setLimit(btScalar(num), btScalar(num));
+*physicsFactory->right_upper_leg_right_lower_leg->enableAngularMotor(bool, targetVelocity, maxMotorImpulse);
+*/
+shared_ptr<PhysicsController> PhysicsFactory::CreateCapsuleRagdoll(glm::vec3 position)
+{
+
+#ifndef M_PI
+#define M_PI       3.14159265358979323846
+#endif
+
+#ifndef M_PI_2
+#define M_PI_2     1.57079632679489661923
+#endif
+
+#ifndef M_PI_4
+#define M_PI_4     0.785398163397448309616
+#endif
+
+	btHingeConstraint* spine_pelvis;
+	btHingeConstraint* left_upper_leg_left_lower_leg;
+	btHingeConstraint* right_upper_leg_right_lower_leg;
+	btHingeConstraint* left_upper_arm_left_lower_arm;
+	btHingeConstraint* right_upper_arm_right_lower_arm;
+
+	btConeTwistConstraint* head_spine;
+	btConeTwistConstraint* pelvis_left_upper_leg;
+	btConeTwistConstraint* pelvis_right_upper_leg;
+	btConeTwistConstraint* spine_left_upper_arm;
+	btConeTwistConstraint* spine_right_upper_arm;
+
+	shared_ptr<PhysicsController> bodypart_head = CreateCapsule(1.0, 0.8, glm::vec3(position.x, position.y + 20, position.z), glm::quat());
+	shared_ptr<PhysicsController> bodypart_spine = CreateCapsule(1.8, 1.4, glm::vec3(position.x, position.y + 15, position.z), glm::quat());
+	shared_ptr<PhysicsController> bodypart_pelvis = CreateCapsule(1.8, 0.8, glm::vec3(position.x, position.y + 10, position.z), glm::quat());
+
+	shared_ptr<PhysicsController> bodypart_left_upper_leg = CreateCapsule(0.8, 1.4, glm::vec3(position.x - 1.5, position.y + 6, position.z), glm::quat());
+	shared_ptr<PhysicsController> bodypart_left_lower_leg = CreateCapsule(0.6, 1.4, glm::vec3(position.x - 1.5, position.y, position.z), glm::quat());
+	shared_ptr<PhysicsController> bodypart_right_upper_leg = CreateCapsule(0.8, 1.4, glm::vec3(position.x + 1.5, position.y + 6, position.z), glm::quat());
+	shared_ptr<PhysicsController> bodypart_right_lower_leg = CreateCapsule(0.6, 1.4, glm::vec3(position.x + 1.5, position.y, position.z), glm::quat());
+
+	shared_ptr<PhysicsController> bodypart_left_upper_arm = CreateCapsule(0.6, 1.2, glm::vec3(position.x - 3, position.y + 14, position.z), glm::quat());
+	shared_ptr<PhysicsController> bodypart_left_lower_arm = CreateCapsule(0.5, 1.2, glm::vec3(position.x - 3, position.y + 9, position.z), glm::quat());
+	shared_ptr<PhysicsController> bodypart_right_upper_arm = CreateCapsule(0.6, 1.2, glm::vec3(position.x + 3, position.y + 14, position.z), glm::quat());
+	shared_ptr<PhysicsController> bodypart_right_lower_arm = CreateCapsule(0.5, 1.2, glm::vec3(position.x + 3, position.y + 9, position.z), glm::quat());
+
+	btTransform localA, localB;
+
+	localA.setIdentity(); localB.setIdentity();
+	localA.getBasis().setEulerZYX(0, M_PI_2, 0); localA.setOrigin(btVector3(btScalar(0.), btScalar(2.7), btScalar(0.)));
+	localB.getBasis().setEulerZYX(0, M_PI_2, 0); localB.setOrigin(btVector3(btScalar(0.), btScalar(-2.7), btScalar(0.)));
+	spine_pelvis = new btHingeConstraint(*bodypart_pelvis->rigidBody, *bodypart_spine->rigidBody, localA, localB);
+	spine_pelvis->setLimit(btScalar(-M_PI_2), btScalar(M_PI_2));
+	dynamicsWorld->addConstraint(spine_pelvis);
+
+	localA.setIdentity(); localB.setIdentity();
+	localA.getBasis().setEulerZYX(0, 0, M_PI_2); localA.setOrigin(btVector3(btScalar(0.), btScalar(2.7), btScalar(0.)));
+	localB.getBasis().setEulerZYX(0, 0, M_PI_2); localB.setOrigin(btVector3(btScalar(0.), btScalar(-2.7), btScalar(0.)));
+	head_spine = new btConeTwistConstraint(*bodypart_spine->rigidBody, *bodypart_head->rigidBody, localA, localB);
+	head_spine->setLimit(M_PI_4, M_PI_4, M_PI_2);
+	dynamicsWorld->addConstraint(head_spine);
+
+	localA.setIdentity(); localB.setIdentity();
+	localA.getBasis().setEulerZYX(0, 0, -M_PI_4 * 5); localA.setOrigin(btVector3(btScalar(-1.5), btScalar(-2.5), btScalar(0.)));
+	localB.getBasis().setEulerZYX(0, 0, -M_PI_4 * 5); localB.setOrigin(btVector3(btScalar(0.), btScalar(2.5), btScalar(0.)));
+	pelvis_left_upper_leg = new btConeTwistConstraint(*bodypart_pelvis->rigidBody, *bodypart_left_upper_leg->rigidBody, localA, localB);
+	pelvis_left_upper_leg->setLimit(M_PI_4, M_PI_2, 0);
+	dynamicsWorld->addConstraint(pelvis_left_upper_leg);
+
+	localA.setIdentity(); localB.setIdentity();
+	localA.getBasis().setEulerZYX(0, M_PI_2, 0); localA.setOrigin(btVector3(btScalar(0.), btScalar(-2.7), btScalar(0.)));
+	localB.getBasis().setEulerZYX(0, M_PI_2, 0); localB.setOrigin(btVector3(btScalar(0.), btScalar(2.7), btScalar(0.)));
+	left_upper_leg_left_lower_leg = new btHingeConstraint(*bodypart_left_upper_leg->rigidBody, *bodypart_left_lower_leg->rigidBody, localA, localB);
+	left_upper_leg_left_lower_leg->setLimit(btScalar(-M_PI_2), btScalar(0));
+	dynamicsWorld->addConstraint(left_upper_leg_left_lower_leg);
+
+	localA.setIdentity(); localB.setIdentity();
+	localA.getBasis().setEulerZYX(0, 0, M_PI_4); localA.setOrigin(btVector3(btScalar(1.5), btScalar(-2.5), btScalar(0.)));
+	localB.getBasis().setEulerZYX(0, 0, M_PI_4); localB.setOrigin(btVector3(btScalar(0.), btScalar(2.5), btScalar(0.)));
+	pelvis_right_upper_leg = new btConeTwistConstraint(*bodypart_pelvis->rigidBody, *bodypart_right_upper_leg->rigidBody, localA, localB);
+	pelvis_right_upper_leg->setLimit(M_PI_4, M_PI_2, 0);
+	dynamicsWorld->addConstraint(pelvis_right_upper_leg);
+
+	localA.setIdentity(); localB.setIdentity();
+	localA.getBasis().setEulerZYX(0, M_PI_2, 0); localA.setOrigin(btVector3(btScalar(0.), btScalar(-2.7), btScalar(0.)));
+	localB.getBasis().setEulerZYX(0, M_PI_2, 0); localB.setOrigin(btVector3(btScalar(0.), btScalar(2.7), btScalar(0.)));
+	right_upper_leg_right_lower_leg = new btHingeConstraint(*bodypart_right_upper_leg->rigidBody, *bodypart_right_lower_leg->rigidBody, localA, localB);
+	right_upper_leg_right_lower_leg->setLimit(btScalar(-M_PI_2), btScalar(0));
+	dynamicsWorld->addConstraint(right_upper_leg_right_lower_leg);
+
+	localA.setIdentity(); localB.setIdentity();
+	localA.getBasis().setEulerZYX(0, 0, M_PI); localA.setOrigin(btVector3(btScalar(-2.5), btScalar(2.5), btScalar(0.)));
+	localB.getBasis().setEulerZYX(0, 0, M_PI_2); localB.setOrigin(btVector3(btScalar(0.), btScalar(-2.5), btScalar(0.)));
+	spine_left_upper_arm = new btConeTwistConstraint(*bodypart_spine->rigidBody, *bodypart_left_upper_arm->rigidBody, localA, localB);
+	spine_left_upper_arm->setLimit(M_PI, M_PI, 0);
+	dynamicsWorld->addConstraint(spine_left_upper_arm);
+
+	localA.setIdentity(); localB.setIdentity();
+	localA.getBasis().setEulerZYX(0, M_PI_2, 0); localA.setOrigin(btVector3(btScalar(0.), btScalar(2.5), btScalar(0.)));
+	localB.getBasis().setEulerZYX(0, M_PI_2, 0); localB.setOrigin(btVector3(btScalar(0.), btScalar(-2.5), btScalar(0.)));
+	left_upper_arm_left_lower_arm = new btHingeConstraint(*bodypart_left_upper_arm->rigidBody, *bodypart_left_lower_arm->rigidBody, localA, localB);
+	left_upper_arm_left_lower_arm->setLimit(btScalar(-M_PI_2), btScalar(0));
+	dynamicsWorld->addConstraint(left_upper_arm_left_lower_arm);
+
+	localA.setIdentity(); localB.setIdentity();
+	localA.getBasis().setEulerZYX(0, 0, 0); localA.setOrigin(btVector3(btScalar(2.5), btScalar(2.5), btScalar(0.)));
+	localB.getBasis().setEulerZYX(0, 0, M_PI_2); localB.setOrigin(btVector3(btScalar(0.), btScalar(-2.5), btScalar(0.)));
+	spine_right_upper_arm = new btConeTwistConstraint(*bodypart_spine->rigidBody, *bodypart_right_upper_arm->rigidBody, localA, localB);
+	spine_right_upper_arm->setLimit(M_PI, M_PI, 0);
+	dynamicsWorld->addConstraint(spine_right_upper_arm);
+
+	localA.setIdentity(); localB.setIdentity();
+	localA.getBasis().setEulerZYX(0, M_PI_2, 0); localA.setOrigin(btVector3(btScalar(0.), btScalar(2.5), btScalar(0.)));
+	localB.getBasis().setEulerZYX(0, M_PI_2, 0); localB.setOrigin(btVector3(btScalar(0.), btScalar(-2.5), btScalar(0.)));
+	right_upper_arm_right_lower_arm = new btHingeConstraint(*bodypart_right_upper_arm->rigidBody, *bodypart_right_lower_arm->rigidBody, localA, localB);
+	right_upper_arm_right_lower_arm->setLimit(btScalar(-M_PI_2), btScalar(0));
+	dynamicsWorld->addConstraint(right_upper_arm_right_lower_arm);
+
+	return bodypart_spine;
 }

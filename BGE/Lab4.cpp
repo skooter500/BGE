@@ -16,13 +16,13 @@ bool Lab4::Initialise()
 	std::shared_ptr<GameComponent> ground = make_shared<Ground>();
 	Attach(ground);	
 
-	ship1 = make_shared<GameComponent>();
+	ship1 = make_shared<GameComponent>(true);
 	ship1->Attach(Content::LoadModel("cobramk3", glm::rotate(glm::mat4(1), 180.0f, glm::vec3(0,1,0))));
 	ship1->Attach(make_shared<VectorDrawer>(glm::vec3(5,5,5)));
 	ship1->transform->position = glm::vec3(-10, 2, -10);
 	Attach(ship1);
 
-	ship2 = make_shared<GameComponent>();
+	ship2 = make_shared<GameComponent>(true);
 	ship2->Attach(Content::LoadModel("python", glm::rotate(glm::mat4(1), 180.0f, glm::vec3(0,1,0))));
 	ship2->Attach(make_shared<VectorDrawer>(glm::vec3(5,5,5)));
 	ship2->transform->position = glm::vec3(10, 2, -10);
