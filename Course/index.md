@@ -23,7 +23,7 @@ Assignments & student work from previous years
 
 Week 2
 ------
-* [Lab](Labs/index.md)
+* [Lab](../Labs/index.md)
 
 Week 1
 ------
