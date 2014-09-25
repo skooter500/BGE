@@ -315,6 +315,7 @@ shared_ptr<PhysicsController> PhysicsFactory::CreateCapsule(float radius, float 
 
 	// This is a container for the box model
 	shared_ptr<GameComponent> cap = make_shared<Capsule>(radius, height);
+	cap->Initialise();
 	cap->transform->position = pos;
 	Game::Instance()->Attach(cap);
 

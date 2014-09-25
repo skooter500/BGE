@@ -78,7 +78,7 @@ void Steerable3DController::Update(float timeDelta)
 	const Uint8 * keyState = Game::Instance()->GetKeyState();
 
 	float scale = 10000.0f;
-	if (keyState[SDL_SCANCODE_SPACE])
+	if (keyState[SDL_SCANCODE_RETURN])
     {
         AddForce(transform->look * scale * timeDelta);
     }
@@ -118,8 +118,10 @@ void Steerable3DController::Update(float timeDelta)
 
     // Do the Newtonian integration
     acceleration = force / mass;
-    transform->velocity += acceleration * timeDelta;
+    velocity += acceleration * timeDelta;
     transform->position += velocity * timeDelta;
+
+	Game::Instance()->PrintVector("Velocity: ", velocity);
 	
 	// Normalise the velocity into the look
 	// Probably not necessary as we recalculate these anyway later
@@ -133,6 +135,12 @@ void Steerable3DController::Update(float timeDelta)
     // Do the Hamiltonian integration
 	angularAcceleration = torque * glm::inverse(inertialTensor);
     angularVelocity = angularVelocity + angularAcceleration * timeDelta;
+
+	if (glm::length(angularVelocity) > 0.0001f)
+	{
+		angularVelocity *= 0.9f;
+	}
+
 
     glm::quat w = glm::quat(0, angularVelocity.x, angularVelocity.y, angularVelocity.z);
 

@@ -10,7 +10,7 @@ using namespace BGE;
 PhysicsCamera::PhysicsCamera(PhysicsFactory * physicsFactory):PhysicsController()
 {
 	elapsed = 10000.0f;
-	fireRate = 5.0f;
+	fireRate = 2.0f;
 	pickedUp = NULL;
 	tag = "Physics Camera";
 	this->physicsFactory = physicsFactory;
@@ -47,7 +47,7 @@ void PhysicsCamera::Update(float timeDelta)
 		glm::vec3 pos = transform->position + (transform->look * 5.0f);
 		glm::quat q(RandomFloat(), RandomFloat(), RandomFloat(), RandomFloat());
 		glm::normalize(q);
-		shared_ptr<PhysicsController> physicsComponent = physicsFactory->CreateBox(1,1,1, pos, q);
+		shared_ptr<PhysicsController> physicsComponent = physicsFactory->CreateCapsuleRagdoll(pos);
 		
 		float force = 5000.0f;
 		physicsComponent->rigidBody->applyCentralForce(GLToBtVector(transform->look) * force);

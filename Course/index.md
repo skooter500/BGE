@@ -11,6 +11,7 @@ Resources
 * [Bryan's youtube channel](http://youtube.com/skooter500)
 * [Bryan on Twitter](http://twitter.com/skooter500)
 * [Some notes on C++ and git](Game Engines 1a.md)
+* Class Facebook page
 
 Assignments & student work from previous years
 ----------------------------------------------
