@@ -464,6 +464,7 @@ std::vector<std::shared_ptr<GameComponent>> GameComponent::FindComponentsByTag(s
 	git merge BRANCH_YOU_WANT_TO_MERGE_FROM
 	```
 * You can delete a branch by typing:
+
 	```bash
 	git branch -d BRANCH_NAME
 	```
