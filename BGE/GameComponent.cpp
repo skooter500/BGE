@@ -237,27 +237,18 @@ std::list<std::shared_ptr<GameComponent>> * GameComponent::GetChildren()
 
 shared_ptr<GameComponent> GameComponent::FindComponentByTag(std::string tag)
 {
-	std::multimap<std::string, std::shared_ptr<GameComponent>>::iterator it = childrenMap.find(tag);
-	if (it != childrenMap.end())
-	{
-		return it->second;
-	}
-	else
-	{
-		return nullptr;
-	}
-	/*std::list<std::shared_ptr<GameComponent>>::iterator it = children.begin();
-	while (it != children.end())
-	{
-		if ((*it)->tag == tag)
-		{
-			return *it;
-		}
-		it++;
-	}
-	return nullptr;*/
-}
+	// This looks ugly, but hey thats C++ for ya
+	pair < std::multimap<std::string, std::shared_ptr<GameComponent>>::iterator
+		, std::multimap<std::string, std::shared_ptr<GameComponent>>::iterator > range = childrenMap.equal_range(tag);
 
+	std::multimap<std::string, std::shared_ptr<GameComponent>>::iterator it = range.first;
+	std::vector<std::shared_ptr<GameComponent>> components;
+	if (it != range.second)
+	{
+		return ((*it).second);
+	}
+	return nullptr;
+}
 std::vector<std::shared_ptr<GameComponent>> GameComponent::FindComponentsByTag(std::string tag)
 {
 	// This looks ugly, but hey thats C++ for ya

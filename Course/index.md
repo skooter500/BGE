@@ -4,12 +4,12 @@ Game Engines 1
 Resources
 ---------
 * [Course Notes](http://1drv.ms/1qbcpdE)
+* [Labs](../Labs/index.md)
 * [Oculus developer forums](https://developer.oculusvr.com/)
 * [Leap developer forum](https://community.leapmotion.com/category/development)
 * [Bryan's blog](http://bryanduggan.org)
 * [Bryan's youtube channel](http://youtube.com/skooter500)
 * [Bryan on Twitter](http://twitter.com/skooter500)
-* [Powerpoint slides for the course (at some point I will write a program to convert these to markdown)](http://1drv.ms/1ogamWh)
 * [Some notes on C++ and git](Game Engines 1a.md)
 
 Assignments & student work from previous years
@@ -24,7 +24,6 @@ Assignments & student work from previous years
 * [Physics engine assignments 2007](https://www.youtube.com/watch?v=5LgZOLrFFLQ)
 * [Game AI in Unity](https://www.youtube.com/watch?v=1H8FRXytO9M)
 * [Space battles 2011](https://www.youtube.com/watch?v=GdYAzGS0evA)
-* []
 
 Week 2
 ------
