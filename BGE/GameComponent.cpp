@@ -260,7 +260,6 @@ shared_ptr<GameComponent> GameComponent::FindComponentByTag(std::string tag)
 
 std::vector<std::shared_ptr<GameComponent>> GameComponent::FindComponentsByTag(std::string tag)
 {
-
 	// This looks ugly, but hey thats C++ for ya
 	pair<std::multimap<std::string, std::shared_ptr<GameComponent>>::iterator
 		, std::multimap<std::string, std::shared_ptr<GameComponent>>::iterator> range = childrenMap.equal_range(tag);
