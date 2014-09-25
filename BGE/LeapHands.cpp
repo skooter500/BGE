@@ -111,13 +111,14 @@ void BGE::LeapHands::Update(float timeDelta)
 			}
 			case vehicle:
 			{
-				glm::vec3 point;
+				glm::vec3 point;				
 				bool hit = Game::Instance()->ground->rayIntersectsWorldPlane(
 					Game::Instance()->camera->transform->position,
 					Game::Instance()->camera->transform->look, point);
 				if (hit)
 				{
-					Game::Instance()->physicsFactory->CreateVehicle(point);
+					point.y = 20;
+					Game::Instance()->physicsFactory->CreateCapsuleRagdoll(point);
 					Game::Instance()->soundSystem->PlaySound("spawn", point);
 				}
 				break;

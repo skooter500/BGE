@@ -248,6 +248,7 @@
     <None Include="Content\TextShader.vertexshader" />
     <None Include="Content\TriangleShader.fragmentshader" />
     <None Include="Content\TriangleShader.vertexshader" />
+    <None Include="Content\vrdefault.properties" />
     <None Include="Content\vrgame.properties" />
     <None Include="Particles.cd">
       <SubType>Designer</SubType>

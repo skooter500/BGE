@@ -39,6 +39,7 @@
 #include "XBoxController.h"
 #include "Steerable3DController.h"
 #include "Utils.h"
+#include "VRGame2.h"
 #include "SDL_syswm.h"
 
 using namespace BGE;
@@ -46,9 +47,9 @@ using namespace BGE;
 int main(int argc, char *argv[])
 {
 	// http://www.youtube.com/watch?v=EEbVHxOkTxw
-	Params::Load("default");
+	Params::Load("vrgame");
 
-	shared_ptr<Game> game = make_shared<SceneGraphGame>();
+	shared_ptr<Game> game = make_shared<VRGame2>();
 	game->Run();
 	
 	return 0;
