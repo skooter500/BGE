@@ -15,7 +15,7 @@
 #include "SteeringGame.h"
 #include "SceneGraphGame.h"
 #include "Lab5.h"
-#include "Lab4.h"
+#include "Lab3.h"
 #include "Lab6.h"
 #include "Lab7.h"
 #include "Lab8.h"
@@ -47,9 +47,9 @@ using namespace BGE;
 int main(int argc, char *argv[])
 {
 	// http://www.youtube.com/watch?v=EEbVHxOkTxw
-	Params::Load("vrgame");
+	Params::Load("default");
 
-	shared_ptr<Game> game = make_shared<VRGame2>();
+	shared_ptr<Game> game = make_shared<Lab3>();
 	game->Run();
 	
 	return 0;
