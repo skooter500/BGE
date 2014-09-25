@@ -9,36 +9,47 @@ using namespace BGE;
 Lab5::Lab5(void)
 {
 	elapsed = 10000;
+	ySpeed = 5.0f;
+}
+
+
+Lab5::~Lab5(void)
+{
 }
 
 bool Lab5::Initialise()
-{
-	std::shared_ptr<GameComponent> ground = make_shared<Ground>();
-	Attach(ground);	
-
-	ship1 = make_shared<GameComponent>();
-	ship1->Attach(Content::LoadModel("cobramk3", glm::rotate(glm::mat4(1), 180.0f, glm::vec3(0,1,0))));
-	ship1->transform->position = glm::vec3(-10, 2, -10);
-	ship1->Attach(make_shared<VectorDrawer>());
-	Attach(ship1);
-
-	
-	//ship2->drawMode = GameComponent::single_material;
-
-
+{	
+		
 	// 500 in the constructor indicates the number of particles in the effect. 
 	// You may need to compile in release mode or reduce the number of particles to get an acceptable framerate
-	shared_ptr<FountainEffect> centFountain = make_shared<FountainEffect>(500);
-	centFountain->transform->position.x = centFountain->transform->position.y = 0;
-	centFountain->transform->position.x = centFountain->transform->position.y = 0;
-	centFountain->transform->position.y = FOUNTAIN_HEIGHT;
-	centFountain->transform->diffuse = glm::vec3(1,1,0);
+	//shared_ptr<FountainEffect> centFountain = make_shared<FountainEffect>(500);
+	//centFountain->position.x = centFountain->position.y = 20;
+	//centFountain->position.y = FOUNTAIN_HEIGHT;
+	//centFountain->diffuse = glm::vec3(1,1,0);
 
-	Attach(centFountain);
+	//Attach(centFountain);
 
 	// make a circle of fountains
-	
-	
+
+	// Create a gamecomponent and attach the Buddha model
+	// Look at Lab5 for an example of how to do this
+	buddha = make_shared<GameComponent>();
+	buddha->Attach(Content::LoadModel("buddha"));
+	buddha->transform->position = glm::vec3(0,0,0);
+	buddha->transform->scale = glm::vec3(10,10,10);
+	buddha->transform->diffuse = glm::vec3(1.2f, 1.2f, 1.2f);
+	Attach(buddha);
+
+	buddhaFountain0 = make_shared<FountainEffect>(500);
+	buddhaFountain0->transform->position = glm::vec3(-30, 0, 0);
+	buddhaFountain0->transform->diffuse = glm::vec3(1,1, 0);
+	Attach(buddhaFountain0);
+
+	buddhaFountain1 = make_shared<FountainEffect>(500);
+	buddhaFountain1->transform->position = glm::vec3(-30, 50, 0);
+	buddhaFountain1->transform->diffuse = glm::vec3(1,1, 0);
+	Attach(buddhaFountain1);
+
 	fountainTheta = 0.0f; 
 	for (int i = 0 ; i < NUM_FOUNTAINS ; i ++)
 	{
@@ -52,7 +63,7 @@ bool Lab5::Initialise()
 		{
 			fountain->transform->diffuse = glm::vec3(0,1,0);
 		}
-		
+
 		fountain->transform->position.x = glm::sin(fountainTheta) * FOUNTAIN_RADIUS;
 		fountain->transform->position.z = - glm::cos(fountainTheta) * FOUNTAIN_RADIUS;
 		fountain->transform->position.y = FOUNTAIN_HEIGHT;
@@ -60,43 +71,17 @@ bool Lab5::Initialise()
 		Attach(fountain);
 	}
 	fountainTheta = 0.0f;
-	
-	ship2 = make_shared<GameComponent>();
-	ship2->Attach(Content::LoadModel("ferdelance", glm::rotate(glm::mat4(1), 180.0f, glm::vec3(0,1,0))));
-	ship2->Attach(make_shared<VectorDrawer>());
-	ship2->transform->diffuse= glm::vec3(1.0f,0.0f,0.0f);
-	ship2->transform->specular = glm::vec3(1.2f, 1.2f, 1.2f);
-
-	ship2->transform->position = glm::vec3(10, 2, -10);
-	Attach(ship2);
-
 
 	Game::Initialise();
 
-	camera->transform->position = glm::vec3(0, 4, 20);
+	camera->transform->position = glm::vec3(0, 4, 80);
 	return true;
 }
 
+
+
 void Lab5::Update(float timeDelta)
-{	
-	// Movement of ship2
-	if (keyState[SDL_SCANCODE_UP])
-	{
-		ship2->transform->position += ship2->transform->look * speed * timeDelta;
-	}
-	if (keyState[SDL_SCANCODE_DOWN])
-	{
-		ship2->transform->position -= ship2->transform->look * speed * timeDelta;
-	}
-	if (keyState[SDL_SCANCODE_LEFT])
-	{
-		ship2->transform->Yaw(timeDelta * speed * speed);
-	}
-	if (keyState[SDL_SCANCODE_RIGHT])
-	{
-		ship2->transform->Yaw(-timeDelta * speed * speed);
-	}
-	
+{		
 	for (int i = 0 ; i < fountains.size() ; i ++)
 	{
 		if (i % 2 == 0)
@@ -107,24 +92,45 @@ void Lab5::Update(float timeDelta)
 		{
 			fountains[i]->transform->position.y = FOUNTAIN_HEIGHT - (glm::sin(fountainTheta) * FOUNTAIN_HEIGHT);
 		}
-		
 	}
+	float scale = 30.0f + (glm::sin(fountainTheta) / 3.0f);
+	buddha->transform->scale = glm::vec3(scale, scale, scale);
 	fountainTheta += timeDelta;
 	if (fountainTheta >= glm::pi<float>() * 2.0f)
 	{
 		fountainTheta = 0.0f;
 	}
 
+	buddhaFountain0->transform->position.x = glm::sin(fountainTheta) * 30;
+	buddhaFountain0->transform->position.z = - glm::cos(fountainTheta) * 30;
+	buddhaFountain0->transform->position.y -= timeDelta * ySpeed;
+	if (buddhaFountain0->transform->position.y > 50)
+	{
+		ySpeed = -ySpeed;
+		buddhaFountain0->transform->position.y = 50;
+	}
+
+	if (buddhaFountain0->transform->position.y < 0)
+	{
+		ySpeed = -ySpeed;
+		buddhaFountain0->transform->position.y = 0;
+	}
+
+	buddhaFountain1->transform->position.x = glm::sin(fountainTheta) * -30;
+	buddhaFountain1->transform->position.z = glm::cos(fountainTheta) * 30;
+	buddhaFountain1->transform->position.y += timeDelta * ySpeed;
+	if (buddhaFountain1->transform->position.y > 50)
+	{
+		ySpeed = -ySpeed;
+		buddhaFountain1->transform->position.y = 50;
+	}
+
+	if (buddhaFountain1->transform->position.y < 0)
+	{
+		ySpeed = -ySpeed;
+		buddhaFountain1->transform->position.y = 0;
+	}
+
+
 	Game::Update(timeDelta);
-
-	float theta = 0.0f;
-	glm::vec3 toShip2 = ship2->transform->position - ship1->transform->position;
-	toShip2 = glm::normalize(toShip2);
-	theta = glm::acos(glm::dot(Transform::basisLook, toShip2));
-	//if (toShip2.x > 0)
-	//{
-	//	theta = - theta;
-	//}
-
-	ship1->transform->world = glm::translate(glm::mat4(1), ship1->transform->position) * glm::rotate(glm::mat4(1), glm::degrees(theta), glm::vec3(0,1,0));
 }

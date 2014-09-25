@@ -173,20 +173,8 @@
     <ClCompile Include="SnowEffect.cpp">
       <Filter>Particles</Filter>
     </ClCompile>
-    <ClCompile Include="Lab5.cpp">
-      <Filter>Labs</Filter>
-    </ClCompile>
     <ClCompile Include="Buddha.cpp">
       <Filter>Games</Filter>
-    </ClCompile>
-    <ClCompile Include="Lab6.cpp">
-      <Filter>Labs</Filter>
-    </ClCompile>
-    <ClCompile Include="Lab7.cpp">
-      <Filter>Labs</Filter>
-    </ClCompile>
-    <ClCompile Include="Lab8.cpp">
-      <Filter>Labs</Filter>
     </ClCompile>
     <ClCompile Include="PhysicsDrawer.cpp">
       <Filter>Engine</Filter>
@@ -222,6 +210,18 @@
       <Filter>Prefabs</Filter>
     </ClCompile>
     <ClCompile Include="Lab3.cpp">
+      <Filter>Labs</Filter>
+    </ClCompile>
+    <ClCompile Include="Lab4.cpp">
+      <Filter>Labs</Filter>
+    </ClCompile>
+    <ClCompile Include="Lab5.cpp">
+      <Filter>Labs</Filter>
+    </ClCompile>
+    <ClCompile Include="Lab6.cpp">
+      <Filter>Labs</Filter>
+    </ClCompile>
+    <ClCompile Include="Lab7.cpp">
       <Filter>Labs</Filter>
     </ClCompile>
   </ItemGroup>
@@ -355,20 +355,8 @@
     <ClInclude Include="SnowEffect.h">
       <Filter>Particles</Filter>
     </ClInclude>
-    <ClInclude Include="Lab5.h">
-      <Filter>Labs</Filter>
-    </ClInclude>
     <ClInclude Include="Buddha.h">
       <Filter>Games</Filter>
-    </ClInclude>
-    <ClInclude Include="Lab6.h">
-      <Filter>Labs</Filter>
-    </ClInclude>
-    <ClInclude Include="Lab7.h">
-      <Filter>Labs</Filter>
-    </ClInclude>
-    <ClInclude Include="Lab8.h">
-      <Filter>Labs</Filter>
     </ClInclude>
     <ClInclude Include="Transform.h">
       <Filter>Engine</Filter>
@@ -401,6 +389,18 @@
       <Filter>Prefabs</Filter>
     </ClInclude>
     <ClInclude Include="Lab3.h">
+      <Filter>Labs</Filter>
+    </ClInclude>
+    <ClInclude Include="Lab4.h">
+      <Filter>Labs</Filter>
+    </ClInclude>
+    <ClInclude Include="Lab5.h">
+      <Filter>Labs</Filter>
+    </ClInclude>
+    <ClInclude Include="Lab6.h">
+      <Filter>Labs</Filter>
+    </ClInclude>
+    <ClInclude Include="Lab7.h">
       <Filter>Labs</Filter>
     </ClInclude>
   </ItemGroup>

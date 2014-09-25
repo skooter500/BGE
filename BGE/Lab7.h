@@ -15,14 +15,12 @@ namespace BGE
 		~Lab7(void);
 
 		shared_ptr<GameComponent> ship1;
-		shared_ptr<GameComponent> ship2;
 		float elapsed;
 		bool Initialise();
 		void Update(float timeDelta);
-		bool slerping;
-		glm::quat fromQuaternion;
-		glm::quat toQuaternion;
-		float t;
+
+		glm::vec3 force;
+		float mass;
 	};
 }
 

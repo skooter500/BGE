@@ -107,10 +107,10 @@
     <ClCompile Include="IdleState.cpp" />
     <ClCompile Include="KinectAudioStream.cpp" />
     <ClCompile Include="Lab3.cpp" />
+    <ClCompile Include="Lab4.cpp" />
     <ClCompile Include="Lab5.cpp" />
     <ClCompile Include="Lab6.cpp" />
     <ClCompile Include="Lab7.cpp" />
-    <ClCompile Include="Lab8.cpp" />
     <ClCompile Include="LazerBeam.cpp" />
     <ClCompile Include="LeapHands.cpp" />
     <ClCompile Include="ObstacleAvoidanceScenario.cpp" />
@@ -169,10 +169,10 @@
     <ClInclude Include="IdleState.h" />
     <ClInclude Include="KinectAudioStream.h" />
     <ClInclude Include="Lab3.h" />
+    <ClInclude Include="Lab4.h" />
     <ClInclude Include="Lab5.h" />
     <ClInclude Include="Lab6.h" />
     <ClInclude Include="Lab7.h" />
-    <ClInclude Include="Lab8.h" />
     <ClInclude Include="LazerBeam.h" />
     <ClInclude Include="LeapHands.h" />
     <ClInclude Include="ObstacleAvoidanceScenario.h" />

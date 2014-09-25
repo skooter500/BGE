@@ -25,9 +25,17 @@ Assignments & student work from previous years
 * [Game AI in Unity](https://www.youtube.com/watch?v=1H8FRXytO9M)
 * [Space battles 2011](https://www.youtube.com/watch?v=GdYAzGS0evA)
 
+Week 4
+------
+* [Lab 3](../Labs/index.md)
+
+Week 3
+------
+* [Lab 2](../Labs/index.md)
+
 Week 2
 ------
-* [Lab](../Labs/index.md)
+* [Lab 1](../Labs/index.md)
 * Read the game maths notes
 * [Some notes on C++ and git](Game Engines 1a.md)
 

@@ -16,6 +16,8 @@ Lab7::~Lab7(void)
 {
 }
 
+const float standardMass = 10.0f;
+
 bool Lab7::Initialise()
 {
 	std::shared_ptr<GameComponent> ground = make_shared<Ground>();
@@ -27,17 +29,8 @@ bool Lab7::Initialise()
 	ship1->Attach(make_shared<VectorDrawer>());
 	Attach(ship1);
 
-	ship2 = make_shared<GameComponent>();
-	ship2->Attach(Content::LoadModel("ferdelance", glm::rotate(glm::mat4(1), 180.0f, glm::vec3(0,1,0))));
-	ship2->Attach(make_shared<VectorDrawer>());
-	ship2->transform->diffuse= glm::vec3(1.0f,0.0f,0.0f);
-	ship2->transform->specular = glm::vec3(1.2f, 1.2f, 1.2f);
-
-	ship2->transform->position = glm::vec3(10, 2, -10);
-	Attach(ship2);
-
-	slerping = false;
-	t = 0.0f;
+	mass = standardMass;
+	ship1->transform->velocity = glm::vec3(0,0,0);
 
 	Game::Initialise();
 
@@ -47,70 +40,48 @@ bool Lab7::Initialise()
 
 void Lab7::Update(float timeDelta)
 {	
-	// Movement of ship2
+	// Forces on ship1
+	float newtons = 10.0f;
+	float epsilon = glm::epsilon<float>();
 	if (keyState[SDL_SCANCODE_UP])
 	{
-		ship2->transform->Walk(speed * timeDelta);
+		force += ship1->transform->look * newtons;
 	}
 	if (keyState[SDL_SCANCODE_DOWN])
 	{
-		ship2->transform->Walk(-speed * timeDelta);
+		force -= ship1->transform->look * newtons;
 	}
 	if (keyState[SDL_SCANCODE_LEFT])
 	{
-		ship2->transform->Yaw(timeDelta * speed * speed);
+		force -= ship1->transform->right * newtons;
 	}
 	if (keyState[SDL_SCANCODE_RIGHT])
 	{
-		ship2->transform->Yaw(-timeDelta * speed * speed);
+		force += ship1->transform->right * newtons;
 	}
 
-	if (keyState[SDL_SCANCODE_O])
+	// Now calculate the acceleration, new velocity and new transform->position
+	glm::vec3 accel = force / mass;
+	ship1->transform->velocity += accel * timeDelta;
+	ship1->transform->position += ship1->transform->velocity * timeDelta;
+	// Check if the velocity length is > epsilon and if so create the look vector from the velocity
+	if (glm::length(ship1->transform->velocity) > epsilon)
 	{
-		ship2->transform->Fly(timeDelta * speed);
+		ship1->transform->look = glm::normalize(ship1->transform->velocity);		
 	}
-
-	if (keyState[SDL_SCANCODE_L])
+	// Now check to see if the |look - basis| > epsilon
+	// And if so calculate the quaternion
+	if (glm::length(ship1->transform->look - Transform::basisLook) > epsilon)
 	{
-		ship2->transform->Fly(-timeDelta * speed);
-	}
-
-	if (keyState[SDL_SCANCODE_SPACE] && ! slerping)
-	{
-		slerping = true;
-		fromQuaternion = ship1->transform->orientation;
-
-		glm::vec3 toShip2 = ship2->transform->position - ship1->transform->position;
-		toShip2 = glm::normalize(toShip2);
-		glm::vec3 axis = glm::cross(Transform::basisLook, toShip2);
+		glm::vec3 axis = glm::cross(Transform::basisLook, ship1->transform->look);
 		axis = glm::normalize(axis);
-		float theta = glm::acos(glm::dot(toShip2, Transform::basisLook));
-		toQuaternion = glm::angleAxis(glm::degrees(theta), axis);
+		float theta = glm::acos(glm::dot(ship1->transform->look, Transform::basisLook));
+		ship1->transform->orientation = glm::angleAxis(glm::degrees(theta), axis);
 	}
-
-	if (slerping)
-	{
-		ship1->transform->orientation = glm::mix(fromQuaternion, toQuaternion, t);
-		t += timeDelta;
-		if (t > 1.0f)
-		{
-			t = 0.0f;
-			slerping = false;
-		}
-	}
-
-
-	// Put code for ship1 here!!!
-	/*
-	// Solution to part 1
-	glm::vec3 toShip2 = ship2->position - ship1->position;
-	toShip2 = glm::normalize(toShip2);
-	glm::vec3 axis = glm::cross(Transform::basisLook, toShip2);
-	axis = glm::normalize(axis);
-	float theta = glm::acos(glm::dot(toShip2, Transform::basisLook));
-	ship1->orientation = glm::angleAxis(glm::degrees(theta), axis);
-	*/
-	// End code for ship 1	
+	// Apply damping
+	ship1->transform->velocity *= 0.99f;
+	// Reset the force accumulator
+	force = glm::vec3(0,0,0);
 	Game::Update(timeDelta);
 
 }

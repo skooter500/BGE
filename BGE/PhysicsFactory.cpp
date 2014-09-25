@@ -335,26 +335,9 @@ shared_ptr<PhysicsController> PhysicsFactory::CreateCapsule(float radius, float 
 	return component;
 }
 
-/*
-*example how to use each joins
-*
-*physicsFactory->right_upper_leg_right_lower_leg->setLimit(btScalar(num), btScalar(num));
-*physicsFactory->right_upper_leg_right_lower_leg->enableAngularMotor(bool, targetVelocity, maxMotorImpulse);
-*/
 shared_ptr<PhysicsController> PhysicsFactory::CreateCapsuleRagdoll(glm::vec3 position)
 {
 
-#ifndef M_PI
-#define M_PI       3.14159265358979323846
-#endif
-
-#ifndef M_PI_2
-#define M_PI_2     1.57079632679489661923
-#endif
-
-#ifndef M_PI_4
-#define M_PI_4     0.785398163397448309616
-#endif
 
 	btHingeConstraint* spine_pelvis;
 	btHingeConstraint* left_upper_leg_left_lower_leg;
@@ -385,73 +368,73 @@ shared_ptr<PhysicsController> PhysicsFactory::CreateCapsuleRagdoll(glm::vec3 pos
 	btTransform localA, localB;
 
 	localA.setIdentity(); localB.setIdentity();
-	localA.getBasis().setEulerZYX(0, M_PI_2, 0); localA.setOrigin(btVector3(btScalar(0.), btScalar(2.7), btScalar(0.)));
-	localB.getBasis().setEulerZYX(0, M_PI_2, 0); localB.setOrigin(btVector3(btScalar(0.), btScalar(-2.7), btScalar(0.)));
+	localA.getBasis().setEulerZYX(0, glm::half_pi<float>(), 0); localA.setOrigin(btVector3(btScalar(0.), btScalar(2.7), btScalar(0.)));
+	localB.getBasis().setEulerZYX(0, glm::half_pi<float>(), 0); localB.setOrigin(btVector3(btScalar(0.), btScalar(-2.7), btScalar(0.)));
 	spine_pelvis = new btHingeConstraint(*bodypart_pelvis->rigidBody, *bodypart_spine->rigidBody, localA, localB);
-	spine_pelvis->setLimit(btScalar(-M_PI_2), btScalar(M_PI_2));
+	spine_pelvis->setLimit(btScalar(-glm::half_pi<float>()), btScalar(glm::half_pi<float>()));
 	dynamicsWorld->addConstraint(spine_pelvis);
 
 	localA.setIdentity(); localB.setIdentity();
-	localA.getBasis().setEulerZYX(0, 0, M_PI_2); localA.setOrigin(btVector3(btScalar(0.), btScalar(2.7), btScalar(0.)));
-	localB.getBasis().setEulerZYX(0, 0, M_PI_2); localB.setOrigin(btVector3(btScalar(0.), btScalar(-2.7), btScalar(0.)));
+	localA.getBasis().setEulerZYX(0, 0, glm::half_pi<float>()); localA.setOrigin(btVector3(btScalar(0.), btScalar(2.7), btScalar(0.)));
+	localB.getBasis().setEulerZYX(0, 0, glm::half_pi<float>()); localB.setOrigin(btVector3(btScalar(0.), btScalar(-2.7), btScalar(0.)));
 	head_spine = new btConeTwistConstraint(*bodypart_spine->rigidBody, *bodypart_head->rigidBody, localA, localB);
-	head_spine->setLimit(M_PI_4, M_PI_4, M_PI_2);
+	head_spine->setLimit(glm::quarter_pi<float>(), glm::quarter_pi<float>(), glm::half_pi<float>());
 	dynamicsWorld->addConstraint(head_spine);
 
 	localA.setIdentity(); localB.setIdentity();
-	localA.getBasis().setEulerZYX(0, 0, -M_PI_4 * 5); localA.setOrigin(btVector3(btScalar(-1.5), btScalar(-2.5), btScalar(0.)));
-	localB.getBasis().setEulerZYX(0, 0, -M_PI_4 * 5); localB.setOrigin(btVector3(btScalar(0.), btScalar(2.5), btScalar(0.)));
+	localA.getBasis().setEulerZYX(0, 0, -glm::quarter_pi<float>() * 5); localA.setOrigin(btVector3(btScalar(-1.5), btScalar(-2.5), btScalar(0.)));
+	localB.getBasis().setEulerZYX(0, 0, -glm::quarter_pi<float>() * 5); localB.setOrigin(btVector3(btScalar(0.), btScalar(2.5), btScalar(0.)));
 	pelvis_left_upper_leg = new btConeTwistConstraint(*bodypart_pelvis->rigidBody, *bodypart_left_upper_leg->rigidBody, localA, localB);
-	pelvis_left_upper_leg->setLimit(M_PI_4, M_PI_2, 0);
+	pelvis_left_upper_leg->setLimit(glm::quarter_pi<float>(), glm::half_pi<float>(), 0);
 	dynamicsWorld->addConstraint(pelvis_left_upper_leg);
 
 	localA.setIdentity(); localB.setIdentity();
-	localA.getBasis().setEulerZYX(0, M_PI_2, 0); localA.setOrigin(btVector3(btScalar(0.), btScalar(-2.7), btScalar(0.)));
-	localB.getBasis().setEulerZYX(0, M_PI_2, 0); localB.setOrigin(btVector3(btScalar(0.), btScalar(2.7), btScalar(0.)));
+	localA.getBasis().setEulerZYX(0, glm::half_pi<float>(), 0); localA.setOrigin(btVector3(btScalar(0.), btScalar(-2.7), btScalar(0.)));
+	localB.getBasis().setEulerZYX(0, glm::half_pi<float>(), 0); localB.setOrigin(btVector3(btScalar(0.), btScalar(2.7), btScalar(0.)));
 	left_upper_leg_left_lower_leg = new btHingeConstraint(*bodypart_left_upper_leg->rigidBody, *bodypart_left_lower_leg->rigidBody, localA, localB);
-	left_upper_leg_left_lower_leg->setLimit(btScalar(-M_PI_2), btScalar(0));
+	left_upper_leg_left_lower_leg->setLimit(btScalar(-glm::half_pi<float>()), btScalar(0));
 	dynamicsWorld->addConstraint(left_upper_leg_left_lower_leg);
 
 	localA.setIdentity(); localB.setIdentity();
-	localA.getBasis().setEulerZYX(0, 0, M_PI_4); localA.setOrigin(btVector3(btScalar(1.5), btScalar(-2.5), btScalar(0.)));
-	localB.getBasis().setEulerZYX(0, 0, M_PI_4); localB.setOrigin(btVector3(btScalar(0.), btScalar(2.5), btScalar(0.)));
+	localA.getBasis().setEulerZYX(0, 0, glm::quarter_pi<float>()); localA.setOrigin(btVector3(btScalar(1.5), btScalar(-2.5), btScalar(0.)));
+	localB.getBasis().setEulerZYX(0, 0, glm::quarter_pi<float>()); localB.setOrigin(btVector3(btScalar(0.), btScalar(2.5), btScalar(0.)));
 	pelvis_right_upper_leg = new btConeTwistConstraint(*bodypart_pelvis->rigidBody, *bodypart_right_upper_leg->rigidBody, localA, localB);
-	pelvis_right_upper_leg->setLimit(M_PI_4, M_PI_2, 0);
+	pelvis_right_upper_leg->setLimit(glm::quarter_pi<float>(), glm::half_pi<float>(), 0);
 	dynamicsWorld->addConstraint(pelvis_right_upper_leg);
 
 	localA.setIdentity(); localB.setIdentity();
-	localA.getBasis().setEulerZYX(0, M_PI_2, 0); localA.setOrigin(btVector3(btScalar(0.), btScalar(-2.7), btScalar(0.)));
-	localB.getBasis().setEulerZYX(0, M_PI_2, 0); localB.setOrigin(btVector3(btScalar(0.), btScalar(2.7), btScalar(0.)));
+	localA.getBasis().setEulerZYX(0, glm::half_pi<float>(), 0); localA.setOrigin(btVector3(btScalar(0.), btScalar(-2.7), btScalar(0.)));
+	localB.getBasis().setEulerZYX(0, glm::half_pi<float>(), 0); localB.setOrigin(btVector3(btScalar(0.), btScalar(2.7), btScalar(0.)));
 	right_upper_leg_right_lower_leg = new btHingeConstraint(*bodypart_right_upper_leg->rigidBody, *bodypart_right_lower_leg->rigidBody, localA, localB);
-	right_upper_leg_right_lower_leg->setLimit(btScalar(-M_PI_2), btScalar(0));
+	right_upper_leg_right_lower_leg->setLimit(btScalar(-glm::half_pi<float>()), btScalar(0));
 	dynamicsWorld->addConstraint(right_upper_leg_right_lower_leg);
 
 	localA.setIdentity(); localB.setIdentity();
 	localA.getBasis().setEulerZYX(0, 0, M_PI); localA.setOrigin(btVector3(btScalar(-2.5), btScalar(2.5), btScalar(0.)));
-	localB.getBasis().setEulerZYX(0, 0, M_PI_2); localB.setOrigin(btVector3(btScalar(0.), btScalar(-2.5), btScalar(0.)));
+	localB.getBasis().setEulerZYX(0, 0, glm::half_pi<float>()); localB.setOrigin(btVector3(btScalar(0.), btScalar(-2.5), btScalar(0.)));
 	spine_left_upper_arm = new btConeTwistConstraint(*bodypart_spine->rigidBody, *bodypart_left_upper_arm->rigidBody, localA, localB);
 	spine_left_upper_arm->setLimit(M_PI, M_PI, 0);
 	dynamicsWorld->addConstraint(spine_left_upper_arm);
 
 	localA.setIdentity(); localB.setIdentity();
-	localA.getBasis().setEulerZYX(0, M_PI_2, 0); localA.setOrigin(btVector3(btScalar(0.), btScalar(2.5), btScalar(0.)));
-	localB.getBasis().setEulerZYX(0, M_PI_2, 0); localB.setOrigin(btVector3(btScalar(0.), btScalar(-2.5), btScalar(0.)));
+	localA.getBasis().setEulerZYX(0, glm::half_pi<float>(), 0); localA.setOrigin(btVector3(btScalar(0.), btScalar(2.5), btScalar(0.)));
+	localB.getBasis().setEulerZYX(0, glm::half_pi<float>(), 0); localB.setOrigin(btVector3(btScalar(0.), btScalar(-2.5), btScalar(0.)));
 	left_upper_arm_left_lower_arm = new btHingeConstraint(*bodypart_left_upper_arm->rigidBody, *bodypart_left_lower_arm->rigidBody, localA, localB);
-	left_upper_arm_left_lower_arm->setLimit(btScalar(-M_PI_2), btScalar(0));
+	left_upper_arm_left_lower_arm->setLimit(btScalar(-glm::half_pi<float>()), btScalar(0));
 	dynamicsWorld->addConstraint(left_upper_arm_left_lower_arm);
 
 	localA.setIdentity(); localB.setIdentity();
 	localA.getBasis().setEulerZYX(0, 0, 0); localA.setOrigin(btVector3(btScalar(2.5), btScalar(2.5), btScalar(0.)));
-	localB.getBasis().setEulerZYX(0, 0, M_PI_2); localB.setOrigin(btVector3(btScalar(0.), btScalar(-2.5), btScalar(0.)));
+	localB.getBasis().setEulerZYX(0, 0, glm::half_pi<float>()); localB.setOrigin(btVector3(btScalar(0.), btScalar(-2.5), btScalar(0.)));
 	spine_right_upper_arm = new btConeTwistConstraint(*bodypart_spine->rigidBody, *bodypart_right_upper_arm->rigidBody, localA, localB);
 	spine_right_upper_arm->setLimit(M_PI, M_PI, 0);
 	dynamicsWorld->addConstraint(spine_right_upper_arm);
 
 	localA.setIdentity(); localB.setIdentity();
-	localA.getBasis().setEulerZYX(0, M_PI_2, 0); localA.setOrigin(btVector3(btScalar(0.), btScalar(2.5), btScalar(0.)));
-	localB.getBasis().setEulerZYX(0, M_PI_2, 0); localB.setOrigin(btVector3(btScalar(0.), btScalar(-2.5), btScalar(0.)));
+	localA.getBasis().setEulerZYX(0, glm::half_pi<float>(), 0); localA.setOrigin(btVector3(btScalar(0.), btScalar(2.5), btScalar(0.)));
+	localB.getBasis().setEulerZYX(0, glm::half_pi<float>(), 0); localB.setOrigin(btVector3(btScalar(0.), btScalar(-2.5), btScalar(0.)));
 	right_upper_arm_right_lower_arm = new btHingeConstraint(*bodypart_right_upper_arm->rigidBody, *bodypart_right_lower_arm->rigidBody, localA, localB);
-	right_upper_arm_right_lower_arm->setLimit(btScalar(-M_PI_2), btScalar(0));
+	right_upper_arm_right_lower_arm->setLimit(btScalar(-glm::half_pi<float>()), btScalar(0));
 	dynamicsWorld->addConstraint(right_upper_arm_right_lower_arm);
 
 	return bodypart_spine;
