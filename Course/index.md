@@ -37,8 +37,9 @@ Week 3
 Week 2
 ------
 * [Lab 1](../Labs/index.md)
-* Read the game maths notes
+* [Read the game maths notes](http://1drv.ms/1qbcpdE)
 * [Some notes on C++ and git](Game Engines 1a.md)
+* [Trigonometry practice problems](http://dtc.pima.edu/~hacker/primers/trigonometry-primer/trigonometry-primer-problem-set.pdf)
 
 Week 1
 ------
