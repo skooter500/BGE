@@ -74,8 +74,8 @@ void VRGame2::ResetScene()
 	Game:Instance()->DeletePhysicsConstraints();
 	
 	physicsFactory->CreateWall(glm::vec3(-20, 0, 10), 5, 5);
-	physicsFactory->CreateVehicle(glm::vec3(0, 5, -0));
-	physicsFactory->CreateVehicle(glm::vec3(-10, 5, -30));
+	physicsFactory->CreateCapsuleRagdoll(glm::vec3(0, 20, -0));
+	physicsFactory->CreateCapsuleRagdoll(glm::vec3(-10, 20, -30));
 	physicsFactory->CreateVehicle(glm::vec3(10, 5, -40));
 
 	physicsFactory->CreateVehicle(glm::vec3(-20, 5, -50));

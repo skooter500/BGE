@@ -80,7 +80,24 @@ If all goes well, your final scene should look like this:
 
 Lab 2
 -----
-The aim of this lab is to create a new class called AITank that patrolls around the outside of the screen. As a bonus, you can have bullets dissappear when they come within 20 units of the centre of the AI tank. You can print a message out on the console when this happens. Here is a screenshot of what the finished lab should look like:
+
+### Part 1 - git
+In this part of the lab you will be leaving your "mark" on the BGE repository. 
+
+- If you need to, [watch the video of last week's git lecture](https://www.youtube.com/watch?v=p_PGUltnB6w) and [read the notes](../Course/Game Engines 1a.md). You should also read the first three chapters of the [git manual](http://git-scm.com/documentation).
+- Read [this document that explains how to fork a repository](https://help.github.com/articles/fork-a-repo) and then make a fork of the BGE repository into your own GitHub account.
+- Check out the master branch of your own fork of BGE.
+- Read [this article that explains how to set up syncing](https://help.github.com/articles/syncing-a-fork) of the orginial BGE with your fork of BGE. Do it!
+- Create a "feature branch". Call it whatever you like (how about "graffiti").
+- Edit the file contributers.txt and leave your name and message. No offensive comments or profanity
+- Commit your changes back to the repo and push your branch back to your fork of BGE. 
+- Read [this article that describes how to make a pull request](https://help.github.com/articles/using-pull-requests). Make a pull request.
+- When you have made the pull request, let me know and I will accept your pull request. 
+- Once I have accepted a few pull requests, sync the master branch of your fork with my master branch of BGE to get my changes.     
+
+### Part 2 - C++
+
+The aim of this lab is to modify the solution to last week's lab to create a new class called AITank that patrolls around the outside of the screen. As a bonus, you can have bullets dissappear when they come within 20 units of the centre of the AI tank. You can print a message out on the console when this happens. Here is a screenshot of what the finished lab should look like:
 
 ![Sketch](p9.png)
 

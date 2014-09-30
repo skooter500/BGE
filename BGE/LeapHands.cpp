@@ -49,11 +49,14 @@ bool BGE::LeapHands::Initialise()
 	handTransform = make_shared<Transform>();
 	if (Params::GetBool("leapHeadMode"))
 	{
-		controller.config().setBool("head_mounted_display_mode", true);
+
+		controller.setPolicyFlags(Leap::Controller::PolicyFlag::POLICY_OPTIMIZE_HMD);
+		//controller.config().setBool("head_mounted_display_mode", true);
 	}
 
 	controller.addListener(* this);
 
+	pinch = false;
 	
 	return GameComponent::Initialise();
 }
@@ -62,6 +65,9 @@ float lastSpawned = 10.0f;
 
 void BGE::LeapHands::Update(float timeDelta)
 {	
+
+	Game::Instance()->PrintFloat("Pinch distance", pinchDist);
+
 	list<shared_ptr<GameComponent>>::iterator cit = children.begin();
 	while (cit != children.end())
 	{
@@ -126,6 +132,11 @@ void BGE::LeapHands::Update(float timeDelta)
 				
 		}
 		lastSpawned = 0.0f;
+
+		if (pinch)
+		{
+
+		}
 	}
 	spawn = none;
 	lastSpawned += timeDelta;
@@ -291,6 +302,9 @@ void LeapHands::onFrame(const Controller& controller)
 	std::map<string, BoneData> tempBoneData;
 	HandList hands = controller.frame().hands();
 	int handId = 0;
+
+	hands[0].fingers()[(int) Finger::Type::TYPE_THUMB];
+
 	for (HandList::const_iterator hl = hands.begin(); hl != hands.end(); ++hl) {
 		// Get the first hand
 		const Hand hand = *hl;
@@ -305,6 +319,17 @@ void LeapHands::onFrame(const Controller& controller)
 		tempBoneData[ass.str()] = BoneData(ass.str(), LeapToGlVec3(hand.arm().wristPosition()), LeapToGlVec3(hand.arm().elbowPosition()), true);
 		ass.clear();
 
+		glm::vec3 thumbBone = LeapToGlVec3(hand.fingers()[Finger::Type::TYPE_THUMB].bone(Bone::Type::TYPE_DISTAL).nextJoint());
+		glm::vec3 indexBone = LeapToGlVec3(hand.fingers()[Finger::Type::TYPE_INDEX].bone(Bone::Type::TYPE_DISTAL).nextJoint());
+		pinchDist = glm::length(thumbBone - indexBone);
+		if (pinchDist < 5.0f)
+		{
+			pinch = true;
+		}
+		else
+		{
+			pinch = false;
+		}
 
 		for (FingerList::const_iterator fl = fingers.begin(); fl != fingers.end(); ++fl) {
 			const Finger finger = *fl;
@@ -316,6 +341,8 @@ void LeapHands::onFrame(const Controller& controller)
 				stringstream ss;
 				ss << "Hand: " << handId << " Finger: " << fingerId << " Bone: " << b;
 				tempBoneData[ss.str()] = BoneData(ss.str(), LeapToGlVec3(bone.prevJoint()), LeapToGlVec3(bone.nextJoint()), true);
+
+
 			}
 			// Draw some other bits of the hand
 			if (!firstFinger)

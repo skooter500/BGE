@@ -40,6 +40,7 @@ Week 2
 * [Read the game maths notes](http://1drv.ms/1qbcpdE)
 * [Some notes on C++ and git](Game Engines 1a.md)
 * [Trigonometry practice problems](http://dtc.pima.edu/~hacker/primers/trigonometry-primer/trigonometry-primer-problem-set.pdf)
+* [Introduction to git video](https://www.youtube.com/watch?v=p_PGUltnB6w)
 
 Week 1
 ------

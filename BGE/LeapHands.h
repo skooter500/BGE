@@ -46,5 +46,8 @@ namespace BGE
 		virtual void onServiceDisconnect(const Controller&);
 		void TransformHand(float timeDelta);
 		glm::vec3 TransformPointRelativeToCamera(glm::vec3 pos);
+
+		bool pinch = false;
+		float pinchDist = 0;
 	};
 }
