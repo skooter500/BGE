@@ -32,12 +32,14 @@ Week 4
 
 Week 3
 ------
+* [Trigonometry, Vectors & a visit from Ralph Crowley from BitSmith Games Video](https://www.youtube.com/watch?v=oEiMbJqNaD4) 
 * [Lab 2](../Labs/index.md)
+* [Read the game maths lecture notes](http://1drv.ms/1qbcpdE)
 
 Week 2
 ------
 * [Lab 1](../Labs/index.md)
-* [Read the game maths notes](http://1drv.ms/1qbcpdE)
+* [Read the game maths lecture notes](http://1drv.ms/1qbcpdE)
 * [Some notes on C++ and git](Game Engines 1a.md)
 * [Trigonometry practice problems](http://dtc.pima.edu/~hacker/primers/trigonometry-primer/trigonometry-primer-problem-set.pdf)
 * [Introduction to git video](https://www.youtube.com/watch?v=p_PGUltnB6w)
