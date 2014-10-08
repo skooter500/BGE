@@ -9,7 +9,7 @@ In this lab you will get the opportunity to use some vector maths to solve some 
 - Calculate the distance between two vectors using ```glm::length```
 - Use the vector dot product (```glm::dot```) and inverse cos (```glm::acos```)
 
-If you need some revision on this, be sure to read the [game maths lecture notes](../Course) again.
+If you need some revision on this, be sure to read the [game maths lecture notes](../Course) again. Also here is [a great series of articles that explains vectors and matrices](http://blog.wolfire.com/2009/07/linear-algebra-for-game-developers-part-1/).
  
 Firstly, navigate to where you have cloned the repo and checkout the branch for the lab:
 
