@@ -35,6 +35,7 @@ Week 3
 * [Trigonometry, Vectors & a visit from Ralph Crowley from BitSmith Games Video](https://www.youtube.com/watch?v=oEiMbJqNaD4) 
 * [Lab 2](../Labs/index.md)
 * [Read the game maths lecture notes](http://1drv.ms/1qbcpdE)
+* [A great 4 part series of blog posts all about vectors & matrices - Essential reading](http://blog.wolfire.com/2009/07/linear-algebra-for-game-developers-part-1/)
 
 Week 2
 ------
