@@ -33,6 +33,8 @@ bool Lab3::Initialise()
 	return true;
 }
 
+
+// 8 October 2014
 void Lab3::Update(float timeDelta)
 {
 	static float timeToFire = 1.0f / 2.0f;
