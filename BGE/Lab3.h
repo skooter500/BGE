@@ -1,4 +1,5 @@
 #pragma once
+#pragma once
 #include "Game.h"
 #include "GameComponent.h"
 
@@ -19,4 +20,5 @@ namespace BGE
 		void Update(float timeDelta);
 	};
 }
+
 
