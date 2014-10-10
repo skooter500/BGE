@@ -222,6 +222,7 @@
     <ClInclude Include="XBoxController.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram.cd" />
     <None Include="Classes.cd" />
     <None Include="Content\bge.grxml" />
     <None Include="Content\CubeShader.fragmentshader" />

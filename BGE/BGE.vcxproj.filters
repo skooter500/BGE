@@ -488,5 +488,6 @@
     <None Include="Content\vrdefault.properties">
       <Filter>Content</Filter>
     </None>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>
