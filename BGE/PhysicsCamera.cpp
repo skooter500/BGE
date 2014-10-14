@@ -64,15 +64,13 @@ void PhysicsCamera::GravityGun(RayGeom ray, bool isPhys)
 					holdDist = 6;
 				}
 			}
-		}
-		
+		}		
 	}
 	if (pickedUp != nullptr)
 	{
 		float powerfactor = 4.0f; // Higher values causes the targets moving faster to the holding point.
 		float maxVel = 3.0f;      // Lower values prevent objects flying through walls.
 		
-
 		// Calculate the hold point in front of the camera
 		glm::vec3 holdPos = transform->position + (transform->look * holdDist);
 
@@ -118,13 +116,16 @@ void PhysicsCamera::Update(float timeDelta)
 		elapsed += timeDelta;
 	}
 	// Handle the gravity gun
-	if ((SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_LEFT)) || (SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_RIGHT)))
+	bool leftClick = SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_LEFT);
+	bool rightClick = SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_RIGHT);
+
+	if (leftClick || rightClick)
 	{
 		RayGeom ray;
 		ray.pos = transform->position + (transform->look * 4.0f);
 		ray.look = transform->look;
 
-		GravityGun(ray, (SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_RIGHT)));
+		GravityGun(ray, rightClick);
 	}
 	else
 	{
