@@ -28,16 +28,21 @@ Assignments & student work from previous years
 
 Week 4
 ------
+* [Vectors & matrices in BGE Video](https://www.youtube.com/watch?v=GVoIfRYA93E)
 * [Lab 3](../Labs/index.md)
 
 Week 3
 ------
+* [Trigonometry, Vectors & a visit from Ralph Crowley from BitSmith Games Video](https://www.youtube.com/watch?v=oEiMbJqNaD4) 
 * [Lab 2](../Labs/index.md)
+* [Read the game maths lecture notes](http://1drv.ms/1qbcpdE)
+* [A great 4 part series of blog posts all about vectors & matrices - Essential reading](http://blog.wolfire.com/2009/07/linear-algebra-for-game-developers-part-1/)
+* Aside: [An interesting article about how 2D rotations work](http://www.petesqbsite.com/sections/tutorials/tuts/relsoft3d/Chapter2/Chapter2.htm)
 
 Week 2
 ------
 * [Lab 1](../Labs/index.md)
-* [Read the game maths notes](http://1drv.ms/1qbcpdE)
+* [Read the game maths lecture notes](http://1drv.ms/1qbcpdE)
 * [Some notes on C++ and git](Game Engines 1a.md)
 * [Trigonometry practice problems](http://dtc.pima.edu/~hacker/primers/trigonometry-primer/trigonometry-primer-problem-set.pdf)
 * [Introduction to git video](https://www.youtube.com/watch?v=p_PGUltnB6w)

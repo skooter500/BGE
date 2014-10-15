@@ -16,7 +16,7 @@ bool Lab4::Initialise()
 	std::shared_ptr<GameComponent> ground = make_shared<Ground>();
 	Attach(ground);	
 
-	ship1 = make_shared<GameComponent>();
+	ship1 = make_shared<GameComponent>(true);
 	ship1->Attach(Content::LoadModel("cobramk3", glm::rotate(glm::mat4(1), 180.0f, glm::vec3(0,1,0))));
 	ship1->transform->position = glm::vec3(-10, 2, -10);
 	ship1->Attach(make_shared<VectorDrawer>());
@@ -28,7 +28,7 @@ bool Lab4::Initialise()
 
 	// 500 in the constructor indicates the number of particles in the effect. 
 	// You may need to compile in release mode or reduce the number of particles to get an acceptable framerate
-	shared_ptr<FountainEffect> centFountain = make_shared<FountainEffect>(500);
+	shared_ptr<FountainEffect> centFountain = make_shared<FountainEffect>(500, true);
 	centFountain->transform->position.x = centFountain->transform->position.y = 0;
 	centFountain->transform->position.x = centFountain->transform->position.y = 0;
 	centFountain->transform->position.y = FOUNTAIN_HEIGHT;
@@ -43,7 +43,7 @@ bool Lab4::Initialise()
 	for (int i = 0 ; i < NUM_FOUNTAINS ; i ++)
 	{
 		fountainTheta = ((glm::pi<float>() * 2.0f) / NUM_FOUNTAINS) * i;
-		shared_ptr<FountainEffect> fountain = make_shared<FountainEffect>(500);
+		shared_ptr<FountainEffect> fountain = make_shared<FountainEffect>(500, true);
 		if (i % 2 == 0)
 		{
 			fountain->transform->diffuse = glm::vec3(1,0,0);
@@ -61,7 +61,7 @@ bool Lab4::Initialise()
 	}
 	fountainTheta = 0.0f;
 	
-	ship2 = make_shared<GameComponent>();
+	ship2 = make_shared<GameComponent>(true);
 	ship2->Attach(Content::LoadModel("ferdelance", glm::rotate(glm::mat4(1), 180.0f, glm::vec3(0,1,0))));
 	ship2->Attach(make_shared<VectorDrawer>());
 	ship2->transform->diffuse= glm::vec3(1.0f,0.0f,0.0f);
