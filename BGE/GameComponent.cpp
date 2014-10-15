@@ -18,7 +18,7 @@ float BGE::RandomFloat()
 GameComponent::GameComponent(bool hasTransform)
 {
 	speed = 10.0f;
-	parent = NULL;
+	parent = nullptr;
 	tag = "Nothing";
 	if (hasTransform)
 	{

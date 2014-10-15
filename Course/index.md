@@ -28,6 +28,7 @@ Assignments & student work from previous years
 
 Week 4
 ------
+* [Vectors & matrices in BGE Video](https://www.youtube.com/watch?v=GVoIfRYA93E)
 * [Lab 3](../Labs/index.md)
 
 Week 3
