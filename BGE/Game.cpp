@@ -489,8 +489,8 @@ bool BGE::Game::PreInitialise()
 	window = SDL_CreateWindow("",
 		SDL_WINDOWPOS_UNDEFINED_DISPLAY(display),
 		SDL_WINDOWPOS_UNDEFINED_DISPLAY(display),
-		Params::GetFloat("width"),
-		Params::GetFloat("height"),
+		Params::GetFloat("width") *0.9f,
+		Params::GetFloat("height") * 0.9f,
 		flags);
 
 	//if (Params::GetBool("riftEnabled"))
@@ -512,7 +512,7 @@ bool BGE::Game::PreInitialise()
 	keyState = SDL_GetKeyboardState(NULL);
 	glewExperimental = GL_TRUE;
 	GLenum err = glewInit();
-	if (GLEW_OK != err)
+	if (err != GLEW_OK)
 	{
 		char msg[2048];
 		sprintf(msg, "glewInit failed with error: %s", glewGetErrorString(err));

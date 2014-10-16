@@ -3,7 +3,7 @@
 #include "GameComponent.h"
 #include "FountainEffect.h"
 
-#define NUM_FOUNTAINS 20
+#define NUM_FOUNTAINS 10
 #define FOUNTAIN_RADIUS 40.0f
 #define FOUNTAIN_HEIGHT 10.0f
 

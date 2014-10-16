@@ -49,15 +49,11 @@ int main(int argc, char *argv[])
 	// http://www.youtube.com/watch?v=EEbVHxOkTxw
 	Params::Load("default");
 
-<<<<<<< HEAD
-
 	//shared_ptr<Game> game = make_shared<Buddha>();
 
-	shared_ptr<Game> game = make_shared<Lab3>();
-
-=======
+	//shared_ptr<Game> game = make_shared<Lab3>();
 	shared_ptr<Game> game = make_shared<Lab4>();
->>>>>>> upstream/master
+
 	game->Run();
 	
 	return 0;
