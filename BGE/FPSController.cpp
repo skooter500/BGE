@@ -68,7 +68,7 @@ void FPSController::Update()
 		transform->Pitch(pitch * scale);
 	}
 	SDL_WarpMouseInWindow(
-		Game::Instance()->GetMainWindow()
+		NULL
 		,midX
 		,midY
 		);
