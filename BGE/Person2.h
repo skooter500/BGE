@@ -68,7 +68,7 @@ namespace BGE
 		Person2(void);
 		~Person2(void);
 
-		void Update(float timeDelta);
+		void Update();
 		bool Initialise();
 		bool headCamera;
 		KinectHand hands[2];

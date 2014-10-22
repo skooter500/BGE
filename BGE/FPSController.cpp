@@ -1,6 +1,7 @@
 #include "FPSController.h"
 #include "Game.h"
 #include "Params.h"
+#include "Utils.h"
 
 using namespace BGE;
 
@@ -10,7 +11,6 @@ FPSController::FPSController(void)
 
 bool FPSController::Initialise()
 {
-	transform->position = glm::vec3(0.0f, 50.0f, 100.0f);
 	return GameComponent::Initialise();
 }
 
@@ -18,7 +18,7 @@ FPSController::~FPSController(void)
 {
 }
 
-void FPSController::Update(float timeDelta)
+void FPSController::Update()
 {
 	const Uint8 * keyState = Game::Instance()->GetKeyState();
 
@@ -31,22 +31,22 @@ void FPSController::Update(float timeDelta)
 
 	if (keyState[SDL_SCANCODE_W])
 	{
-		transform->Walk(moveSpeed * timeDelta);
+		transform->Walk(moveSpeed * Time::deltaTime);
 	}
 
 	if (keyState[SDL_SCANCODE_S])
 	{
-		transform->Walk(-moveSpeed * timeDelta);
+		transform->Walk(-moveSpeed * Time::deltaTime);
 	}
 
 	if (keyState[SDL_SCANCODE_A])
 	{
-		transform->Strafe(-moveSpeed * timeDelta);
+		transform->Strafe(-moveSpeed * Time::deltaTime);
 	}
 
 	if (keyState[SDL_SCANCODE_D])
 	{
-		transform->Strafe(moveSpeed * timeDelta);
+		transform->Strafe(moveSpeed * Time::deltaTime);
 	}
 
 	int x, y;
@@ -72,6 +72,6 @@ void FPSController::Update(float timeDelta)
 		,midX
 		,midY
 		);
-	GameComponent::Update(timeDelta);
+	GameComponent::Update();
 	//Controller::Update(this, this->parent);
 }

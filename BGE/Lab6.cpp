@@ -3,6 +3,8 @@
 #include "VectorDrawer.h"
 #include "LazerBeam.h"
 #include "FountainEffect.h"
+#include "Utils.h"
+
 
 using namespace BGE;
 
@@ -45,34 +47,34 @@ bool Lab6::Initialise()
 	return true;
 }
 
-void Lab6::Update(float timeDelta)
+void Lab6::Update()
 {	
 	// Movement of ship2
 	if (keyState[SDL_SCANCODE_UP])
 	{
-		ship2->transform->Walk(speed * timeDelta);
+		ship2->transform->Walk(speed * Time::deltaTime);
 	}
 	if (keyState[SDL_SCANCODE_DOWN])
 	{
-		ship2->transform->Walk(-speed * timeDelta);
+		ship2->transform->Walk(-speed * Time::deltaTime);
 	}
 	if (keyState[SDL_SCANCODE_LEFT])
 	{
-		ship2->transform->Yaw(timeDelta * speed * speed);
+		ship2->transform->Yaw(Time::deltaTime * speed * speed);
 	}
 	if (keyState[SDL_SCANCODE_RIGHT])
 	{
-		ship2->transform->Yaw(-timeDelta * speed * speed);
+		ship2->transform->Yaw(-Time::deltaTime * speed * speed);
 	}
 
 	if (keyState[SDL_SCANCODE_O])
 	{
-		ship2->transform->Fly(timeDelta * speed);
+		ship2->transform->Fly(Time::deltaTime * speed);
 	}
 
 	if (keyState[SDL_SCANCODE_L])
 	{
-		ship2->transform->Fly(-timeDelta * speed);
+		ship2->transform->Fly(-Time::deltaTime * speed);
 	}
 
 	if (keyState[SDL_SCANCODE_SPACE] && ! slerping)
@@ -91,7 +93,7 @@ void Lab6::Update(float timeDelta)
 	if (slerping)
 	{
 		ship1->transform->orientation = glm::mix(fromQuaternion, toQuaternion, t);
-		t += timeDelta;
+		t += Time::deltaTime;
 		if (t > 1.0f)
 		{
 			t = 0.0f;
@@ -111,6 +113,6 @@ void Lab6::Update(float timeDelta)
 	ship1->orientation = glm::angleAxis(glm::degrees(theta), axis);
 	*/
 	// End code for ship 1	
-	Game::Update(timeDelta);
+	Game::Update();
 
 }

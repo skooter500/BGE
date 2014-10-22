@@ -77,11 +77,11 @@ bool PhysicsGame1::Initialise()
 	return true;
 }
 
-void BGE::PhysicsGame1::Update(float timeDelta)
+void BGE::PhysicsGame1::Update()
 {
 	cyl->rigidBody->applyTorque(GLToBtVector(glm::vec3(0.0f,0.0f,1.0f)));
 
-	Game::Update(timeDelta);
+	Game::Update();
 }
 
 void BGE::PhysicsGame1::Cleanup()

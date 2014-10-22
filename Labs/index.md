@@ -1,6 +1,67 @@
 Game Engines 1 Labs
 ===================
 
+Lab 5
+-----
+In this lab you will be adding functionality to the Transform class and to allow jumping. This is different to the FPS behaviours we programmed on Friday in that the behaviour needs to be triggered on a key press, but happen for multiple frames. 
+
+Consider using half a period of a sine wave function to control the height of the jump. The sine function is parameterised by theta and amplitude, where theta goes between 0 and 2 pi. A sine wave function will give numbers between -1 and +1, but you can multiply by amplitude to scale the sine wave. The figure below shows one period of a sine wave:
+
+![](p13.png)
+
+And here is some Processing code I used to to plot the sine wave above that you might find helpful:
+
+~~~Java
+void setup()
+{
+  size(500,500);
+  sampleRate = width;
+  amplitude = height / 2.0f;
+  lasty = (float) height / 2.0f;
+  lastx = 0.0f;
+ 
+}
+
+float frequency = 1.0f;
+float sampleRate;
+float theta = 0.0f;
+float amplitude = 1.0f;
+float pi = 3.14159285f;
+float lastx, lasty;
+
+void draw()
+{
+    float inc = (2.0f * pi * frequency) / sampleRate;
+    lasty = (float) height / 2.0f;
+    lastx = 0.0f;
+    for (int x = 0 ; x < width ; x ++)
+    {
+      float y = (sin(theta) * amplitude) + (height / 2);
+      theta += inc;
+      line(lastx, lasty, x, y);
+      lastx = x;
+      lasty = y;      
+    }
+    theta = 0.0f;    
+}
+~~~
+
+Alternatively, the jump height could be controlled with velocity and gravity and you will get the same result. Here are some equations you might find useful:
+
+```
+velocity += gravity * timeDelta;
+position += velocity * timeDelta;
+```
+
+What to do:
+- Clone/pull the master branch of BGE
+- Create a member function called ```Transform::Jump(float height)```
+- You will need to add additional variables to the ```Transform``` class to manage the jump.
+- Jumping will need access to timeDelta. Hmmm. How will you solve that?
+- Write code in the class FPSController to trigger the jump on the J key press.
+- If you get this working, try and implement crouching and leaning
+- If you make anything useful and nice, please do a pull request
+
 Lab 4
 -----
 

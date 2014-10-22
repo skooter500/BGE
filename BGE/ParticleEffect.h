@@ -19,12 +19,12 @@ namespace BGE
 		~ParticleEffect(void);
 
 		bool Initialise();
-		void Update(float timeDelta);
+		void Update();
 		void Draw();
 		void PostDraw();
 
 		virtual void InitParticle(Particle & particle) = 0;
-		virtual void UpdateParticle(float timeDelta, Particle & particle) = 0;
+		virtual void UpdateParticle(Particle & particle) = 0;
 
 		list<Particle> particles;
 		vector<glm::vec3> vertices;

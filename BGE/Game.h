@@ -76,7 +76,7 @@ namespace BGE
 		
 		bool PreInitialise();
 		bool Initialise();
-		void Update(float timeDelta);
+		void Update();
 		void PreDraw();
 		void Draw();
 		void PostDraw();

@@ -8,7 +8,7 @@ namespace BGE
 	public:
 		FPSController(void);
 		~FPSController(void);
-		void Update(float timeDelta);
+		void Update();
 		bool FPSController::Initialise();
 	};
 }

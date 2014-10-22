@@ -24,7 +24,7 @@ namespace BGE
 		float elapsed;
 		float ySpeed;
 		bool Initialise();
-		void Update(float timeDelta);
+		void Update();
 		vector<shared_ptr<FountainEffect>> fountains;
 		float fountainTheta;
 	};

@@ -5,6 +5,8 @@
 using namespace FMOD;
 using namespace std;
 
+float BGE::Time::deltaTime = 0.0f;
+
 float BGE::RandomClamped(float min, float max)
 {
 	float r = (float)rand()/(float)RAND_MAX;

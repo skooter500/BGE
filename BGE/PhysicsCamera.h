@@ -18,7 +18,7 @@ namespace BGE
 		~PhysicsCamera(void);
 
 		//bool Initialise();
-		void PhysicsCamera::Update(float timeDelta);
+		void PhysicsCamera::Update();
 
 		void getWorldTransform(btTransform &worldTrans) const;
 		void setWorldTransform(const btTransform &worldTrans);

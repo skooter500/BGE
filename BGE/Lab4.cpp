@@ -3,6 +3,7 @@
 #include "VectorDrawer.h"
 #include "LazerBeam.h"
 #include "FountainEffect.h"
+#include "Utils.h"
 
 using namespace BGE;
 
@@ -77,24 +78,24 @@ bool Lab4::Initialise()
 	return true;
 }
 
-void Lab4::Update(float timeDelta)
+void Lab4::Update()
 {	
 	// Movement of ship2
 	if (keyState[SDL_SCANCODE_UP])
 	{
-		ship2->transform->position += ship2->transform->look * speed * timeDelta;
+		ship2->transform->position += ship2->transform->look * speed * Time::deltaTime;
 	}
 	if (keyState[SDL_SCANCODE_DOWN])
 	{
-		ship2->transform->position -= ship2->transform->look * speed * timeDelta;
+		ship2->transform->position -= ship2->transform->look * speed * Time::deltaTime;
 	}
 	if (keyState[SDL_SCANCODE_LEFT])
 	{
-		ship2->transform->Yaw(timeDelta * speed * speed);
+		ship2->transform->Yaw(Time::deltaTime * speed * speed);
 	}
 	if (keyState[SDL_SCANCODE_RIGHT])
 	{
-		ship2->transform->Yaw(-timeDelta * speed * speed);
+		ship2->transform->Yaw(-Time::deltaTime * speed * speed);
 	}
 	
 	for (int i = 0 ; i < fountains.size() ; i ++)
@@ -109,13 +110,13 @@ void Lab4::Update(float timeDelta)
 		}
 		
 	}
-	fountainTheta += timeDelta;
+	fountainTheta += Time::deltaTime;
 	if (fountainTheta >= glm::pi<float>() * 2.0f)
 	{
 		fountainTheta = 0.0f;
 	}
 
-	Game::Update(timeDelta);
+	Game::Update();
 
 	float theta = 0.0f;
 	glm::vec3 toShip2 = ship2->transform->position - ship1->transform->position;

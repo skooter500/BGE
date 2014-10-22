@@ -1,5 +1,6 @@
 #include "ParticleEffect.h"
 #include "Content.h"
+#include "Utils.h"
 
 using namespace BGE;
 
@@ -49,9 +50,9 @@ bool BGE::ParticleEffect::Initialise()
 	return GameComponent::Initialise();
 }
 
-void BGE::ParticleEffect::Update( float timeDelta )
+void BGE::ParticleEffect::Update()
 {
-	GameComponent::Update(timeDelta);
+	GameComponent::Update();
 	colours.clear();
 	vertices.clear();
 	sizes.clear();
@@ -61,7 +62,7 @@ void BGE::ParticleEffect::Update( float timeDelta )
 	{
 		if (it->alive)
 		{
-			UpdateParticle(timeDelta, * it);
+			UpdateParticle(* it);
 			if (it->alive)
 			{
 				// The system remains alive so long as at least one of its particles is alive;
@@ -73,7 +74,7 @@ void BGE::ParticleEffect::Update( float timeDelta )
 		}
 		it ++;
 	}
-	GameComponent::Update(timeDelta);	
+	GameComponent::Update();	
 }
 
 void ParticleEffect::Draw()

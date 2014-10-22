@@ -63,7 +63,7 @@ bool BGE::LeapHands::Initialise()
 
 float lastSpawned = 10.0f;
 
-void BGE::LeapHands::Update(float timeDelta)
+void BGE::LeapHands::Update()
 {	
 
 	Game::Instance()->PrintFloat("Pinch distance", pinchDist);
@@ -90,7 +90,7 @@ void BGE::LeapHands::Update(float timeDelta)
 				break;
 			}
 		}
-		TransformHand(timeDelta);
+		TransformHand();
 	}	
 	LeaveCriticalSection(&criticalSection);
 
@@ -139,9 +139,9 @@ void BGE::LeapHands::Update(float timeDelta)
 		}
 	}
 	spawn = none;
-	lastSpawned += timeDelta;
+	lastSpawned += Time::deltaTime;
 	
-	GameComponent::Update(timeDelta);
+	GameComponent::Update();
 }
 
 void BGE::LeapHands::Draw()
@@ -149,7 +149,7 @@ void BGE::LeapHands::Draw()
 	GameComponent::Draw();
 }
 
-void BGE::LeapHands::TransformHand(float timeDelta)
+void BGE::LeapHands::TransformHand()
 {
 	if (!Params::GetBool("leapHeadMode"))
 	{

@@ -15,7 +15,7 @@ namespace BGE
 		PhysicsGame1(void);
 		~PhysicsGame1(void);
 		bool Initialise();
-		void Update(float timeDelta);
+		void Update();
 		void Cleanup();
 		void CreateWall();		
 	};

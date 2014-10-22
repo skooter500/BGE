@@ -17,7 +17,7 @@ namespace BGE
 
 		virtual void Enter() = 0;
 		virtual void Exit() = 0;
-		virtual void Update(float timeDelta) = 0;
+		virtual void Update() = 0;
 		virtual string Description() = 0;
 		shared_ptr<StateMachine> owner;
 	};
@@ -31,7 +31,7 @@ namespace BGE
 
 		shared_ptr<State> currentState;
 
-		void Update(float timeDelta);
+		void Update();
 		void SwicthState(shared_ptr<State> newState);
 
 	};

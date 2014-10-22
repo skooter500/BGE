@@ -3,6 +3,7 @@
 #include "VectorDrawer.h"
 #include "LazerBeam.h"
 #include "FountainEffect.h"
+#include "Utils.h"
 
 using namespace BGE;
 
@@ -80,7 +81,7 @@ bool Lab5::Initialise()
 
 
 
-void Lab5::Update(float timeDelta)
+void Lab5::Update()
 {		
 	for (int i = 0 ; i < fountains.size() ; i ++)
 	{
@@ -95,7 +96,7 @@ void Lab5::Update(float timeDelta)
 	}
 	float scale = 30.0f + (glm::sin(fountainTheta) / 3.0f);
 	buddha->transform->scale = glm::vec3(scale, scale, scale);
-	fountainTheta += timeDelta;
+	fountainTheta += Time::deltaTime;
 	if (fountainTheta >= glm::pi<float>() * 2.0f)
 	{
 		fountainTheta = 0.0f;
@@ -103,7 +104,7 @@ void Lab5::Update(float timeDelta)
 
 	buddhaFountain0->transform->position.x = glm::sin(fountainTheta) * 30;
 	buddhaFountain0->transform->position.z = - glm::cos(fountainTheta) * 30;
-	buddhaFountain0->transform->position.y -= timeDelta * ySpeed;
+	buddhaFountain0->transform->position.y -= Time::deltaTime * ySpeed;
 	if (buddhaFountain0->transform->position.y > 50)
 	{
 		ySpeed = -ySpeed;
@@ -118,7 +119,7 @@ void Lab5::Update(float timeDelta)
 
 	buddhaFountain1->transform->position.x = glm::sin(fountainTheta) * -30;
 	buddhaFountain1->transform->position.z = glm::cos(fountainTheta) * 30;
-	buddhaFountain1->transform->position.y += timeDelta * ySpeed;
+	buddhaFountain1->transform->position.y += Time::deltaTime * ySpeed;
 	if (buddhaFountain1->transform->position.y > 50)
 	{
 		ySpeed = -ySpeed;
@@ -132,5 +133,5 @@ void Lab5::Update(float timeDelta)
 	}
 
 
-	Game::Update(timeDelta);
+	Game::Update();
 }
