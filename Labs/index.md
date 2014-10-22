@@ -57,7 +57,7 @@ What to do:
 - Clone/pull the master branch of BGE
 - Create a member function called ```Transform::Jump(float height)```
 - You will need to add additional variables to the ```Transform``` class to manage the jump.
-- Jumping will need access to timeDelta. Hmmm. How will you solve that?
+- Jumping will need access to timeDelta. You can use ```Time::deltaTime``` to get the timeDelta now.
 - Write code in the class FPSController to trigger the jump on the J key press.
 - If you get this working, try and implement crouching and leaning
 - If you make anything useful and nice, please do a pull request
