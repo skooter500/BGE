@@ -72,7 +72,7 @@ bool PhysicsGame1::Initialise()
 		return false;
 	}
 
-	camera->transform->position = glm::vec3(0,10, 20);
+
 	
 	return true;
 }
