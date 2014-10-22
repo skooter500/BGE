@@ -91,21 +91,17 @@ Compile and run the program and you should get this:
 
 Open up the file Lab4.cpp and look at the ```Update``` member function. Calling ```Game::Update()``` will call the ```Update``` member of any attached ```GameComponent```s, including ```ship1``` and ```ship2```. In the ```Update``` method, the component's world transform matrix will be calculated from it's position and quaternion (used to store orientations - we will talk about this on Friday). You can *overwrite* this by placing code *after* the base class ```Update``` call. Have a look at the end of the ```Update``` member to see that that is what is being done in this lab. The world member of ```ship1``` is just being calculated from it's position. To complete Part 1, you have to:
 
-Use the inv cos and vector dot product to calculate the rotation angle theta
-
-Create a rotation matrix
-
-Check to see if you need the interior or exterior angle and adjust theta appropriately
-
-Multiply it into the world transform of ```ship1``` *in the correct order*. 
+- Use the inv cos and vector dot product to calculate the rotation angle theta
+- Check to see if you need the interior or exterior angle and adjust theta appropriately
+- Create a rotation matrix
+- Multiply it into the world transform of ```ship1``` *in the correct order*. 
 
 If you are successful,  the Cobra Mark 3 ship should point at the ferdelance
 
 Do not not ATTEMPT to solve this before:
 
-Drawing some diagrams
-
-Working out the maths/algorithm on pen and paper first.
+- Drawing some diagrams
+- Working out the maths/algorithm on pen and paper first.
 
 Some API's you might need:
 
