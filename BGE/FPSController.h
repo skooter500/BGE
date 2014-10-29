@@ -5,7 +5,7 @@ namespace BGE
 {
 	class FPSController:public GameComponent
 	{
-	public:
+	public: 
 		FPSController(void);
 		~FPSController(void);
 		void Update();

@@ -35,7 +35,7 @@ void FPSController::Jump(float height, float duration)
 
 	// For Physics Jumping use this instead
 	// See: http://math.stackexchange.com/questions/785375/calculate-initial-velocity-to-reach-height-y
-	//transform->velocity.y = glm::sqrt(2.0f * glm::abs(gravity.y) * jumpHeight);
+	transform->velocity.y = glm::sqrt(2.0f * glm::abs(gravity.y) * jumpHeight);
 }
 
 void FPSController::Update()
@@ -111,14 +111,15 @@ void FPSController::Update()
 
 		// Or Physics Jumping...
 		
-		/*transform->velocity += gravity * Time::deltaTime;
+		/*
+		transform->velocity += gravity * Time::deltaTime;
 		transform->position += transform->velocity * Time::deltaTime;
 		if (transform->position.y < jumpY)
 		{
 			jumping = !jumping;
 			transform->position.y = jumpY;
-		}*/
-		
+		}
+		*/
 	}
 	
 	GameComponent::Update();

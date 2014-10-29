@@ -556,3 +556,8 @@ bool BGE::Game::PreInitialise()
 
 	return true;
 }
+
+void BGE::Game::setGravity(glm::vec3 gravity)
+{
+	dynamicsWorld->setGravity(GLToBtVector(gravity));
+}
