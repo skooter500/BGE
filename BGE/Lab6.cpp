@@ -78,46 +78,8 @@ void Lab6::Update()
 		ship2->transform->Fly(-Time::deltaTime * speed);
 	}
 
-	if (keyState[SDL_SCANCODE_SPACE] && ! slerping)
-	{
-		slerping = true;
-		fromQuaternion = ship1->transform->orientation;
+	// Your code goes here...
 
-		glm::vec3 toShip2 = ship2->transform->position - ship1->transform->position;
-		toShip2 = glm::normalize(toShip2);
-		glm::vec3 axis = glm::cross(Transform::basisLook, toShip2);
-		axis = glm::normalize(axis);
-		float theta = glm::acos(glm::dot(toShip2, Transform::basisLook));
-		toQuaternion = glm::angleAxis(glm::degrees(theta), axis);
-
-		// Calculate the angle of rotation
-		toRotate = glm::acos(glm::dot(toShip2, ship1->transform->look));
-	}
-
-	if (slerping)
-	{
-		ship1->transform->orientation = glm::mix(fromQuaternion, toQuaternion, t);
-		float time = toRotate / turnRate;
-		t += 1.0f * (Time::deltaTime / time);
-		if (t > 1.0f)
-		{
-			t = 0.0f;
-			slerping = false;
-		}
-	}
-
-
-	// Put code for ship1 here!!!
-	/*
-	// Solution to part 1
-	glm::vec3 toShip2 = ship2->position - ship1->position;
-	toShip2 = glm::normalize(toShip2);
-	glm::vec3 axis = glm::cross(Transform::basisLook, toShip2);
-	axis = glm::normalize(axis);
-	float theta = glm::acos(glm::dot(toShip2, Transform::basisLook));
-	ship1->orientation = glm::angleAxis(glm::degrees(theta), axis);
-	*/
-	// End code for ship 1	
 	Game::Update();
 
 }
