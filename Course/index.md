@@ -26,9 +26,39 @@ Assignments & student work from previous years
 * [Game AI in Unity](https://www.youtube.com/watch?v=1H8FRXytO9M)
 * [Space battles 2011](https://www.youtube.com/watch?v=GdYAzGS0evA)
 
+Week 7
+------
+* [Lab 6](../Labs/index.md)
+
+Week 6
+------
+* [Rotating a vector by a quaternion in C++ lecture](http://youtu.be/m3-wYh-HLcw)
+* [Lab 5](../Labs/index.md)
+* [Lecture notes on Quaternions](http://1drv.ms/1qbcpdE)
+
+	### Ode to the Quaternion
+	A quaternion is like a vector, but with a "w"
+	To construct one, use an axis and an angle, that's what we do
+	For rotations it must be normal, or otherwise its pure
+	So we normalise, divide by length, just to be sure
+	To invert a normal quaternion, we negate x, y and z
+	Multiply quaternion, vector, inverse quaternion and it rotates don't you see
+	A rotation of 0 radians is the same as two pi
+	To convert a quaternion to a matrix, we use the API
+	So here's a health to old Hamilton, your inventor it would appear
+	And to imaginary numbers floating in the hypersphere
+	\-	Dr Bryan Duggan
+
+
+Week 5
+------
+* [Lecture notes on Component Based Game Engines](http://1drv.ms/1qbcpdE)
+* [Lab 4](../Labs/index.md)
+* 
 Week 4
 ------
 * [Vectors & matrices in BGE Video](https://www.youtube.com/watch?v=GVoIfRYA93E)
+* [Read the game maths lecture notes](http://1drv.ms/1qbcpdE)
 * [Lab 3](../Labs/index.md)
 
 Week 3
