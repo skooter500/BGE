@@ -6,6 +6,9 @@
 #include <memory>
 #include <iostream> 
 
+
+
+
 namespace BGE
 {
 	class Transform
@@ -36,7 +39,8 @@ namespace BGE
 
 		void Strafe(float units); 
 		void Fly(float units);    
-		void Walk(float units);   
+		void Walk(float units);  
+		void Jump(float height);
 
 		void Pitch(float angle, bool limitRotation = true); // rotate on right vector
 		void Yaw(float angle);   // rotate on up vector

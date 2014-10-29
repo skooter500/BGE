@@ -33,7 +33,7 @@ bool Lab5::Initialise()
 
 	// Create a gamecomponent and attach the Buddha model
 	// Look at Lab5 for an example of how to do this
-	buddha = make_shared<GameComponent>();
+	/*buddha = make_shared<GameComponent>();
 	buddha->Attach(Content::LoadModel("buddha"));
 	buddha->transform->position = glm::vec3(0,0,0);
 	buddha->transform->scale = glm::vec3(10,10,10);
@@ -48,7 +48,7 @@ bool Lab5::Initialise()
 	buddhaFountain1 = make_shared<FountainEffect>(500);
 	buddhaFountain1->transform->position = glm::vec3(-30, 50, 0);
 	buddhaFountain1->transform->diffuse = glm::vec3(1,1, 0);
-	Attach(buddhaFountain1);
+	Attach(buddhaFountain1);*/
 
 	fountainTheta = 0.0f; 
 	for (int i = 0 ; i < NUM_FOUNTAINS ; i ++)
@@ -93,6 +93,7 @@ void Lab5::Update(float timeDelta)
 			fountains[i]->transform->position.y = FOUNTAIN_HEIGHT - (glm::sin(fountainTheta) * FOUNTAIN_HEIGHT);
 		}
 	}
+	/*
 	float scale = 30.0f + (glm::sin(fountainTheta) / 3.0f);
 	buddha->transform->scale = glm::vec3(scale, scale, scale);
 	fountainTheta += timeDelta;
@@ -129,7 +130,7 @@ void Lab5::Update(float timeDelta)
 	{
 		ySpeed = -ySpeed;
 		buddhaFountain1->transform->position.y = 0;
-	}
+	}*/
 
 
 	Game::Update(timeDelta);

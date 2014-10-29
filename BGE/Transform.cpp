@@ -107,6 +107,12 @@ void Transform::Strafe(float units)
 	moved = true;
 }
 
+void Transform::Jump(float height)
+{
+	velocity.y += height;
+	moved = true;
+}
+
 void Transform::Fly(float units)
 {
 	position.y += units;

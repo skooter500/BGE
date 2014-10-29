@@ -20,6 +20,19 @@ FPSController::~FPSController(void)
 
 void FPSController::Update(float timeDelta)
 {
+
+	transform->position += transform->velocity;
+
+	if(transform->position.y > 2)
+	{
+		transform->velocity.y -= 0.1f;
+	}
+	else
+	{
+		transform->position.y = 2;
+		transform->velocity.y = 0;
+	}
+
 	const Uint8 * keyState = Game::Instance()->GetKeyState();
 
 	float moveSpeed = speed;
@@ -47,6 +60,11 @@ void FPSController::Update(float timeDelta)
 	if (keyState[SDL_SCANCODE_D])
 	{
 		transform->Strafe(moveSpeed * timeDelta);
+	}
+
+	if(keyState[SDL_SCANCODE_J])
+	{
+		transform->Jump(25 * timeDelta);
 	}
 
 	int x, y;

@@ -1,6 +1,67 @@
 Game Engines 1 Labs
 ===================
 
+Lab 4
+-----
+
+This lab has three parts. In the first part you will be programming the world transform matrix for the Cobra Mark 3 ship in this video so that it always points towards the Ferdelance (controllable using the arrow keys). A world transform matrix is a matrix that is generated from an object's position and orientation that is used to draw the object. In Part 2 & Part 3, you will be programming the fountain effect. Here is what the final version should look like:
+
+[![Video](http://img.youtube.com/vi/V5WQ0W0I454/0.jpg)](http://www.youtube.com/watch?v=V5WQ0W0I454)
+
+More about world transform matrices in Friday's class, or watch this video from last year (not now!)
+
+[![Video](http://img.youtube.com/vi/z8NjXaW64sQ/0.jpg)](http://www.youtube.com/watch?v=z8NjXaW64sQ)
+
+### Part 1
+Firstly checkout the Lab4 branch of the repo from your own clone:
+
+```Bash
+git fetch
+git checkout -b Lab4 origin/Lab4
+```
+
+If you have a fork of BGE, use the following:
+```Bash
+git checkout -b Lab4 upstream/Lab4
+```
+Compile and run the program and you should get this:
+
+![](p11.png)
+
+Open up the file Lab4.cpp and look at the ```Update``` member function. Calling ```Game::Update()``` will call the ```Update``` member of any attached ```GameComponent```s, including ```ship1``` and ```ship2```. In the ```Update``` method, the component's world transform matrix will be calculated from it's position and quaternion (used to store orientations - we will talk about this on Friday). You can *overwrite* this by placing code *after* the base class ```Update``` call. Have a look at the end of the ```Update``` member to see that that is what is being done in this lab. The world member of ```ship1``` is just being calculated from it's position. To complete Part 1, you have to:
+
+- Use the inv cos and vector dot product to calculate the rotation angle theta
+- Check to see if you need the interior or exterior angle and adjust theta appropriately
+- Create a rotation matrix
+- Multiply it into the world transform of ```ship1``` *in the correct order*. 
+
+If you are successful,  the Cobra Mark 3 ship should point at the ferdelance
+
+Do not not ATTEMPT to solve this before:
+
+- Drawing some diagrams
+- Working out the maths/algorithm on pen and paper first.
+
+Some API's you might need:
+
+```C++
+// These functions return a glm::mat4
+glm::translate(glm::mat4(1), pos);
+glm::rotate(glm::mat4(1), angleInDegrees, axis);
+glm::dot(v1, v2); // Returns a float
+glm::cos(thetaInRadians);
+glm::acos(value);
+glm::normalize(v);
+// To get pi, use:
+glm::pi<float>();
+```
+### Part 2
+
+Look at the ```Initialise``` member function to see how to create a fountain effect. Add code to create a circle of fountain effects. The instructions are included in the comments of the for loop. See how I create the middle effect. As you are creating them (at the correct positions) add them to the std::vector fountains as well as attaching them to the Game, so we can get access to them later.  Consider how to calculate points on the unit circle as your clue to solve this. Make every second particle effect red and every other one green.
+
+### Part 3
+Modify the ```Update``` member function in the appropriate place to update the Y value position of the effects so that they rise and fall like in the video. You can use the ```glm::sin``` function for this.
+
 Lab 3
 -----
 In this lab you will get the opportunity to use some vector maths to solve some problems in games. Be sure you know how to:
@@ -9,7 +70,7 @@ In this lab you will get the opportunity to use some vector maths to solve some 
 - Calculate the distance between two vectors using ```glm::length```
 - Use the vector dot product (```glm::dot```) and inverse cos (```glm::acos```)
 
-If you need some revision on this, be sure to read the [game maths lecture notes](../Course) again.
+If you need some revision on this, be sure to read the [game maths lecture notes](../Course) again. Also here is [a great series of articles that explains vectors and matrices](http://blog.wolfire.com/2009/07/linear-algebra-for-game-developers-part-1/).
  
 Firstly, navigate to where you have cloned the repo and checkout the branch for the lab:
 

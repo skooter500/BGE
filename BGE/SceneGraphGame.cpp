@@ -70,6 +70,8 @@ void SceneGraphGame::CreateScene()
 	selfExample->Attach(make_shared<VectorDrawer>(glm::vec3(5, 5, 5)));
 	selfExample->transform->position = NextPosition(current++, componentCount);
 	Attach(selfExample);	
+
+
 	station = make_shared<GameComponent>(true);
 	station->transform->ambient = glm::vec3(0.2f, 0.2, 0.2f);
 	station->transform->specular = glm::vec3(1.2f, 1.2f, 1.2f);
