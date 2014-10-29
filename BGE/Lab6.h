@@ -16,6 +16,8 @@ namespace BGE
 
 		shared_ptr<GameComponent> ship1;
 		shared_ptr<GameComponent> ship2;
+		float turnRate;
+		float toRotate;
 		float elapsed;
 		bool Initialise();
 		void Update();

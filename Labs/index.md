@@ -1,6 +1,40 @@
 Game Engines 1 Labs
 ===================
 
+Lab 6
+-----
+In this lab we will be making quaternions!
+
+Clone/pull etc the Lab6 branch with the starter code for todays lab
+
+When you build and run the project, you will see the the Cobra Mk III  and the Ferdelance. You can control the movement of the Ferdelance using the arrow keys. You can also get the Ferdelance to go up and down using the O and L keys. To complete this lab you will need to make use of the following API calls:
+
+glm::dot
+
+glm::cross
+
+glm::normalise
+
+glm::acos
+
+glm::degrees
+
+glm::axisAngle - Dont forget the angle parameter is in degrees!
+
+glm::mix - This slerps between two quaternions
+
+Part 1
+
+Generate a quaternion for the Cobra Mk III so that it always faces the Ferdelance
+
+Part 2
+
+Modify your code so that when you press the space key, the Cobra Mk III gradually turns to face the Ferdelance. Use the glm::mix function to achieve this. glm::mix slerps between two quaternions depending on the value of the t parameter. If t is 0, the first quaternion is returned. If t is 1 the second quaternion is returned. If t = 0.5f then a quaternion half way between the fisrt and second quaternions is returned and so on. This is what the finished version should look like:
+
+http://youtu.be/lkD9tAo9T7s
+
+You can use the startQuaternion, endQuaternion and slerping member variables to help achieve this.
+
 Lab 5
 -----
 In this lab you will be adding functionality to the Transform class and to allow jumping. This is different to the FPS behaviours we programmed on Friday in that the behaviour needs to be triggered on a key press, but happen for multiple frames. 

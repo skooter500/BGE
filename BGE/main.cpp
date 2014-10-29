@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
 	// http://www.youtube.com/watch?v=EEbVHxOkTxw
 	Params::Load("default");
 
-	shared_ptr<Game> game = make_shared<SteeringGame>();
+	shared_ptr<Game> game = make_shared<Lab6>();
 	game->Run();
 	
 	return 0;

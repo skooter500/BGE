@@ -11,6 +11,7 @@ using namespace BGE;
 Lab6::Lab6(void)
 {
 	elapsed = 10000;
+	turnRate = glm::half_pi<float>(); // Turn half_pi radians per second
 }
 
 
@@ -23,13 +24,13 @@ bool Lab6::Initialise()
 	std::shared_ptr<GameComponent> ground = make_shared<Ground>();
 	Attach(ground);	
 
-	ship1 = make_shared<GameComponent>();
+	ship1 = make_shared<GameComponent>(true);
 	ship1->Attach(Content::LoadModel("cobramk3", glm::rotate(glm::mat4(1), 180.0f, glm::vec3(0,1,0))));
 	ship1->transform->position = glm::vec3(-10, 2, -10);
 	ship1->Attach(make_shared<VectorDrawer>());
 	Attach(ship1);
 
-	ship2 = make_shared<GameComponent>();
+	ship2 = make_shared<GameComponent>(true);
 	ship2->Attach(Content::LoadModel("ferdelance", glm::rotate(glm::mat4(1), 180.0f, glm::vec3(0,1,0))));
 	ship2->Attach(make_shared<VectorDrawer>());
 	ship2->transform->diffuse= glm::vec3(1.0f,0.0f,0.0f);
@@ -88,12 +89,16 @@ void Lab6::Update()
 		axis = glm::normalize(axis);
 		float theta = glm::acos(glm::dot(toShip2, Transform::basisLook));
 		toQuaternion = glm::angleAxis(glm::degrees(theta), axis);
+
+		// Calculate the angle of rotation
+		toRotate = glm::acos(glm::dot(toShip2, ship1->transform->look));
 	}
 
 	if (slerping)
 	{
 		ship1->transform->orientation = glm::mix(fromQuaternion, toQuaternion, t);
-		t += Time::deltaTime;
+		float time = toRotate / turnRate;
+		t += 1.0f * (Time::deltaTime / time);
 		if (t > 1.0f)
 		{
 			t = 0.0f;
