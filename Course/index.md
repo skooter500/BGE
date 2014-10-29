@@ -54,7 +54,7 @@ Week 5
 ------
 * [Lecture notes on Component Based Game Engines](http://1drv.ms/1qbcpdE)
 * [Lab 4](../Labs/index.md)
-* 
+
 Week 4
 ------
 * [Vectors & matrices in BGE Video](https://www.youtube.com/watch?v=GVoIfRYA93E)
