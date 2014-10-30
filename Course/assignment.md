@@ -2,7 +2,7 @@ Game Engines 1 Assignment
 =========================
 
 ## Interm Assignment
-Please subit through this Google Docs link the following:
+Please subit through [this Google Docs link](https://docs.google.com/forms/d/13J_laob3a-Eixw2u1QRjK4eHsgKQ5hJ9F9smu0n-wdw/viewform) the following:
 
 A gitHub link to a fork the BGE repository and the name of a branch that has your code for the assignment. 
 
@@ -43,15 +43,18 @@ You should also make an effort to make your creation look awesome. The marking s
 |------------|----|---------|------|
 |30%         |20% |20%      |30%   |
 
-And here is a rubric you can use in thinking about grading. You should spend a minimum of 16 hours on the assignment. 
+You should spend around 16 hours on the assignment. 
+Here is a rubric I will use to grade the assignments. 
 
 | Grade | Description |
 | ------|-------------|
 | First | Your animat works and moves realistically. You make a pull request to BGE and it's accepted meaning you your code is good enough to be used by next years students. You have lots of different joint types and have figured out how to put appropriate limits on the joints so that they are realistic. The problem you solved was challenging and required a lot of figuring out. You have created new classes to abstract the complexity of your assignment. Your assignment has a lot of novelty and is impressive looking |
-| 2.1 | Your animat works and moves with some minor issues. You have used a 2-3 joint types with no limits put on the joints. You have used just 1-2 rigid body shapes. The animat is not too complicated. You dont use any other controllers or tried to use a controller but couldnt get it working. Code is in functions and no new classes required.|
-| 2.2 | Your animat doesnt move by itself. Your assignment is some rigid bodies connected by hinge joints or one joint type. Everything is in one or two functions |
+| 2.1 | Your animat works and moves with some minor issues. You have used a 2-3 joint types with no limits put on the joints. You have used just 1-2 rigid body shapes. The animat/thing you make is about as complicated as a [Watt beam engine](http://www.animatedengines.com/watt.html). You dont use any other controllers or tried to use a controller but couldnt get it working. Code is in functions and no new classes required.|
+| 2.2 | Your animat doesnt move by itself. Your assignment is some rigid bodies connected by hinge joints or one joint type. Your assignmnet is about as complicated as a 4 wheeled cart. Everything is in one or two functions. |
 | Pass | No animat. There are no joints, just some rigid bodies. Simple changes to to the PhysicsGame or SceneGraphGame code. |
 | Fail | Project won't compile or major issues. Little or no code changes to the supplied code. |
+
+This part of the assignment is worth 90%
 
 
 
