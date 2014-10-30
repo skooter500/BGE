@@ -12,6 +12,7 @@ Resources
 * [Bryan on Twitter](http://twitter.com/skooter500)
 * [Some notes on C++ and git](Game Engines 1a.md)
 * [Class Facebook page](https://www.facebook.com/groups/772510342816800/?fref=ts)
+* [Animatronics video playlist](http://www.youtube.com/playlist?list=PL1n0B6z4e_E5ybHULPRLErccV8BeHvH5V)
 
 Assignments & student work from previous years
 ----------------------------------------------
