@@ -24,6 +24,28 @@ In the *readme.md* file at the root of your project, you should include:
 This is worth 10% (out of a total of 100%)
 
 ## Main Assignment
-Use B
+Use BGE (or your own engine if you like) to make an articulated animat or robot simulation that walks, crawls, flys, rolls or drags itself around under its own power. Control via an input device is also acceptable. Like this dragon controllable using the Kinect:
+
+[![Video](http://img.youtube.com/vi/fipi6hplcn4/0.jpg)](http://www.youtube.com/watch?v=fipi6hplcn4)
+
+Feel free to use the rift, Kinect, Leap Motion or WiiMote in your solution.
+
+Here is a [YouTube playlist you can use for inspiration](https://www.youtube.com/playlist?list=PL1n0B6z4e_E5ybHULPRLErccV8BeHvH5V). 
+
+In your solution you must make use of:
+- Rigid bodies
+- Joints
+- Motors/controllers
+
+You should also make an effort to make your creation look awesome. The marking scheme is below:
+
+| Complexity | OO | Visuals | Jazz |
+|------------|----|---------|------|
+|30%         |20% |20%      |30%   |
+
+And here is a rubric you can use:
+
+
+
 
 
