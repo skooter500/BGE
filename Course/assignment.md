@@ -21,7 +21,7 @@ In the *readme.md* file at the root of your project, you should include:
 	- You can draw these on paper and take a picture with your phone
 	- If you are planning o contribute to BGE, then please describe what your contribution will be and how you plan to do it
 
-This is worth 10% (out of a total of 100%)
+This is worth 10% (out of a total of 100%) and is due on Friday 7 November.
 
 ## Main Assignment
 Use BGE (or your own engine if you like) to make an articulated animat or robot simulation that walks, crawls, flys, rolls or drags itself around under its own power. Control via an input device is also acceptable. Like this dragon controllable using the Kinect:
@@ -54,7 +54,7 @@ Here is a rubric I will use to grade the assignments.
 | Pass | No animat. There are no joints, just some rigid bodies. Simple changes to to the PhysicsGame or SceneGraphGame code. |
 | Fail | Project won't compile or major issues. Little or no code changes to the supplied code. |
 
-This part of the assignment is worth 90%
+This part of the assignment is worth 90% and is due on Wednesday 10th December.
 
 
 
