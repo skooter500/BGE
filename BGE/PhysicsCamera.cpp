@@ -92,7 +92,7 @@ void PhysicsCamera::GravityGun(RayGeom ray, bool isPhys)
 	game->PrintText(ss.str());
 }
 
-void PhysicsCamera::Update(float timeDelta)
+void PhysicsCamera::Update()
 {
 	// Override the one in the base class, we do not want to update our world transform from the physics object
 	// WHich is what the one in the base class does...
@@ -113,7 +113,7 @@ void PhysicsCamera::Update(float timeDelta)
 	}
 	else
 	{
-		elapsed += timeDelta;
+		elapsed += Time::deltaTime;
 	}
 	// Handle the gravity gun
 	bool leftClick = SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_LEFT);

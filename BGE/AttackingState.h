@@ -12,7 +12,7 @@ namespace BGE
 
 		virtual void Enter();
 		virtual void Exit();
-		virtual void Update(float timeDelta);
+		virtual void Update();
 
 		virtual string Description();
 

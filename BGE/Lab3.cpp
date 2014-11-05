@@ -2,7 +2,11 @@
 #include "Content.h"
 #include "VectorDrawer.h"
 #include "LazerBeam.h"
+<<<<<<< HEAD
 #include <math.h>
+=======
+#include "Utils.h"
+>>>>>>> upstream/master
 
 using namespace BGE;
 
@@ -35,25 +39,43 @@ bool Lab3::Initialise()
 	return true;
 }
 
-void Lab3::Update(float timeDelta)
+void Lab3::Update()
 {
 	static float timeToFire = 1.0f / 2.0f;
+	// Movement of ship1
+	if (keyState[SDL_SCANCODE_U])
+	{
+		ship1->transform->position += ship1->transform->look * speed * Time::deltaTime;
+	}
+	if (keyState[SDL_SCANCODE_J])
+	{
+		ship1->transform->position -= ship1->transform->look * speed * Time::deltaTime;
+	}
+	if (keyState[SDL_SCANCODE_H])
+	{
+		ship1->transform->Yaw(Time::deltaTime * speed * speed);
+	}
+	if (keyState[SDL_SCANCODE_K])
+	{
+		ship1->transform->Yaw(-Time::deltaTime * speed * speed);
+	}
+
 	// Movement of ship2
 	if (keyState[SDL_SCANCODE_UP])
 	{
-		ship2->transform->position += ship2->transform->look * speed * timeDelta;
+		ship2->transform->position += ship2->transform->look * speed * Time::deltaTime;
 	}
 	if (keyState[SDL_SCANCODE_DOWN])
 	{
-		ship2->transform->position -= ship2->transform->look * speed * timeDelta;
+		ship2->transform->position -= ship2->transform->look * speed * Time::deltaTime;
 	}
 	if (keyState[SDL_SCANCODE_LEFT])
 	{
-		ship2->transform->Yaw(timeDelta * speed * 5);
+		ship2->transform->Yaw(Time::deltaTime * speed * speed);
 	}
 	if (keyState[SDL_SCANCODE_RIGHT])
 	{
-		ship2->transform->Yaw(-timeDelta * speed * 5);
+		ship2->transform->Yaw(-Time::deltaTime * speed * speed);
 	}
 
 	if (keyState[SDL_SCANCODE_U])
@@ -106,10 +128,8 @@ void Lab3::Update(float timeDelta)
 			fireTimer = 0.0f;
 		}
 	}
+	elapsed += Time::deltaTime;
 
 
-
-
-
-	Game::Update(timeDelta);
+	Game::Update();
 }

@@ -12,7 +12,7 @@ LazerBeam::~LazerBeam(void)
 {
 }
 
-void LazerBeam::Update( float timeDelta )
+void LazerBeam::Update()
 {
 	float width = 500;
 	float height = 500;

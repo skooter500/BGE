@@ -11,7 +11,7 @@ namespace BGE
 		PhysicsController(btCollisionShape * shape, btRigidBody * PhysicsComponent, btMotionState * motionState);
 		PhysicsController();
 		~PhysicsController(void);
-		void Update(float timeDelta);
+		void Update();
 		void Cleanup();
 
 		void SetPhysicsStuff(btCollisionShape * shape, btRigidBody * PhysicsComponent, btMotionState * motionState);

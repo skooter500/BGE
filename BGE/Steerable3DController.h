@@ -16,7 +16,7 @@ namespace BGE
 		~Steerable3DController(void);
 
 		bool Initialise();
-		void Update(float timeDelta);
+		void Update();
 		void Draw();
 
 		float mass;

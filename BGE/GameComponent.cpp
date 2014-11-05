@@ -166,7 +166,7 @@ void GameComponent::SetAlive(bool alive)
 	}
 }
 
-void GameComponent::Update(float timeDelta) {	
+void GameComponent::Update() {	
 	// Update all the children
 	std::list<std::shared_ptr<GameComponent>>::iterator it = children.begin();
 	while (it != children.end())
@@ -177,7 +177,7 @@ void GameComponent::Update(float timeDelta) {
 			current->alive = false;
 		}
 		current->parent = This();
-		current->Update(timeDelta);
+		current->Update();
 		if (!current->alive)
 		{
 			current->parent = nullptr;

@@ -20,7 +20,7 @@ bool XBoxController::Initialise()
 }
 
 
-void XBoxController::Update(float timeDelta)
+void XBoxController::Update()
 {
 	SDL_Joystick *joy;
 	if (SDL_NumJoysticks() > 0) {
@@ -96,5 +96,5 @@ void XBoxController::Update(float timeDelta)
 	ss << "Gamepad Look: " << transform->look.x << " " << transform->look.y << " " << transform->look.z;
 	Game::Instance()->PrintText(ss.str());
 
-	GameComponent::Update(timeDelta);
+	GameComponent::Update();
 }

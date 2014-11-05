@@ -36,7 +36,7 @@ PhysicsController::~PhysicsController(void)
 	SAFE_DELETE(motionState);
 }
 
-void PhysicsController::Update(float timeDelta)
+void PhysicsController::Update()
 {
 	btTransform trans;
 	btMotionState * ms = rigidBody->getMotionState();
@@ -45,7 +45,7 @@ void PhysicsController::Update(float timeDelta)
 	transform->orientation = BtToGLQuat(trans.getRotation());
 	
 	// Calculate the world transform 
-	GameComponent::Update(timeDelta);
+	GameComponent::Update();
 }
 
 void PhysicsController::Cleanup()

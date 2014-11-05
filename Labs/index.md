@@ -1,6 +1,116 @@
 Game Engines 1 Labs
 ===================
 
+Lab 7
+----
+You can use the master branch for this lab. The aim will be to make a subclass of ```GameComponent``` that implements gravity on any component it is attached to.
+- Make a subclass of ```GameComponent``` called ```GravityController```
+- Add a field of type ```glm::vec3``` called ```gravity```
+- In the constructor, initialise the ```gravity``` field
+- Write a method ```Update``` that applies gravity to the object's ```transform```. You will have to modify the ```velocity``` and ```position``` fields.
+- Write a subclass of ```Game```. 
+- Instantiate some prefabs (A ```Sphere``` and a ```Box``` for example). and attach the ```GravityComponent``` to them.
+- Modify ```GravityComponent``` to make the objects bounce off the ground.
+
+Work on your assignments!
+
+Lab 6
+-----
+In this lab we will be making quaternions!
+
+Clone/pull etc the Lab6 branch with the starter code for todays lab
+
+When you build and run the project, you will see the the Cobra Mk III  and the Ferdelance. You can control the movement of the Ferdelance using the arrow keys. You can also get the Ferdelance to go up and down using the O and L keys. To complete this lab you will need to make use of the following API calls:
+
+```C++
+glm::dot
+glm::cross
+glm::normalise
+glm::acos
+glm::degrees
+glm::axisAngle // Make a quaternion. Dont forget the angle parameter is in degrees!
+glm::mix // This slerps between two quaternions
+```
+### Part 1
+
+Generate a quaternion for the Cobra Mk III so that it always faces the Ferdelance.
+
+### Part 2
+
+Modify your code so that when you press the space key, the Cobra Mk III gradually turns to face the Ferdelance. Use the ```glm::mix``` function to achieve this. ```glm::mix``` slerps between two quaternions depending on the value of the *t* parameter. If *t* is 0, the first quaternion is returned. If *t* is 1 the second quaternion is returned. If *t* = 0.5f then a quaternion half way between the first and second quaternions is returned and so on. This is what it should look like:
+
+[![Video](http://img.youtube.com/vi/lkD9tAo9T7s/0.jpg)](http://www.youtube.com/watch?v=lkD9tAo9T7s)
+
+You can use the ```startQuaternion```, ```endQuaternion``` and slerping member variables to help achieve this. Just add the ```timeDelta``` to *t* for now.
+
+### Part 3
+Have the speed of rotation controlled by the ```turnRate``` field. This field is given in radians per second. To complete this you will have to:
+
+- Calculte the angle that the Cobra Mark III needs to rotate. Use ```glm::acos``` and ```glm::dot```
+- Calculate the time required to do this (angle / turnRate)
+- Calculate what you need to add to t based on the time required and the time delta.
+
+Lab 5
+-----
+In this lab you will be adding functionality to the Transform class and to allow jumping. This is different to the FPS behaviours we programmed on Friday in that the behaviour needs to be triggered on a key press, but happen for multiple frames. 
+
+Consider using half a period of a sine wave function to control the height of the jump. The sine function is parameterised by theta and amplitude, where theta goes between 0 and 2 pi. A sine wave function will give numbers between -1 and +1, but you can multiply by amplitude to scale the sine wave. The figure below shows one period of a sine wave:
+
+![](p13.png)
+
+And here is some Processing code I used to to plot the sine wave above that you might find helpful:
+
+~~~Java
+void setup()
+{
+  size(500,500);
+  sampleRate = width;
+  amplitude = height / 2.0f;
+  lasty = (float) height / 2.0f;
+  lastx = 0.0f;
+ 
+}
+
+float frequency = 1.0f;
+float sampleRate;
+float theta = 0.0f;
+float amplitude = 1.0f;
+float pi = 3.14159285f;
+float lastx, lasty;
+
+void draw()
+{
+    float inc = (2.0f * pi * frequency) / sampleRate;
+    lasty = (float) height / 2.0f;
+    lastx = 0.0f;
+    for (int x = 0 ; x < width ; x ++)
+    {
+      float y = (sin(theta) * amplitude) + (height / 2);
+      theta += inc;
+      line(lastx, lasty, x, y);
+      lastx = x;
+      lasty = y;      
+    }
+    theta = 0.0f;    
+}
+~~~
+
+Alternatively, the jump height could be controlled with velocity and gravity and you will get the same result. Here are some equations you might find useful:
+
+```
+velocity += gravity * timeDelta;
+position += velocity * timeDelta;
+```
+
+What to do:
+- Clone/pull the master branch of BGE
+- Create a member function called ```Transform::Jump(float height)```
+- You will need to add additional variables to the ```Transform``` class to manage the jump.
+- Jumping will need access to timeDelta. You can use ```Time::deltaTime``` to get the timeDelta now.
+- Write code in the class FPSController to trigger the jump on the J key press.
+- If you get this working, try and implement crouching and leaning
+- If you make anything useful and nice, please do a pull request
+
 Lab 4
 -----
 

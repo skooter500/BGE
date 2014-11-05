@@ -83,7 +83,7 @@ void RiftController::Cleanup()
 }
 
 
-void RiftController::Update(float timeDelta)
+void RiftController::Update()
 {
 	AccumulateInputs();
 	ovrHSWDisplayState hswDisplayState;
@@ -94,7 +94,7 @@ void RiftController::Update(float timeDelta)
 	{
 		ovrHmd_DismissHSWDisplay(hmd);
 	}
-	GameComponent::Update(timeDelta);
+	GameComponent::Update();
 }
 
 void RiftController::Connect()

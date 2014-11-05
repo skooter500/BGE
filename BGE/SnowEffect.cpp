@@ -41,12 +41,12 @@ void SnowEffect::InitParticle(Particle & p)
 	p.size = RandomClamped(500, 600);
 }
 
-void SnowEffect::UpdateParticle(float timeDelta, Particle & p)
+void SnowEffect::UpdateParticle(Particle & p)
 {
 	static glm::vec3 gravity = glm::vec3(0, -9.8, 0);
 
-	p.velocity += gravity * timeDelta;
-	p.position += p.velocity * timeDelta;
+	p.velocity += gravity * Time::deltaTime;
+	p.position += p.velocity * Time::deltaTime;
 
 	// Fade the alpha as we approach the ground
 	float fadeHeight = 20;

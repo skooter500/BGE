@@ -31,9 +31,9 @@ bool Box::Initialise()
 	}
 }
 
-void Box::Update(float timeDelta)
+void Box::Update()
 {
-	GameComponent::Update(timeDelta);
+	GameComponent::Update();
 }
 
 Box::~Box(void)

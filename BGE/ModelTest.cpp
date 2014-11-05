@@ -6,6 +6,7 @@
 #include "Sphere.h"
 #include "Steerable3DController.h"
 #include "Cylinder.h"
+#include "Utils.h"
 
 using namespace BGE;
 
@@ -60,10 +61,10 @@ bool ModelTest::Initialise()
 	return true;
 }
 
-void ModelTest::Update( float timeDelta )
+void ModelTest::Update()
 {
-	Game::Update(timeDelta);
+	Game::Update();
 	glm::mat4 rotMatrix = glm::rotate(glm::mat4(1), theta, glm::vec3(0,1,0));
 	rotTest->transform->world = rotMatrix;
-	theta += timeDelta * 10.0f;
+	theta += Time::deltaTime * 10.0f;
 }

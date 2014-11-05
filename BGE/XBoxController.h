@@ -10,7 +10,7 @@ namespace BGE
 		XBoxController(bool hasTransform = false);
 		~XBoxController(void);
 
-		void Update(float TimeDelta);
+		void Update();
 		bool Initialise();
 		bool disablePitch;
 	};

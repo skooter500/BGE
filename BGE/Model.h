@@ -43,7 +43,7 @@ namespace BGE
 
 		bool Initialise();
 		void Draw();
-		void Update(float timeDelta);
+		void Update();
 		
 		GLuint * dumpPrivateContents(void); 
 

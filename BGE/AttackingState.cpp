@@ -35,10 +35,10 @@ void AttackingState::Exit()
 	//throw std::logic_error("The method or operation is not implemented.");
 }
 
-void AttackingState::Update(float timeDelta)
+void AttackingState::Update()
 {
 	float range = 30.0f;
-	timeShot += timeDelta;
+	timeShot += Time::deltaTime;
 	float fov = glm::quarter_pi<float>();
 	// Can I see the leader?
 	shared_ptr<SteeringController> fighterController = dynamic_pointer_cast<SteeringController> (owner->parent->FindComponentByTag("steeringController"));
