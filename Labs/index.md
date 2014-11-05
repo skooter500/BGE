@@ -1,6 +1,19 @@
 Game Engines 1 Labs
 ===================
 
+Lab 7
+----
+You can use the master branch for this lab. The aim will be to make a subclass of ```GameComponent``` that implements gravity on any component it is attached to.
+- Make a subclass of ```GameComponent``` called ```GravityController```
+- Add a field of type ```glm::vec3``` called ```gravity```
+- In the constructor, initialise the ```gravity``` field
+- Write a method ```Update``` that applies gravity to the object's ```transform```. You will have to modify the ```velocity``` and ```position``` fields.
+- Write a subclass of ```Game```. 
+- Instantiate some prefabs (A ```Sphere``` and a ```Box``` for example). and attach the ```GravityComponent``` to them.
+- Modify ```GravityComponent``` to make the objects bounce off the ground.
+
+Work on your assignments!
+
 Lab 6
 -----
 In this lab we will be making quaternions!
