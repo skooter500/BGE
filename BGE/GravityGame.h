@@ -3,6 +3,8 @@
 #include "Box.h"
 #include "Sphere.h"
 #include "GravityController.h"
+#include "Game.h"
+#include "GameComponent.h"
 
 namespace BGE
 {

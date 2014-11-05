@@ -53,7 +53,7 @@ int main(int argc, char *argv[])
 	//shared_ptr<Game> game = make_shared<Buddha>();
 
 	//shared_ptr<Game> game = make_shared<Lab3>();
-	shared_ptr<Game> game = make_shared<GravityGame>();
+	shared_ptr<Game> game = make_shared<PhysicsGame1>();
 
 	game->Run();
 	

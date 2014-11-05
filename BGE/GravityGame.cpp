@@ -1,12 +1,13 @@
 #include "GravityGame.h"
 #include "GravityController.h"
-
+#include "Game.h"
+#include "GameComponent.h"
 
 using namespace BGE;
 
 GravityGame::GravityGame(void)
 {
-	
+	elapsed = 10000;
 }
 
 bool GravityGame::Initialise()
