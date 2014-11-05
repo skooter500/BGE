@@ -41,6 +41,7 @@
 #include "Utils.h"
 #include "VRGame2.h"
 #include "SDL_syswm.h"
+#include "GravityGame.h"
 
 using namespace BGE;
 
@@ -52,7 +53,7 @@ int main(int argc, char *argv[])
 	//shared_ptr<Game> game = make_shared<Buddha>();
 
 	//shared_ptr<Game> game = make_shared<Lab3>();
-	shared_ptr<Game> game = make_shared<Lab4>();
+	shared_ptr<Game> game = make_shared<GravityGame>();
 
 	game->Run();
 	

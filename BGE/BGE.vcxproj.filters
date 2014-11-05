@@ -224,6 +224,12 @@
     <ClCompile Include="Lab7.cpp">
       <Filter>Labs</Filter>
     </ClCompile>
+    <ClCompile Include="GravityController.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="GravityGame.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -402,6 +408,12 @@
     </ClInclude>
     <ClInclude Include="Lab7.h">
       <Filter>Labs</Filter>
+    </ClInclude>
+    <ClInclude Include="GravityController.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="GravityGame.h">
+      <Filter>Engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
