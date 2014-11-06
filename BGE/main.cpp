@@ -14,6 +14,7 @@
 #include "ModelTest.h"
 #include "SteeringGame.h"
 #include "SceneGraphGame.h"
+#include "AssignmentSample.h"
 #include "Lab4.h"
 #include "Lab5.h"
 #include "Lab3.h"
@@ -49,7 +50,7 @@ int main(int argc, char *argv[])
 	// http://www.youtube.com/watch?v=EEbVHxOkTxw
 	Params::Load("default");
 
-	shared_ptr<Game> game = make_shared<Lab6>();
+	shared_ptr<Game> game = make_shared<SceneGraphGame>();
 	game->Run();
 	
 	return 0;
