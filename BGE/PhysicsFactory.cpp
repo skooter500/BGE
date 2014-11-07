@@ -339,7 +339,6 @@ shared_ptr<PhysicsController> PhysicsFactory::CreateCapsule(float radius, float 
 shared_ptr<PhysicsController> PhysicsFactory::CreateCapsuleRagdoll(glm::vec3 position)
 {
 
-
 	btHingeConstraint* spine_pelvis;
 	btHingeConstraint* left_upper_leg_left_lower_leg;
 	btHingeConstraint* right_upper_leg_right_lower_leg;

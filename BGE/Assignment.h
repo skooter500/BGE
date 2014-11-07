@@ -3,6 +3,7 @@
 #include "PhysicsController.h"
 #include "PhysicsFactory.h"
 #include <btBulletDynamicsCommon.h>
+#include "Sphere.h"
 
 namespace BGE
 {
@@ -11,6 +12,7 @@ namespace BGE
 	{
 	private:
 
+
 	public:
 		Assignment(void);
 		~Assignment(void);
@@ -18,5 +20,8 @@ namespace BGE
 		void Update(float timeDelta);
 		void Cleanup();
 		void CreateWall();
+		shared_ptr<GameComponent> sphere;
+		shared_ptr<GameComponent> box;
+
 	};
 }

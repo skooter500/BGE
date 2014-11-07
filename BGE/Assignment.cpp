@@ -1,10 +1,7 @@
 #include "PhysicsGame1.h"
 #include "PhysicsController.h"
-#include "Sphere.h"
 #include "PhysicsCamera.h"
 #include "Box.h"
-#include "Cylinder.h"
-#include "Steerable3DController.h"
 #include "Ground.h"
 #include "Content.h"
 #include <btBulletDynamicsCommon.h>
@@ -30,8 +27,29 @@ bool Assignment::Initialise()
 {
 	physicsFactory->CreateGroundPhysics();
 	physicsFactory->CreateCameraPhysics();
+
 	
-	shared_ptr<PhysicsController> box1 = physicsFactory->CreateBox(1, 1, 4, glm::vec3(5, 5, 0), glm::quat());
+	float width = 20.0f, height = 10.0f, depth = 2.0f;
+	int numBlocks = 32, level = height / 2, rowSize = 5;
+
+	for (int i = 1; i < numBlocks + 1; i++)
+	{
+		if (i % (rowSize + 1) == 0)
+		{
+			level += height;
+			i = 1;
+			numBlocks -= rowSize;
+		}
+
+		physicsFactory->CreateBox(width, height, depth, glm::vec3(width*i, level, -width), glm::quat());
+	}
+
+	if (!Game::Initialise()) {
+		return false;
+	}
+
+	camera->transform->position = glm::vec3(0, 10, 20);
+
 	return true;
 }
 
@@ -43,9 +61,4 @@ void Assignment::Update(float timeDelta)
 void Assignment::Cleanup()
 {
 	Game::Cleanup();
-}
-
-void Assignment::CreateWall()
-{
-
 }

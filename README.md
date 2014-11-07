@@ -1,30 +1,15 @@
 ![Alt text](https://raw.github.com/skooter500/BGE/master/Logo/BGE_Logo_01.png)
 
-My scene graph based, C++ 3D engine that makes use of:
-* OpenGL 3 with shaders
-* GLEW
-* SDL
-* SDL_ttf
-* Bullet Physics
-* GLM
-* The Kinect SDK
-* FMOD
-* The Oculus Rift SDK
-* [Course Notes](Course/index.md)
-* [Labs](Labs/index.md)
+Name: 	Anthony Hayden
+No:		C11733511
 
-The engine supports:
+Description:
+-This assignment will produce an articulated recreation of a spider.
+-It will uses capsule and sphere rigid bodies to make up the model
+along with hinge & cone twist joint types, primarily in the legs.
+-The spider will move on it's own once spawned with it's direction
+changing randomly.
 
-* A C++ API inspired by XNA
-* A really cool component based scene graph inspired by Unity
-* Load simple 3D models, textures and sounds through a content pipeline
-* An API for drawing lines and text
-* Physically simulated rigid bodies and a factory for making them
-* Kinect Skeletal tracking
-* Output to the Oculus rift
+![](pic1.jpg)
+![](pic2.jpg)
 
-To build:
-
-* Download the dependencies from here: http://1drv.ms/1olPefQ
-* Unzip to the folder Dependencies in your project 
-* Use the included Visual Studio 2013 project files
