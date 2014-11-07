@@ -30,7 +30,7 @@ bool Assignment::Initialise()
 
 	
 	float width = 20.0f, height = 10.0f, depth = 2.0f;
-	int numBlocks = 32, level = height / 2, rowSize = 5;
+	int numBlocks = 32, level = height / 2, rowSize = 6;
 
 	for (int i = 1; i < numBlocks + 1; i++)
 	{
@@ -43,6 +43,8 @@ bool Assignment::Initialise()
 
 		physicsFactory->CreateBox(width, height, depth, glm::vec3(width*i, level, -width), glm::quat());
 	}
+
+	physicsFactory->CreateSpider(glm::vec3(0, -10, -20));
 
 	if (!Game::Initialise()) {
 		return false;

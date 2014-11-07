@@ -336,6 +336,40 @@ shared_ptr<PhysicsController> PhysicsFactory::CreateCapsule(float radius, float 
 	return component;
 }
 
+shared_ptr<PhysicsController> PhysicsFactory::CreateSpider(glm::vec3 position)
+{
+	/*
+		Spider consists of a spherical thorax and capsule abdomen. 8 legs attached to the thorax, with the following
+		rigid bodies and joint constraints
+
+		thorax (sphere) -> coxa (sphere) via cone twist constraint
+		coxa (sphere) -> upper_leg (capsule) via cone twist constraint
+		upper_leg (capsule) -> upper_mid_leg (capsule) via hinge joint constraint
+		upper_mid_leg (capsule) -> lower_mid_leg (capsule) via hinge joint constraint
+		lower_mid_leg (capsule) -> lower_leg (capsule) via hinge joint constraint
+		lower_leg (capsule) -> foot (capsule) via hinge joint constraint
+		
+		hinge joint from thorax to Abdomen to allow slight movement of abdomen from 
+		left to right (when viewed top down)
+	*/
+
+	shared_ptr<PhysicsController> body_part_abdomen = CreateCapsule(1.8, 2, glm::vec3(position.x, position.y, position.z + 20), glm::quat());
+	shared_ptr<PhysicsController> body_part_thorax = CreateSphere (2.0, glm::vec3(position.x, position.y + 20, position.z), glm::quat());
+
+	btHingeConstraint* abdomen_thorax;
+
+	btTransform localA, localB;
+
+	localA.setIdentity(); localB.setIdentity();
+	localA.getBasis().setEulerZYX(0, glm::half_pi<float>(), 0); localA.setOrigin(btVector3(btScalar(0.), btScalar(2.7), btScalar(0.)));
+	localB.getBasis().setEulerZYX(0, glm::half_pi<float>(), 0); localB.setOrigin(btVector3(btScalar(0.), btScalar(-2.7), btScalar(0.)));
+	abdomen_thorax = new btHingeConstraint(*body_part_abdomen->rigidBody, *body_part_thorax->rigidBody, localA, localB);
+	abdomen_thorax->setLimit(btScalar(-glm::quarter_pi<float>()), btScalar(glm::quarter_pi<float>()));
+	dynamicsWorld->addConstraint(abdomen_thorax);
+
+	return body_part_thorax;
+}
+
 shared_ptr<PhysicsController> PhysicsFactory::CreateCapsuleRagdoll(glm::vec3 position)
 {
 
@@ -439,3 +473,4 @@ shared_ptr<PhysicsController> PhysicsFactory::CreateCapsuleRagdoll(glm::vec3 pos
 
 	return bodypart_spine;
 }
+
