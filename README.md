@@ -1,31 +1,27 @@
-![Alt text](https://raw.github.com/skooter500/BGE/master/Logo/BGE_Logo_01.png)
+Name: Andrew Cox
+Student No.: C11401898
 
-My scene graph based, C++ 3D engine that makes use of:
-* OpenGL 3 with shaders
-* GLEW
-* SDL
-* SDL_ttf
-* Bullet Physics
-* GLM
-* The Kinect SDK
-* FMOD
-* The Oculus Rift SDK
-* [Course Notes](Course/index.md)
-* [Labs](Labs/index.md)
+Description:
+I shall be trying to make an octopus that is 
+fully functional at moving through use of it's mandibles.
 
-The engine supports:
+Power Source:
+Rotor motors will power the mandibles at certain sections
+through out each mandible to move the whole octopus.
 
-* A C++ API inspired by XNA
-* A really cool component based scene graph inspired by Unity
-* Load simple 3D models, textures and sounds through a content pipeline
-* An API for drawing lines and text
-* Physically simulated rigid bodies and a factory for making them
-* Kinect Skeletal tracking
-* Output to the Oculus rift
+Hinges:
+Ball & Socket
+Slider Joints
 
-To build:
+Rigid Bodys:
+Capsule-For Mandible, For Body
+Cylinder-For Mandible
+Sphere-For Head
 
-* Download the dependencies from here: http://1drv.ms/1olPefQ
-* Unzip to the folder Dependencies in your project 
-* Use the included Visual Studio 2013 project files
+References:
 
+http://www.teara.govt.nz/en/video/7906/octopus-movement
+
+https://www.youtube.com/watch?v=LF-tOQhEUz4
+
+https://www.youtube.com/watch?v=os6HD-sCRn8
