@@ -227,6 +227,12 @@
     <ClCompile Include="EmptyGame.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
+    <ClCompile Include="GravityGame.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="GravityController.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -407,6 +413,8 @@
       <Filter>Labs</Filter>
     </ClInclude>
     <ClInclude Include="EmptyGame.h" />
+    <ClInclude Include="GravityGame.h" />
+    <ClInclude Include="GravityController.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\CubeShader.fragmentshader">
