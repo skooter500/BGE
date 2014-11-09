@@ -3,12 +3,15 @@
 #include "VectorDrawer.h"
 #include "LazerBeam.h"
 #include "FountainEffect.h"
+#include "Utils.h"
+
 
 using namespace BGE;
 
 Lab6::Lab6(void)
 {
 	elapsed = 10000;
+	turnRate = glm::half_pi<float>(); // Turn half_pi radians per second
 }
 
 
@@ -21,13 +24,13 @@ bool Lab6::Initialise()
 	std::shared_ptr<GameComponent> ground = make_shared<Ground>();
 	Attach(ground);	
 
-	ship1 = make_shared<GameComponent>();
+	ship1 = make_shared<GameComponent>(true);
 	ship1->Attach(Content::LoadModel("cobramk3", glm::rotate(glm::mat4(1), 180.0f, glm::vec3(0,1,0))));
 	ship1->transform->position = glm::vec3(-10, 2, -10);
 	ship1->Attach(make_shared<VectorDrawer>());
 	Attach(ship1);
 
-	ship2 = make_shared<GameComponent>();
+	ship2 = make_shared<GameComponent>(true);
 	ship2->Attach(Content::LoadModel("ferdelance", glm::rotate(glm::mat4(1), 180.0f, glm::vec3(0,1,0))));
 	ship2->Attach(make_shared<VectorDrawer>());
 	ship2->transform->diffuse= glm::vec3(1.0f,0.0f,0.0f);
@@ -45,34 +48,34 @@ bool Lab6::Initialise()
 	return true;
 }
 
-void Lab6::Update(float timeDelta)
+void Lab6::Update()
 {	
 	// Movement of ship2
 	if (keyState[SDL_SCANCODE_UP])
 	{
-		ship2->transform->Walk(speed * timeDelta);
+		ship2->transform->Walk(speed * Time::deltaTime);
 	}
 	if (keyState[SDL_SCANCODE_DOWN])
 	{
-		ship2->transform->Walk(-speed * timeDelta);
+		ship2->transform->Walk(-speed * Time::deltaTime);
 	}
 	if (keyState[SDL_SCANCODE_LEFT])
 	{
-		ship2->transform->Yaw(timeDelta * speed * speed);
+		ship2->transform->Yaw(Time::deltaTime * speed * speed);
 	}
 	if (keyState[SDL_SCANCODE_RIGHT])
 	{
-		ship2->transform->Yaw(-timeDelta * speed * speed);
+		ship2->transform->Yaw(-Time::deltaTime * speed * speed);
 	}
 
 	if (keyState[SDL_SCANCODE_O])
 	{
-		ship2->transform->Fly(timeDelta * speed);
+		ship2->transform->Fly(Time::deltaTime * speed);
 	}
 
 	if (keyState[SDL_SCANCODE_L])
 	{
-		ship2->transform->Fly(-timeDelta * speed);
+		ship2->transform->Fly(-Time::deltaTime * speed);
 	}
 
 	if (keyState[SDL_SCANCODE_SPACE] && ! slerping)
@@ -86,12 +89,16 @@ void Lab6::Update(float timeDelta)
 		axis = glm::normalize(axis);
 		float theta = glm::acos(glm::dot(toShip2, Transform::basisLook));
 		toQuaternion = glm::angleAxis(glm::degrees(theta), axis);
+
+		// Calculate the angle of rotation
+		toRotate = glm::acos(glm::dot(toShip2, ship1->transform->look));
 	}
 
 	if (slerping)
 	{
 		ship1->transform->orientation = glm::mix(fromQuaternion, toQuaternion, t);
-		t += timeDelta;
+		float time = toRotate / turnRate;
+		t += 1.0f * (Time::deltaTime / time);
 		if (t > 1.0f)
 		{
 			t = 0.0f;
@@ -111,6 +118,6 @@ void Lab6::Update(float timeDelta)
 	ship1->orientation = glm::angleAxis(glm::degrees(theta), axis);
 	*/
 	// End code for ship 1	
-	Game::Update(timeDelta);
+	Game::Update();
 
 }

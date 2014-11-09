@@ -33,6 +33,8 @@ bool PhysicsGame1::Initialise()
 	physicsFactory->CreateGroundPhysics();
 	physicsFactory->CreateCameraPhysics();	
 
+	setGravity(glm::vec3(0, -9, 0));
+
 	shared_ptr<PhysicsController> box1 = physicsFactory->CreateBox(1,1,4, glm::vec3(5, 5, 0), glm::quat()); 
 	shared_ptr<PhysicsController> box2 = physicsFactory->CreateBox(1,1,4, glm::vec3(5, 5, 5), glm::quat()); 
 
@@ -44,6 +46,9 @@ bool PhysicsGame1::Initialise()
 	box1 = physicsFactory->CreateBox(6,1,2, glm::vec3(15, 5, 0), glm::quat());
 	cyl = physicsFactory->CreateCylinder(2, 1, glm::vec3(15, 5, -5), glm::angleAxis(90.0f, glm::vec3(1,0,0)));
 	hinge = new btHingeConstraint(*box1->rigidBody, *cyl->rigidBody, btVector3(0,0,-2),btVector3(0,2,0), btVector3(0,0,1), btVector3(0,1,0), true);
+
+	// Enable a motor on the hinge joint
+	hinge->enableAngularMotor(true, 10, 10);
 	dynamicsWorld->addConstraint(hinge);
 
 	// A Ball and socket
@@ -68,20 +73,31 @@ bool PhysicsGame1::Initialise()
 	btSliderConstraint * slider = new btSliderConstraint(*box1->rigidBody, *box2->rigidBody, box1Transform, box2Transform, true);
 	dynamicsWorld->addConstraint(slider);
 
+
+	// A ragdoll
+	physicsFactory->CreateCapsuleRagdoll(glm::vec3(-5, 5, 10));
+
+	// A model
+	physicsFactory->CreateFromModel("monkey", glm::vec3(-10, 5, 0) , glm::quat(), glm::vec3(5, 5, 5));
+
+	//// Create a physics car
+	physicsFactory->CreateVehicle(glm::vec3(5, 5, 10));
+
+
 	if (!Game::Initialise()) {
 		return false;
 	}
 
-	camera->transform->position = glm::vec3(0,10, 20);
+
 	
 	return true;
 }
 
-void BGE::PhysicsGame1::Update(float timeDelta)
+void BGE::PhysicsGame1::Update()
 {
 	cyl->rigidBody->applyTorque(GLToBtVector(glm::vec3(0.0f,0.0f,1.0f)));
 
-	Game::Update(timeDelta);
+	Game::Update();
 }
 
 void BGE::PhysicsGame1::Cleanup()

@@ -12,7 +12,7 @@ using namespace std;
 
 Camera::Camera(void):GameComponent(true)
 {
-	projection = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 1000000.0f);		
+	projection = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 1000000.0f);
 }
 
 Camera::~Camera(void)
@@ -36,9 +36,9 @@ void Camera::Draw()
 	//GameComponent::Draw();
 }
 
-void Camera::Update(float timeDelta) {
+void Camera::Update() {
 	// Update my children first
-	GameComponent::Update(timeDelta);
+	GameComponent::Update();
 	view = glm::lookAt(
 		transform->position
 		, transform->position + transform->look

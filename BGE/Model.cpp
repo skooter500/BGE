@@ -124,7 +124,7 @@ void Model::CalculateBounds()
 	}
 }
 
-void Model::Update(float timeDelta)
+void Model::Update()
 {
 	// Models should never be disabled, just returned to the model cache
 	alive = true;

@@ -13,7 +13,7 @@ Scenario::Scenario(void)
 }
 
 
-void Scenario::Update(float timeDelta)
+void Scenario::Update()
 {
 	if (SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_LEFT))
 	{

@@ -20,7 +20,7 @@ SteeringController::SteeringController(void)
 	force = glm::vec3(0);
 	acceleration = glm::vec3(0);
 	mass = 1.0f;
-	timeDelta = 0.0f;
+	Time::deltaTime = 0.0f;
 	calculationMethod = CalculationMethods::WeightedTruncatedRunningSumWithPrioritisation;
 	maxSpeed = Params::GetFloat("max_speed");
 	maxForce = Params::GetFloat("max_force");
@@ -46,10 +46,9 @@ SteeringController::~SteeringController(void)
 {
 }
 
-void SteeringController::Update(float timeDelta)
+void SteeringController::Update()
 {
 	float smoothRate;
-	this->timeDelta = timeDelta;
 
 	if (!SteeringController::counted)
 	{
@@ -63,13 +62,13 @@ void SteeringController::Update(float timeDelta)
 	CheckNaN(force);
 	glm::vec3 newAcceleration = force / mass;
 
-	if (timeDelta > 0)
+	if (Time::deltaTime > 0)
 	{
-		smoothRate = Clip(9 * timeDelta, 0.15f, 0.4f) / 2.0f;
+		smoothRate = Clip(9 * Time::deltaTime, 0.15f, 0.4f) / 2.0f;
 		BlendIntoAccumulator(smoothRate, newAcceleration, acceleration);
 	}
 
-	transform->velocity += acceleration * timeDelta;
+	transform->velocity += acceleration * Time::deltaTime;
 	float speed = glm::length(transform->velocity);
 	if (speed > maxSpeed)
 	{
@@ -77,7 +76,7 @@ void SteeringController::Update(float timeDelta)
 		transform->velocity = glm::normalize(transform->velocity);
 		transform->velocity *= maxSpeed;
 	}
-	transform->position += transform->velocity * timeDelta;
+	transform->position += transform->velocity * Time::deltaTime;
 
 	// the length of this global-upward-pointing vector controls the vehicle's
 	// tendency to right itself as it is rolled over from turning acceleration
@@ -88,7 +87,7 @@ void SteeringController::Update(float timeDelta)
 	// combined banking, sum of transform->up due to turning and global transform->up
 	glm::vec3 bankUp = accelUp + globalUp;
 	// blend bankUp into vehicle's transform->up basis vector
-	smoothRate = timeDelta * 3;
+	smoothRate = Time::deltaTime * 3;
 	glm::vec3 tempUp = transform->up;
 	BlendIntoAccumulator(smoothRate, bankUp, tempUp);
 	transform->up = tempUp;
@@ -130,7 +129,7 @@ void SteeringController::Update(float timeDelta)
 		transform->orientation = glm::angleAxis(glm::degrees(angle), axis);
 	}
 
-	GameComponent::Update(timeDelta);
+	GameComponent::Update();
 }
 
 int SteeringController::TagNeighboursSimple(float inRange)
@@ -436,7 +435,7 @@ glm::vec3 SteeringController::Seek(glm::vec3 targetPos)
 
 glm::vec3 SteeringController::Wander()
 {
-	float jitterTimeSlice = Params::GetFloat("wander_jitter") * timeDelta;
+	float jitterTimeSlice = Params::GetFloat("wander_jitter") * Time::deltaTime;
 
 	glm::vec3 toAdd = RandomInsideUnitSphere() * jitterTimeSlice;
 	wanderTarget += toAdd;

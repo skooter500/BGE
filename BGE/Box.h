@@ -11,6 +11,6 @@ namespace BGE
 		Box();
 		~Box(void);
 		bool Initialise();
-		void Update(float timeDelta);
+		void Update();
 	};
 }

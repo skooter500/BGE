@@ -17,7 +17,7 @@ namespace BGE
 		~SteeringGame(void);
 
 		bool Initialise();
-		void Update(float timeDelta);
+		void Update();
 		void Reset();
 
 		shared_ptr<GameComponent> camFollower;

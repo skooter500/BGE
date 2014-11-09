@@ -10,7 +10,7 @@ namespace BGE
 		LazerBeam(void);
 		~LazerBeam(void);
 		void Draw();
-		void Update(float timeDelta);
+		void Update();
 	};
 }
 

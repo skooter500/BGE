@@ -76,7 +76,7 @@ namespace BGE
 		
 		bool PreInitialise();
 		bool Initialise();
-		void Update(float timeDelta);
+		void Update();
 		void PreDraw();
 		void Draw();
 		void PostDraw();
@@ -94,6 +94,7 @@ namespace BGE
 		void PrintFloat(string message, float f);
 		void PrintQuat(string message, glm::quat q);
 		void PrintAll();
+		void setGravity(glm::vec3 gravity);
 
 		static shared_ptr<Game> Instance();
 		shared_ptr<Camera> camera;

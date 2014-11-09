@@ -6,6 +6,9 @@
 #include <memory>
 #include <iostream> 
 
+
+
+
 namespace BGE
 {
 	class Transform
@@ -41,10 +44,14 @@ namespace BGE
 		void Pitch(float angle, bool limitRotation = true); // rotate on right vector
 		void Yaw(float angle);   // rotate on up vector
 		void Roll(float angle);  // rotate on look vector
+		void Jump(float height, float duration);
 
 		void RecalculateVectors();
 		void RotateVectors();
 		void Calculate();
+
+		
+
 
 		glm::quat TransformOrientation(glm::quat in);
 		glm::quat InverseTransformOrientation(glm::quat in);

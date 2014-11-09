@@ -32,9 +32,6 @@ bool SceneGraphGame::Initialise()
 {	
 	dynamicsWorld->setGravity(btVector3(0,-9,0));
 	
-	camera->transform->position = glm::vec3(-10,20,20);
-	camera->transform->look = glm::vec3(0, 0, 1); 
-
 	physicsFactory->CreateCameraPhysics();
 	physicsFactory->CreateGroundPhysics();
 
@@ -43,17 +40,17 @@ bool SceneGraphGame::Initialise()
 	return Game::Initialise();
 }
 
-void SceneGraphGame::Update(float timeDelta)
+void SceneGraphGame::Update()
 {
 	if (selfExample != nullptr)
 	{
-		selfExample->transform->Yaw(timeDelta * speed * speed);
+		selfExample->transform->Yaw(Time::deltaTime * speed * speed);
 	}
 	if (station != nullptr)
 	{
-		station->transform->Yaw(timeDelta * speed * speed);
+		station->transform->Yaw(Time::deltaTime * speed * speed);
 	}
-	Game::Update(timeDelta);
+	Game::Update();
 }
 
 void SceneGraphGame::CreateScene()
@@ -70,6 +67,8 @@ void SceneGraphGame::CreateScene()
 	selfExample->Attach(make_shared<VectorDrawer>(glm::vec3(5, 5, 5)));
 	selfExample->transform->position = NextPosition(current++, componentCount);
 	Attach(selfExample);	
+
+
 	station = make_shared<GameComponent>(true);
 	station->transform->ambient = glm::vec3(0.2f, 0.2, 0.2f);
 	station->transform->specular = glm::vec3(1.2f, 1.2f, 1.2f);

@@ -160,7 +160,7 @@ void VRGame2::GravityGun(PhysicsController * & pickedUp, KinectHand * hand)
 }
 
 
-void VRGame2::Update(float timeDelta)
+void VRGame2::Update()
 {
 	//if (Game::Instance()->frame == 100)
 	//{
@@ -187,7 +187,7 @@ void VRGame2::Update(float timeDelta)
 	float moveSpeed = speed;
 	float timeToPass = 1.0f / fireRate;
 
-	elapsed += timeDelta;
+	elapsed += Time::deltaTime;
 
 	PrintText("Press R to reset scene");
 	static bool lastPressed = false;
@@ -210,7 +210,7 @@ void VRGame2::Update(float timeDelta)
 		//GravityGun(rightHandPickedUp, & person->hands[1]);
 	}
 
-	Game::Update(timeDelta);
+	Game::Update();
 }
 
 void VRGame2::Cleanup()

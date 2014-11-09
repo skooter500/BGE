@@ -1,6 +1,177 @@
 Game Engines 1 Labs
 ===================
 
+Lab 7
+----
+You can use the master branch for this lab. The aim will be to make a subclass of ```GameComponent``` that implements gravity on any component it is attached to.
+- Make a subclass of ```GameComponent``` called ```GravityController```
+- Add a field of type ```glm::vec3``` called ```gravity```
+- In the constructor, initialise the ```gravity``` field
+- Write a method ```Update``` that applies gravity to the object's ```transform```. You will have to modify the ```velocity``` and ```position``` fields.
+- Write a subclass of ```Game```. 
+- Instantiate some prefabs (A ```Sphere``` and a ```Box``` for example). and attach the ```GravityComponent``` to them.
+- Modify ```GravityComponent``` to make the objects bounce off the ground.
+
+Work on your assignments!
+
+Lab 6
+-----
+In this lab we will be making quaternions!
+
+Clone/pull etc the Lab6 branch with the starter code for todays lab
+
+When you build and run the project, you will see the the Cobra Mk III  and the Ferdelance. You can control the movement of the Ferdelance using the arrow keys. You can also get the Ferdelance to go up and down using the O and L keys. To complete this lab you will need to make use of the following API calls:
+
+```C++
+glm::dot
+glm::cross
+glm::normalise
+glm::acos
+glm::degrees
+glm::axisAngle // Make a quaternion. Dont forget the angle parameter is in degrees!
+glm::mix // This slerps between two quaternions
+```
+### Part 1
+
+Generate a quaternion for the Cobra Mk III so that it always faces the Ferdelance.
+
+### Part 2
+
+Modify your code so that when you press the space key, the Cobra Mk III gradually turns to face the Ferdelance. Use the ```glm::mix``` function to achieve this. ```glm::mix``` slerps between two quaternions depending on the value of the *t* parameter. If *t* is 0, the first quaternion is returned. If *t* is 1 the second quaternion is returned. If *t* = 0.5f then a quaternion half way between the first and second quaternions is returned and so on. This is what it should look like:
+
+[![Video](http://img.youtube.com/vi/lkD9tAo9T7s/0.jpg)](http://www.youtube.com/watch?v=lkD9tAo9T7s)
+
+You can use the ```startQuaternion```, ```endQuaternion``` and slerping member variables to help achieve this. Just add the ```timeDelta``` to *t* for now.
+
+### Part 3
+Have the speed of rotation controlled by the ```turnRate``` field. This field is given in radians per second. To complete this you will have to:
+
+- Calculte the angle that the Cobra Mark III needs to rotate. Use ```glm::acos``` and ```glm::dot```
+- Calculate the time required to do this (angle / turnRate)
+- Calculate what you need to add to t based on the time required and the time delta.
+
+Lab 5
+-----
+In this lab you will be adding functionality to the Transform class and to allow jumping. This is different to the FPS behaviours we programmed on Friday in that the behaviour needs to be triggered on a key press, but happen for multiple frames. 
+
+Consider using half a period of a sine wave function to control the height of the jump. The sine function is parameterised by theta and amplitude, where theta goes between 0 and 2 pi. A sine wave function will give numbers between -1 and +1, but you can multiply by amplitude to scale the sine wave. The figure below shows one period of a sine wave:
+
+![](p13.png)
+
+And here is some Processing code I used to to plot the sine wave above that you might find helpful:
+
+~~~Java
+void setup()
+{
+  size(500,500);
+  sampleRate = width;
+  amplitude = height / 2.0f;
+  lasty = (float) height / 2.0f;
+  lastx = 0.0f;
+ 
+}
+
+float frequency = 1.0f;
+float sampleRate;
+float theta = 0.0f;
+float amplitude = 1.0f;
+float pi = 3.14159285f;
+float lastx, lasty;
+
+void draw()
+{
+    float inc = (2.0f * pi * frequency) / sampleRate;
+    lasty = (float) height / 2.0f;
+    lastx = 0.0f;
+    for (int x = 0 ; x < width ; x ++)
+    {
+      float y = (sin(theta) * amplitude) + (height / 2);
+      theta += inc;
+      line(lastx, lasty, x, y);
+      lastx = x;
+      lasty = y;      
+    }
+    theta = 0.0f;    
+}
+~~~
+
+Alternatively, the jump height could be controlled with velocity and gravity and you will get the same result. Here are some equations you might find useful:
+
+```
+velocity += gravity * timeDelta;
+position += velocity * timeDelta;
+```
+
+What to do:
+- Clone/pull the master branch of BGE
+- Create a member function called ```Transform::Jump(float height)```
+- You will need to add additional variables to the ```Transform``` class to manage the jump.
+- Jumping will need access to timeDelta. You can use ```Time::deltaTime``` to get the timeDelta now.
+- Write code in the class FPSController to trigger the jump on the J key press.
+- If you get this working, try and implement crouching and leaning
+- If you make anything useful and nice, please do a pull request
+
+Lab 4
+-----
+
+This lab has three parts. In the first part you will be programming the world transform matrix for the Cobra Mark 3 ship in this video so that it always points towards the Ferdelance (controllable using the arrow keys). A world transform matrix is a matrix that is generated from an object's position and orientation that is used to draw the object. In Part 2 & Part 3, you will be programming the fountain effect. Here is what the final version should look like:
+
+[![Video](http://img.youtube.com/vi/V5WQ0W0I454/0.jpg)](http://www.youtube.com/watch?v=V5WQ0W0I454)
+
+More about world transform matrices in Friday's class, or watch this video from last year (not now!)
+
+[![Video](http://img.youtube.com/vi/z8NjXaW64sQ/0.jpg)](http://www.youtube.com/watch?v=z8NjXaW64sQ)
+
+### Part 1
+Firstly checkout the Lab4 branch of the repo from your own clone:
+
+```Bash
+git fetch
+git checkout -b Lab4 origin/Lab4
+```
+
+If you have a fork of BGE, use the following:
+```Bash
+git checkout -b Lab4 upstream/Lab4
+```
+Compile and run the program and you should get this:
+
+![](p11.png)
+
+Open up the file Lab4.cpp and look at the ```Update``` member function. Calling ```Game::Update()``` will call the ```Update``` member of any attached ```GameComponent```s, including ```ship1``` and ```ship2```. In the ```Update``` method, the component's world transform matrix will be calculated from it's position and quaternion (used to store orientations - we will talk about this on Friday). You can *overwrite* this by placing code *after* the base class ```Update``` call. Have a look at the end of the ```Update``` member to see that that is what is being done in this lab. The world member of ```ship1``` is just being calculated from it's position. To complete Part 1, you have to:
+
+- Use the inv cos and vector dot product to calculate the rotation angle theta
+- Check to see if you need the interior or exterior angle and adjust theta appropriately
+- Create a rotation matrix
+- Multiply it into the world transform of ```ship1``` *in the correct order*. 
+
+If you are successful,  the Cobra Mark 3 ship should point at the ferdelance
+
+Do not not ATTEMPT to solve this before:
+
+- Drawing some diagrams
+- Working out the maths/algorithm on pen and paper first.
+
+Some API's you might need:
+
+```C++
+// These functions return a glm::mat4
+glm::translate(glm::mat4(1), pos);
+glm::rotate(glm::mat4(1), angleInDegrees, axis);
+glm::dot(v1, v2); // Returns a float
+glm::cos(thetaInRadians);
+glm::acos(value);
+glm::normalize(v);
+// To get pi, use:
+glm::pi<float>();
+```
+### Part 2
+
+Look at the ```Initialise``` member function to see how to create a fountain effect. Add code to create a circle of fountain effects. The instructions are included in the comments of the for loop. See how I create the middle effect. As you are creating them (at the correct positions) add them to the std::vector fountains as well as attaching them to the Game, so we can get access to them later.  Consider how to calculate points on the unit circle as your clue to solve this. Make every second particle effect red and every other one green.
+
+### Part 3
+Modify the ```Update``` member function in the appropriate place to update the Y value position of the effects so that they rise and fall like in the video. You can use the ```glm::sin``` function for this.
+
 Lab 3
 -----
 In this lab you will get the opportunity to use some vector maths to solve some problems in games. Be sure you know how to:
@@ -9,7 +180,7 @@ In this lab you will get the opportunity to use some vector maths to solve some 
 - Calculate the distance between two vectors using ```glm::length```
 - Use the vector dot product (```glm::dot```) and inverse cos (```glm::acos```)
 
-If you need some revision on this, be sure to read the [game maths lecture notes](../Course) again.
+If you need some revision on this, be sure to read the [game maths lecture notes](../Course) again. Also here is [a great series of articles that explains vectors and matrices](http://blog.wolfire.com/2009/07/linear-algebra-for-game-developers-part-1/).
  
 Firstly, navigate to where you have cloned the repo and checkout the branch for the lab:
 

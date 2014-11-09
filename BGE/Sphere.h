@@ -10,7 +10,7 @@ namespace BGE
 	public:
 		Sphere(float radius);
 		~Sphere(void);
-		void Update(float timeDelta);
+		void Update();
 		bool Initialise();
 	};
 }

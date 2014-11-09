@@ -31,7 +31,7 @@ namespace BGE
 		SceneGraphGame(void);
 		~SceneGraphGame(void);
 		bool Initialise();
-		void Update(float timeDelta);
+		void Update();
 		void CreateScene();
 	};
 }

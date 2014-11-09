@@ -17,7 +17,7 @@ namespace BGE
 		shared_ptr<GameComponent> ship1;
 		float elapsed;
 		bool Initialise();
-		void Update(float timeDelta);
+		void Update();
 
 		glm::vec3 force;
 		float mass;

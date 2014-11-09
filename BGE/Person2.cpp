@@ -314,7 +314,7 @@ void BGE::Person2::UpdateHead(int body, const Joint* pJoints, JointType joint0)
 	}
 }
 
-void Person2::Update(float timeDelta)
+void Person2::Update()
 {
 	IBodyFrame* pBodyFrame = NULL;
 
@@ -389,7 +389,7 @@ void Person2::Update(float timeDelta)
 		ProcessSpeech();
 	}
 
-	GameComponent::Update(timeDelta);
+	GameComponent::Update();
 }
 
 glm::vec3 Person2::Scale(glm::vec3 point)

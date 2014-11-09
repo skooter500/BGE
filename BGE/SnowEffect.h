@@ -12,7 +12,7 @@ namespace BGE
 
 		bool Initialise();
 		void InitParticle(Particle & particle);
-		void UpdateParticle(float timeDelta, Particle & particle);
+		void UpdateParticle(Particle & particle);
 	};
 }
 

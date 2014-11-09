@@ -3,6 +3,7 @@
 #include "VectorDrawer.h"
 #include "LazerBeam.h"
 #include "FountainEffect.h"
+#include "Utils.h"
 
 using namespace BGE;
 
@@ -38,7 +39,7 @@ bool Lab7::Initialise()
 	return true;
 }
 
-void Lab7::Update(float timeDelta)
+void Lab7::Update()
 {	
 	// Forces on ship1
 	float newtons = 10.0f;
@@ -62,8 +63,8 @@ void Lab7::Update(float timeDelta)
 
 	// Now calculate the acceleration, new velocity and new transform->position
 	glm::vec3 accel = force / mass;
-	ship1->transform->velocity += accel * timeDelta;
-	ship1->transform->position += ship1->transform->velocity * timeDelta;
+	ship1->transform->velocity += accel * Time::deltaTime;
+	ship1->transform->position += ship1->transform->velocity * Time::deltaTime;
 	// Check if the velocity length is > epsilon and if so create the look vector from the velocity
 	if (glm::length(ship1->transform->velocity) > epsilon)
 	{
@@ -82,6 +83,6 @@ void Lab7::Update(float timeDelta)
 	ship1->transform->velocity *= 0.99f;
 	// Reset the force accumulator
 	force = glm::vec3(0,0,0);
-	Game::Update(timeDelta);
+	Game::Update();
 
 }

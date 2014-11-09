@@ -32,14 +32,72 @@ void PhysicsCamera::setWorldTransform(const btTransform &worldTrans)
 	// Should never get called, because this body is kinematic??
 }
 
-void PhysicsCamera::Update(float timeDelta)
+void PhysicsCamera::GravityGun(RayGeom ray, bool isPhys)
+{
+	string what = "Nothing";
+	shared_ptr<Game> game = Game::Instance();
+	float dist = 1000.0f;
+	static float holdDist;
+	if (pickedUp == nullptr)
+	{
+		btVector3 rayFrom = GLToBtVector(ray.pos); // Has to be some distance in front of the camera otherwise it will collide with the camera all the time
+		btVector3 rayTo = GLToBtVector(ray.pos + (ray.look * dist));
+
+		btCollisionWorld::ClosestRayResultCallback rayCallback(rayFrom, rayTo);
+		physicsFactory->dynamicsWorld->rayTest(rayFrom, rayTo, rayCallback);
+
+		if (rayCallback.hasHit())
+		{
+			pickedUp = reinterpret_cast<PhysicsController*>(rayCallback.m_collisionObject->getUserPointer());
+			if (pickedUp->parent == game->GetGround())
+			{
+				pickedUp = nullptr;
+			}
+			else
+			{
+				if (isPhys)
+				{
+					holdDist = glm::length(pickedUp->transform->position - ray.pos);
+				}
+				else
+				{
+					holdDist = 6;
+				}
+			}
+		}		
+	}
+	if (pickedUp != nullptr)
+	{
+		float powerfactor = 4.0f; // Higher values causes the targets moving faster to the holding point.
+		float maxVel = 3.0f;      // Lower values prevent objects flying through walls.
+		
+		// Calculate the hold point in front of the camera
+		glm::vec3 holdPos = transform->position + (transform->look * holdDist);
+
+		glm::vec3 v = holdPos - pickedUp->transform->position; // direction to move the Target
+		v *= powerfactor; // powerfactor of the GravityGun
+
+		if (v.length() > maxVel)
+		{
+			// if the correction-velocity is bigger than maximum
+			v = glm::normalize(v);
+			v *= maxVel; // just set correction-velocity to the maximum
+		}
+		pickedUp->rigidBody->setLinearVelocity(GLToBtVector(v));
+		pickedUp->rigidBody->activate();
+		what = pickedUp->tag;
+	}	
+	stringstream ss;
+	ss << "Picked up: " << what;
+	game->PrintText(ss.str());
+}
+
+void PhysicsCamera::Update()
 {
 	// Override the one in the base class, we do not want to update our world transform from the physics object
 	// WHich is what the one in the base class does...
 
 	const Uint8 * keyState = Game::Instance()->GetKeyState();
-	shared_ptr<Game> game = Game::Instance();
-
 	float moveSpeed = speed;
 	float timeToPass = 1.0f / fireRate;
 	if ((keyState[SDL_SCANCODE_SPACE]) && (elapsed > timeToPass))
@@ -55,59 +113,23 @@ void PhysicsCamera::Update(float timeDelta)
 	}
 	else
 	{
-		elapsed += timeDelta;
+		elapsed += Time::deltaTime;
 	}
-	string what = "Nothing";
 	// Handle the gravity gun
-	if (SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_LEFT))
+	bool leftClick = SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_LEFT);
+	bool rightClick = SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(SDL_BUTTON_RIGHT);
+
+	if (leftClick || rightClick)
 	{
-		float dist = 1000.0f;
-		if (pickedUp == NULL)
-		{		
-			btVector3 rayFrom = GLToBtVector(transform->position + (transform->look * 4.0f)); // Has to be some distance in front of the camera otherwise it will collide with the camera all the time
-			btVector3 rayTo = GLToBtVector(transform->position + (transform->look * dist));
+		RayGeom ray;
+		ray.pos = transform->position + (transform->look * 4.0f);
+		ray.look = transform->look;
 
-			btCollisionWorld::ClosestRayResultCallback rayCallback(rayFrom, rayTo);
-			physicsFactory->dynamicsWorld->rayTest(rayFrom, rayTo, rayCallback);
-			
-			if (rayCallback.hasHit())
-			{
-				pickedUp = reinterpret_cast<PhysicsController*>(rayCallback.m_collisionObject->getUserPointer());
-				if (pickedUp->parent == game->GetGround())
-				{
-					pickedUp = NULL;
-				}
-			}
-		}
-		if (pickedUp != NULL)
-		{
-			float powerfactor = 4.0f; // Higher values causes the targets moving faster to the holding point.
-            float maxVel = 3.0f;      // Lower values prevent objects flying through walls.
-			float holdDist = 6.0f;
-
-            // Calculate the hold point in front of the camera
-			glm::vec3 holdPos = transform->position + (transform->look * holdDist);
-
-            glm::vec3 v = holdPos - pickedUp->transform->position; // direction to move the Target
-            v *= powerfactor; // powerfactor of the GravityGun
-
-            if (v.length() > maxVel)
-            {
-                // if the correction-velocity is bigger than maximum
-				v = glm::normalize(v);
-                v *= maxVel; // just set correction-velocity to the maximum
-            }
-			pickedUp->rigidBody->setLinearVelocity(GLToBtVector(v));    
-			pickedUp->rigidBody->activate();		
-			what = pickedUp->tag;	
-		}
+		GravityGun(ray, rightClick);
 	}
 	else
-	{    
-		pickedUp = NULL;
+	{
+		pickedUp = nullptr;
 	}
-	stringstream ss;
-	ss << "Picked up: " << what;
-	game->PrintText(ss.str());
 }
 

@@ -6,7 +6,7 @@ namespace BGE {
 	public:
 		Camera(void);
 		~Camera(void);
-		void Update(float timeDelta);
+		void Update();
 		void Draw();
 		bool Initialise();
 		

@@ -40,7 +40,7 @@ void IdleState::Exit()
 	fighter->route->waypoints.clear();
 }
 
-void IdleState::Update(float timeDelta)
+void IdleState::Update()
 {
 	float range = 30.0f;           
 	shared_ptr<SteeringController> fighter = dynamic_pointer_cast<SteeringController> (owner->parent->FindComponentByTag("steeringController"));
