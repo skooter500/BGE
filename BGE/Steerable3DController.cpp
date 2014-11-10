@@ -138,7 +138,7 @@ void Steerable3DController::Update()
 
 	if (glm::length(angularVelocity) > 0.0001f)
 	{
-		//angularVelocity *= 0.9f;
+		angularVelocity *= 0.9f;
 	}
 
 
