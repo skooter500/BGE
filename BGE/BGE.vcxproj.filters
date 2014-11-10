@@ -42,6 +42,9 @@
     <Filter Include="Prefabs">
       <UniqueIdentifier>{697651d2-0cd7-45c2-b4a6-56fe6f15526c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Kinect1">
+      <UniqueIdentifier>{a87354c5-e358-43d6-9181-2d883053f9db}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -227,6 +230,12 @@
     <ClCompile Include="EmptyGame.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
+    <ClCompile Include="VRGame1.cpp">
+      <Filter>Games</Filter>
+    </ClCompile>
+    <ClCompile Include="Person.cpp">
+      <Filter>Kinect1</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -407,6 +416,12 @@
       <Filter>Labs</Filter>
     </ClInclude>
     <ClInclude Include="EmptyGame.h" />
+    <ClInclude Include="VRGame1.h">
+      <Filter>Games</Filter>
+    </ClInclude>
+    <ClInclude Include="Person.h">
+      <Filter>Kinect1</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\CubeShader.fragmentshader">
