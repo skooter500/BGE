@@ -222,6 +222,27 @@ void Person::UpdateHand(
 	hands[handIndex].look = boneVector;
 	cylController->transform->position = transform->position + centrePos;
 	cylController->transform->orientation = q;
+	cylController->transform->diffuse = glm::vec3(1, 0, 1);
+}
+
+void Person::UpdateKnob(string tag, glm::vec3 pos)
+{
+	shared_ptr<PhysicsController> knobController;	
+	map<string, shared_ptr<PhysicsController>>::iterator it = boneComponents.find(tag);	
+	if (it == boneComponents.end())
+	{
+		knobController = Game::Instance()->physicsFactory->CreateSphere(1.0f, pos, glm::quat(), true, true);
+		knobController->rigidBody->setMotionState(new KinematicMotionState(knobController->parent));
+		knobController->tag = "HandJointController";
+		knobController->parent->tag = tag;
+		knobController->transform->diffuse = glm::vec3(1, 0, 1);
+		boneComponents[tag] = knobController;
+	}
+	else
+	{
+		knobController = (*it).second;
+		knobController->transform->position = pos;
+	}
 }
 
 
@@ -265,6 +286,8 @@ void Person::UpdateBone(
 	if (it == boneComponents.end())
 	{
 		cylController = Game::Instance()->physicsFactory->CreateCylinder(0.5f, boneLength, centrePos, transform->orientation);
+		cylController->transform->diffuse = glm::vec3();
+		
 		cylController->rigidBody->setCollisionFlags(cylController->rigidBody->getCollisionFlags() | btCollisionObject::CF_KINEMATIC_OBJECT);
 		cylController->rigidBody->setActivationState(DISABLE_DEACTIVATION);
 		cylController->rigidBody->setMotionState(new KinematicMotionState(cylController->parent));
@@ -275,8 +298,12 @@ void Person::UpdateBone(
 	{
 		cylController = it->second;
 	}
+	cylController->transform->diffuse = glm::vec3(0, 0, 1);
 	cylController->transform->position = transform->position + centrePos;
 	cylController->transform->orientation = q;
+
+	UpdateKnob("" + jointFrom, start);
+	UpdateKnob("" + jointTo, end);
 }
 
 void Person::UpdateHead(
@@ -326,6 +353,7 @@ void Person::UpdateHead(
 	{
 		boxController->transform->position = transform->position + boneVector;
 	}
+	boxController->transform->diffuse = glm::vec3(1, 0, 1);
 	boxController->transform->orientation = q;
 	
 }

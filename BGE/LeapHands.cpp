@@ -51,7 +51,7 @@ bool BGE::LeapHands::Initialise()
 	{
 
 		controller.setPolicyFlags(Leap::Controller::PolicyFlag::POLICY_OPTIMIZE_HMD);
-		//controller.config().setBool("head_mounted_display_mode", true);
+		//controller.config().setBool("head_mounted_splay_mode", true);
 	}
 
 	controller.addListener(* this);

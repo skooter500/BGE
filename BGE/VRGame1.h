@@ -30,11 +30,10 @@ namespace BGE
 		void Cleanup();
 
 		void FireProjectile(glm::vec3 pos, glm::vec3 look);
-		//void GravityGun(SDL_Joystick * joy, int axis, PhysicsController * & leftHandPickedUp, Hand hand);
+		void GravityGun(SDL_Joystick * joy, int axis, PhysicsController * & leftHandPickedUp, Hand hand);
 		void ResetScene();
 		
 		// The world.
-		//void VRGame1::GravityGun(PhysicsController * & pickedUp, KinectHand * hand);
 		
 		// Now stuff we need to track
 		shared_ptr<Person> person;
