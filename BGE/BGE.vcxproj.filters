@@ -230,11 +230,19 @@
     <ClCompile Include="EmptyGame.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="VRGame1.cpp">
       <Filter>Games</Filter>
     </ClCompile>
     <ClCompile Include="Person.cpp">
       <Filter>Kinect1</Filter>
+=======
+    <ClCompile Include="GravityGame.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="GravityController.cpp">
+      <Filter>Engine</Filter>
+>>>>>>> gravity
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -422,6 +430,8 @@
     <ClInclude Include="Person.h">
       <Filter>Kinect1</Filter>
     </ClInclude>
+    <ClInclude Include="GravityGame.h" />
+    <ClInclude Include="GravityController.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\CubeShader.fragmentshader">
