@@ -1,6 +1,31 @@
 Game Engines 1 Labs
 ===================
 
+Lab 8
+-----
+You can use the master branch for this lab. Clone/fork/pull etc as necessary to get what you need. 
+
+### Part 1
+Make a subclass of ```GameComponent``` called ```Steerable2DController```. It should implement 2D steering for any class it's attached to. You should:
+
+- Add a field for the force accumulator
+- Add fields to control the keys used to push the object
+- Add a field to control damping
+- Add an update method where you check the key presses and apply the following forces
+	- A steer left force (force in the direction of the left vector)
+	- A steer right rorce (force in the direction of the - left vector)
+	- A push force (force in the direction of the look vector)
+	- A pull force (force in the direction of the - look vector
+
+Dont forget to:
+- Reset the force accumulator
+- Call the superclass ```Update``` method.
+
+You can use the GravityGame class to create a GameComponent with a model attached and also attach your controller to see if it works.
+
+### Part 2
+Modify ```Steerable3DController``` to have fields that control which keys are used to apply forces to the object. Test this by creating a game component with a model and a ```Steerable3DController``` attached. Do a pull request. The first one that implements this correctly I will accept.
+
 Lab 7
 ----
 You can use the master branch for this lab. The aim will be to make a subclass of ```GameComponent``` that implements gravity on any component it is attached to.
