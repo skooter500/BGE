@@ -42,6 +42,7 @@ void PhysicsController::Update()
 	btMotionState * ms = rigidBody->getMotionState();
     ms->getWorldTransform(trans);
 	transform->position = BtToGLVector(trans.getOrigin());
+	btQuaternion q = trans.getRotation();
 	transform->orientation = BtToGLQuat(trans.getRotation());
 	
 	// Calculate the world transform 

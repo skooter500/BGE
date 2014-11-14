@@ -35,6 +35,9 @@ bool PhysicsGame1::Initialise()
 
 	setGravity(glm::vec3(0, -9, 0));
 
+
+
+
 	shared_ptr<PhysicsController> box1 = physicsFactory->CreateBox(1,1,4, glm::vec3(5, 5, 0), glm::quat()); 
 	shared_ptr<PhysicsController> box2 = physicsFactory->CreateBox(1,1,4, glm::vec3(5, 5, 5), glm::quat()); 
 
@@ -73,7 +76,6 @@ bool PhysicsGame1::Initialise()
 	btSliderConstraint * slider = new btSliderConstraint(*box1->rigidBody, *box2->rigidBody, box1Transform, box2Transform, true);
 	dynamicsWorld->addConstraint(slider);
 
-
 	// A ragdoll
 	physicsFactory->CreateCapsuleRagdoll(glm::vec3(-5, 5, 10));
 
@@ -83,19 +85,12 @@ bool PhysicsGame1::Initialise()
 	//// Create a physics car
 	physicsFactory->CreateVehicle(glm::vec3(5, 5, 10));
 
-
-	if (!Game::Initialise()) {
-		return false;
-	}
-
-
-	
-	return true;
+	return Game::Initialise();
 }
 
 void BGE::PhysicsGame1::Update()
 {
-	cyl->rigidBody->applyTorque(GLToBtVector(glm::vec3(0.0f,0.0f,1.0f)));
+	//cyl->rigidBody->applyTorque(GLToBtVector(glm::vec3(0.0f,0.0f,1.0f)));
 
 	Game::Update();
 }
