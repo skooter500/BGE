@@ -35,9 +35,6 @@ bool PhysicsGame1::Initialise()
 
 	setGravity(glm::vec3(0, -9, 0));
 
-
-
-
 	shared_ptr<PhysicsController> box1 = physicsFactory->CreateBox(1,1,4, glm::vec3(5, 5, 0), glm::quat()); 
 	shared_ptr<PhysicsController> box2 = physicsFactory->CreateBox(1,1,4, glm::vec3(5, 5, 5), glm::quat()); 
 
@@ -52,6 +49,7 @@ bool PhysicsGame1::Initialise()
 
 	// Enable a motor on the hinge joint
 	hinge->enableAngularMotor(true, 10, 10);
+
 	dynamicsWorld->addConstraint(hinge);
 
 	// A Ball and socket
@@ -84,6 +82,10 @@ bool PhysicsGame1::Initialise()
 
 	//// Create a physics car
 	physicsFactory->CreateVehicle(glm::vec3(5, 5, 10));
+
+	dynamicsWorld->addConstraint(hinge);
+
+
 
 	return Game::Initialise();
 }

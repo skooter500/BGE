@@ -27,6 +27,14 @@ Assignments & student work from previous years
 * [Game AI in Unity](https://www.youtube.com/watch?v=1H8FRXytO9M)
 * [Space battles 2011](https://www.youtube.com/watch?v=GdYAzGS0evA)
 
+Week 9
+------
+
+Week 8
+------
+* Hamiltonian mechanics lecture notes (http://1drv.ms/1qbcpdE)
+* [Lab 7](../Labs/index.md)
+
 Week 7
 ------
 * [Lab 6](../Labs/index.md)

@@ -43,7 +43,7 @@ void PhysicsCamera::GravityGun(RayGeom ray, bool isPhys)
 		btVector3 rayFrom = GLToBtVector(ray.pos); // Has to be some distance in front of the camera otherwise it will collide with the camera all the time
 		btVector3 rayTo = GLToBtVector(ray.pos + (ray.look * dist));
 
-		btCollisionWorld::ClosestRayResultCallback rayCallback(rayFrom, rayTo);
+		btCollisionWorld::ClosestRayResultCallback rayCallback(btVector3(0, 0, 0), btVector3(0, 0, 0));
 		physicsFactory->dynamicsWorld->rayTest(rayFrom, rayTo, rayCallback);
 
 		if (rayCallback.hasHit())
