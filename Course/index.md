@@ -29,7 +29,9 @@ Assignments & student work from previous years
 
 Week 9
 ------
-
+* [Equations of motion for 3D physics video](http://youtu.be/i45gf_a-yZM)
+* [Creating rigid bodies in BGE using Bullet video](https://www.youtube.com/watch?v=8g92ngzEXtE)
+* Dont forget Hao Guan is visiting the lab class on Wednesday to answer any of your bullet questions
 Week 8
 ------
 * Hamiltonian mechanics lecture notes (http://1drv.ms/1qbcpdE)

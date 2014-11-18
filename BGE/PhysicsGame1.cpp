@@ -35,8 +35,11 @@ bool PhysicsGame1::Initialise()
 
 	setGravity(glm::vec3(0, -9, 0));
 
-	shared_ptr<PhysicsController> box1 = physicsFactory->CreateBox(1,1,4, glm::vec3(5, 5, 0), glm::quat()); 
-	shared_ptr<PhysicsController> box2 = physicsFactory->CreateBox(1,1,4, glm::vec3(5, 5, 5), glm::quat()); 
+	/*glm::quat q = glm::angleAxis(90.0f, glm::vec3(1, 0, 0));
+	shared_ptr<PhysicsController> box1 = physicsFactory->CreateBox(10,5,2, glm::vec3(5, 5, 0), q); 
+	
+	
+		shared_ptr<PhysicsController> box2 = physicsFactory->CreateBox(1,1,4, glm::vec3(5, 5, 5), glm::quat()); 
 
 	// A hinge
 	btHingeConstraint * hinge = new btHingeConstraint(*box1->rigidBody, *box2->rigidBody, btVector3(0,0,2.5f),btVector3(0,0,-2.5f), btVector3(0,1,0), btVector3(0,1,0), true);
@@ -80,11 +83,13 @@ bool PhysicsGame1::Initialise()
 	// A model
 	physicsFactory->CreateFromModel("monkey", glm::vec3(-10, 5, 0) , glm::quat(), glm::vec3(5, 5, 5));
 
-	//// Create a physics car
-	physicsFactory->CreateVehicle(glm::vec3(5, 5, 10));
-
+	
 	dynamicsWorld->addConstraint(hinge);
 
+	*/
+
+	//// Create a physics car
+	physicsFactory->CreateVehicle(glm::vec3(5, 5, 10));
 
 
 	return Game::Initialise();
