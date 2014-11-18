@@ -27,11 +27,16 @@ Assignments & student work from previous years
 * [Game AI in Unity](https://www.youtube.com/watch?v=1H8FRXytO9M)
 * [Space battles 2011](https://www.youtube.com/watch?v=GdYAzGS0evA)
 
+Week 10
+-------
+* Dont forget Hao Guan is visiting the lab class on Wednesday to answer any of your bullet questions
+
 Week 9
 ------
 * [Equations of motion for 3D physics video](http://youtu.be/i45gf_a-yZM)
 * [Creating rigid bodies in BGE using Bullet video](https://www.youtube.com/watch?v=8g92ngzEXtE)
 * Dont forget Hao Guan is visiting the lab class on Wednesday to answer any of your bullet questions
+
 Week 8
 ------
 * Hamiltonian mechanics lecture notes (http://1drv.ms/1qbcpdE)
