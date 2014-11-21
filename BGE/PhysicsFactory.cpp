@@ -225,7 +225,7 @@ shared_ptr<PhysicsController> PhysicsFactory::CreateVehicle(glm::vec3 position)
 	shared_ptr<PhysicsController> chassis = CreateBox(width, height, length, position, glm::quat());
 
 	shared_ptr<PhysicsController> wheel;
-	glm::quat q =  glm::angleAxis(glm::half_pi<float>(), glm::vec3(1, 0, 0));
+	glm::quat q =  glm::angleAxis(90.0f, glm::vec3(1,0, 0));
 
 	glm::vec3 offset;
 	btHingeConstraint * hinge;
@@ -381,16 +381,15 @@ shared_ptr<PhysicsController> PhysicsFactory::CreateSpider(glm::vec3 position)
 
 	btHingeConstraint* leg_hinge;
 	shared_ptr<PhysicsController> upper_leg = CreateCapsule(1, 3, glm::vec3(position.x, position.y , position.z), q);
-	shared_ptr<PhysicsController> upper_leg_ball = CreateSphere(0.5, glm::vec3(position.x, position.y + 1, position.z), glm::quat());
-	//shared_ptr<PhysicsController> upper_leg_ball = CreateBox(1, 1, 1, glm::vec3(position.x, position.y, position.z), q);
+	//shared_ptr<PhysicsController> upper_leg_ball = CreateSphere(0.5, glm::vec3(position.x, position.y + 1, position.z), glm::quat());
+	shared_ptr<PhysicsController> upper_leg_ball = CreateCylinder(0.5, 0.2, glm::vec3(position.x, position.y + 2, position.z), glm::quat());
 	btHingeConstraint* upper_leg_ball_hinge;
 	upper_leg_ball_hinge = new btHingeConstraint(*upper_leg->rigidBody, *upper_leg_ball->rigidBody, btVector3(-1, 0, 0), btVector3(0, -1, 0), btVector3(1, 0, 0), btVector3(1, 0, 0));
 	dynamicsWorld->addConstraint(upper_leg_ball_hinge);
 
 	shared_ptr<PhysicsController> lower_leg = CreateCapsule(1, 3 , glm::vec3(position.x - 13, position.y, position.z), q);
-	shared_ptr<PhysicsController> lower_leg_ball = CreateSphere(0.5, glm::vec3(position.x - 13, position.y + 1, position.z), glm::quat());
-	//shared_ptr<PhysicsController> lower_leg_ball = CreateBox(1, 1, 1, glm::vec3(position.x, position.y, position.z), q);
-	leg_hinge = new btHingeConstraint(*upper_leg->rigidBody, *lower_leg->rigidBody, btVector3(0, 6.5, 0), btVector3(0, -6.5, 0), btVector3(1, 0, 0), btVector3(1, 0, 0));
+	shared_ptr<PhysicsController> lower_leg_ball = CreateCylinder(0.5, 0.2, glm::vec3(position.x - 13, position.y + 2, position.z), glm::quat());
+	//shared_ptr<PhysicsController> lower_leg_ball = CreateSphere(0.5, glm::vec3(position.x - 13, position.y + 1, position.z), glm::quat());
 	btHingeConstraint* lower_leg_ball_hinge;
 	lower_leg_ball_hinge = new btHingeConstraint(*lower_leg->rigidBody, *lower_leg_ball->rigidBody, btVector3(-1, 0 ,0), btVector3(0, -1,0), btVector3(1, 0, 0), btVector3(1, 0, 0));
 	dynamicsWorld->addConstraint(lower_leg_ball_hinge);
@@ -406,11 +405,11 @@ shared_ptr<PhysicsController> PhysicsFactory::CreateSpider(glm::vec3 position)
 	ballTransform1.setRotation(GLToBtQuat(glm::angleAxis(90.0f, glm::vec3(0, 1, 0))));
 	ballTransform2.setRotation(GLToBtQuat(glm::angleAxis(90.0f, glm::vec3(0, 1, 0))));
 
-	btSliderConstraint* leg_slider;
-	leg_slider = new btSliderConstraint(*upper_leg_ball->rigidBody, *lower_leg_ball->rigidBody, ballTransform1, ballTransform2, true);
-	dynamicsWorld->addConstraint(leg_slider);
-	leg_hinge->setLimit(btScalar(glm::quarter_pi<float>()), btScalar(glm::pi<float>()));
-	dynamicsWorld->addConstraint(leg_hinge);
+	//btSliderConstraint* leg_slider;
+	//leg_slider = new btSliderConstraint(*upper_leg_ball->rigidBody, *lower_leg_ball->rigidBody, ballTransform1, ballTransform2, true);
+	//dynamicsWorld->addConstraint(leg_slider);
+	//leg_hinge->setLimit(btScalar(glm::quarter_pi<float>()), btScalar(glm::pi<float>()));
+	//dynamicsWorld->addConstraint(leg_hinge);
 
 	return upper_leg;
 }
