@@ -27,6 +27,7 @@ bool Assignment::Initialise()
 {
 	physicsFactory->CreateGroundPhysics();
 	physicsFactory->CreateCameraPhysics();
+	dynamicsWorld->setGravity( btVector3(0, 0, 0));
 
 	
 	float width = 20.0f, height = 10.0f, depth = 2.0f;

@@ -353,19 +353,23 @@ shared_ptr<PhysicsController> PhysicsFactory::CreateSpider(glm::vec3 position)
 		left to right (when viewed top down)
 	*/
 
-	shared_ptr<PhysicsController> body_part_abdomen = CreateCapsule(1.8, 2, glm::vec3(position.x, position.y, position.z + 20), glm::quat());
-	shared_ptr<PhysicsController> body_part_thorax = CreateSphere (2.0, glm::vec3(position.x, position.y + 20, position.z), glm::quat());
-
-	btHingeConstraint* abdomen_thorax;
-
-	btTransform localA, localB;
-
-	localA.setIdentity(); localB.setIdentity();
-	localA.getBasis().setEulerZYX(0, glm::half_pi<float>(), 0); localA.setOrigin(btVector3(btScalar(0.), btScalar(2.7), btScalar(0.)));
-	localB.getBasis().setEulerZYX(0, glm::half_pi<float>(), 0); localB.setOrigin(btVector3(btScalar(0.), btScalar(-2.7), btScalar(0.)));
-	abdomen_thorax = new btHingeConstraint(*body_part_abdomen->rigidBody, *body_part_thorax->rigidBody, localA, localB);
-	abdomen_thorax->setLimit(btScalar(-glm::quarter_pi<float>()), btScalar(glm::quarter_pi<float>()));
-	dynamicsWorld->addConstraint(abdomen_thorax);
+	float thorax_radius = 4.0f;
+	//shared_ptr<PhysicsController> body_part_abdomen = CreateCapsule(1.8, 2, glm::vec3(position.x, position.y, position.z + 20), glm::quat());
+	shared_ptr<PhysicsController> body_part_thorax = CreateSphere (thorax_radius, glm::vec3(position.x, position.y, position.z), glm::quat());
+	
+	//angle that the coxa is to attach to the sphere in a loop
+	for (int i = 0; i < 8; i++)
+	{
+		//divided by number of legs
+		float theta = (glm::pi<float>() * 2) / 8;
+		btVector3 f1;
+		f1 = btVector3(position.x + glm::sin(theta * i) * thorax_radius, position.y, position.z + glm::cos(theta * i) * thorax_radius);
+		shared_ptr<PhysicsController> coxa = CreateSphere(1.0, BtToGLVector(f1), glm::quat());
+		
+		//btHingeConstraint* coxa_thorax;
+		//coxa_thorax = new btHingeConstraint(*body_part_thorax->rigidBody, *coxa->rigidBody, f1, btVector3(0, -1, 0), btVector3(0, 1, 0), btVector3(0, 1, 0));
+		//dynamicsWorld->addConstraint(coxa_thorax);
+	}
 
 	return body_part_thorax;
 }
