@@ -100,9 +100,9 @@ shared_ptr<PhysicsController> PhysicsFactory::CreateSphere(float radius, glm::ve
 	btRigidBody * body = new btRigidBody(fallRigidBodyCI);
 	if (kinematic)
 	{
-		body->setCollisionFlags(body->getCollisionFlags() | btCollisionObject::CF_KINEMATIC_OBJECT);
-		body->setActivationState(DISABLE_DEACTIVATION);
+		body->setCollisionFlags(body->getCollisionFlags() | btCollisionObject::CF_KINEMATIC_OBJECT);		
 	}
+	body->setActivationState(DISABLE_DEACTIVATION);
 	//body->setCollisionFlags(body->getCollisionFlags() | btCollisionObject::CF_CUSTOM_MATERIAL_CALLBACK);
 	dynamicsWorld->addRigidBody(body);
 
@@ -141,9 +141,9 @@ shared_ptr<PhysicsController> PhysicsFactory::CreateBox(float width, float heigh
 	body->setFriction(567);
 	if (kinematic)
 	{
-		body->setCollisionFlags(body->getCollisionFlags() | btCollisionObject::CF_KINEMATIC_OBJECT);
-		body->setActivationState(DISABLE_DEACTIVATION);
+		body->setCollisionFlags(body->getCollisionFlags() | btCollisionObject::CF_KINEMATIC_OBJECT);		
 	}
+	body->setActivationState(DISABLE_DEACTIVATION);
 	dynamicsWorld->addRigidBody(body);
 
 	// Create the physics component and add it to the box
@@ -249,7 +249,7 @@ shared_ptr<PhysicsController> PhysicsFactory::CreateVehicle(glm::vec3 position)
 
 	offset = glm::vec3(+ (width / 2 - wheelRadius), 0, + (length / 2 + wheelOffset));
 	wheel = CreateCylinder(wheelRadius, wheelWidth, position + offset, q);	 
-	hinge = new btHingeConstraint(* chassis->rigidBody, * wheel->rigidBody, GLToBtVector(offset),btVector3(0,5, 0), btVector3(0,0,1), btVector3(0,0,0), true);
+	hinge = new btHingeConstraint(* chassis->rigidBody, * wheel->rigidBody, GLToBtVector(offset),btVector3(0,0, 0), btVector3(0,0,1), btVector3(0,0,0), true);
 	//hinge->enableAngularMotor(true, 10, 10);
 	
 	dynamicsWorld->addConstraint(hinge);

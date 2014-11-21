@@ -33,18 +33,24 @@ bool PhysicsGame1::Initialise()
 	physicsFactory->CreateGroundPhysics();
 	physicsFactory->CreateCameraPhysics();	
 
-	setGravity(glm::vec3(0, -9, 0));
+	setGravity(glm::vec3(0, 0, 0));
 
-	/*glm::quat q = glm::angleAxis(90.0f, glm::vec3(1, 0, 0));
-	shared_ptr<PhysicsController> box1 = physicsFactory->CreateBox(10,5,2, glm::vec3(5, 5, 0), q); 
+	glm::quat q = glm::angleAxis(90.0f, glm::vec3(1, 0, 0));
+	shared_ptr<PhysicsController> box1 = physicsFactory->CreateBox(1, 1, 6, glm::vec3(1, 15, -14), glm::quat());
+	shared_ptr<PhysicsController> box2 = physicsFactory->CreateBox(1,1,6, glm::vec3(1, 15, 0), glm::quat()); 
 	
-	
-		shared_ptr<PhysicsController> box2 = physicsFactory->CreateBox(1,1,4, glm::vec3(5, 5, 5), glm::quat()); 
 
-	// A hinge
-	btHingeConstraint * hinge = new btHingeConstraint(*box1->rigidBody, *box2->rigidBody, btVector3(0,0,2.5f),btVector3(0,0,-2.5f), btVector3(0,1,0), btVector3(0,1,0), true);
+	box1->rigidBody->setMassProps(0, btVector3(0, 0, 0));
+
+	btHingeConstraint * hinge = new btHingeConstraint(*box1->rigidBody, *box2->rigidBody, btVector3(0, 0, 7), btVector3(0, 0, -7), btVector3(0, 1, 0), btVector3(0, 1, 0), true);
+	hinge->setLimit(-glm::pi<float>(), glm::half_pi<float>());
 	dynamicsWorld->addConstraint(hinge);
 
+	// A hinge
+	/*btHingeConstraint * hinge = new btHingeConstraint(*box1->rigidBody, *box2->rigidBody, btVector3(0,0,4),btVector3(0,0,-4), btVector3(0,1,0), btVector3(0,1,0), true);
+	dynamicsWorld->addConstraint(hinge);
+	*/
+	/*
 	// Another hinge
 	box1 = physicsFactory->CreateBox(6,1,2, glm::vec3(15, 5, 0), glm::quat());
 	cyl = physicsFactory->CreateCylinder(2, 1, glm::vec3(15, 5, -5), glm::angleAxis(90.0f, glm::vec3(1,0,0)));
@@ -89,7 +95,7 @@ bool PhysicsGame1::Initialise()
 	*/
 
 	//// Create a physics car
-	physicsFactory->CreateVehicle(glm::vec3(5, 5, 10));
+	//physicsFactory->CreateVehicle(glm::vec3(5, 5, 10));
 
 
 	return Game::Initialise();
