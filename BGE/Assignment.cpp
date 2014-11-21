@@ -45,7 +45,7 @@ bool Assignment::Initialise()
 		physicsFactory->CreateBox(width, height, depth, glm::vec3(width*i, level, -width), glm::quat());
 	}
 
-	physicsFactory->CreateSpider(glm::vec3(0, -10, -20));
+	physicsFactory->CreateSpider(glm::vec3(0, 10, 0));
 
 	if (!Game::Initialise()) {
 		return false;

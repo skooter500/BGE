@@ -353,25 +353,66 @@ shared_ptr<PhysicsController> PhysicsFactory::CreateSpider(glm::vec3 position)
 		left to right (when viewed top down)
 	*/
 
+	/*
 	float thorax_radius = 4.0f;
-	//shared_ptr<PhysicsController> body_part_abdomen = CreateCapsule(1.8, 2, glm::vec3(position.x, position.y, position.z + 20), glm::quat());
 	shared_ptr<PhysicsController> body_part_thorax = CreateSphere (thorax_radius, glm::vec3(position.x, position.y, position.z), glm::quat());
 	
 	//angle that the coxa is to attach to the sphere in a loop
-	for (int i = 0; i < 8; i++)
+	for (int i = 0; i < 10; i++)
 	{
-		//divided by number of legs
-		float theta = (glm::pi<float>() * 2) / 8;
-		btVector3 f1;
-		f1 = btVector3(position.x + glm::sin(theta * i) * thorax_radius, position.y, position.z + glm::cos(theta * i) * thorax_radius);
-		shared_ptr<PhysicsController> coxa = CreateSphere(1.0, BtToGLVector(f1), glm::quat());
-		
-		//btHingeConstraint* coxa_thorax;
-		//coxa_thorax = new btHingeConstraint(*body_part_thorax->rigidBody, *coxa->rigidBody, f1, btVector3(0, -1, 0), btVector3(0, 1, 0), btVector3(0, 1, 0));
-		//dynamicsWorld->addConstraint(coxa_thorax);
+		if (i % 5 != 0)//leave gap at front and back (head and abdomen)
+		{
+			//divided by number of legs
+			float theta = (glm::pi<float>() * 2) / 10;
+			glm::vec3 f1;
+			f1 = glm::vec3(position.x + glm::sin(theta * i) * thorax_radius, position.y, position.z + glm::cos(theta * i) * thorax_radius);
+			shared_ptr<PhysicsController> coxa = CreateSphere(1.0, f1, glm::quat());
+
+			btHingeConstraint* coxa_thorax;
+			coxa_thorax = new btHingeConstraint(*body_part_thorax->rigidBody, *coxa->rigidBody, GLToBtVector(f1), btVector3(1, 0, 0), btVector3(1, 0, 0), btVector3(1, 0, 0));
+			//dynamicsWorld->addConstraint(coxa_thorax);
+		}
 	}
 
 	return body_part_thorax;
+	*/
+
+	glm::quat q = glm::angleAxis(90.0f, glm::vec3(0, 0, 1));
+
+	btHingeConstraint* leg_hinge;
+	shared_ptr<PhysicsController> upper_leg = CreateCapsule(1, 3, glm::vec3(position.x, position.y , position.z), q);
+	shared_ptr<PhysicsController> upper_leg_ball = CreateSphere(0.5, glm::vec3(position.x, position.y + 1, position.z), glm::quat());
+	//shared_ptr<PhysicsController> upper_leg_ball = CreateBox(1, 1, 1, glm::vec3(position.x, position.y, position.z), q);
+	btHingeConstraint* upper_leg_ball_hinge;
+	upper_leg_ball_hinge = new btHingeConstraint(*upper_leg->rigidBody, *upper_leg_ball->rigidBody, btVector3(-1, 0, 0), btVector3(0, -1, 0), btVector3(1, 0, 0), btVector3(1, 0, 0));
+	dynamicsWorld->addConstraint(upper_leg_ball_hinge);
+
+	shared_ptr<PhysicsController> lower_leg = CreateCapsule(1, 3 , glm::vec3(position.x - 13, position.y, position.z), q);
+	shared_ptr<PhysicsController> lower_leg_ball = CreateSphere(0.5, glm::vec3(position.x - 13, position.y + 1, position.z), glm::quat());
+	//shared_ptr<PhysicsController> lower_leg_ball = CreateBox(1, 1, 1, glm::vec3(position.x, position.y, position.z), q);
+	leg_hinge = new btHingeConstraint(*upper_leg->rigidBody, *lower_leg->rigidBody, btVector3(0, 6.5, 0), btVector3(0, -6.5, 0), btVector3(1, 0, 0), btVector3(1, 0, 0));
+	btHingeConstraint* lower_leg_ball_hinge;
+	lower_leg_ball_hinge = new btHingeConstraint(*lower_leg->rigidBody, *lower_leg_ball->rigidBody, btVector3(-1, 0 ,0), btVector3(0, -1,0), btVector3(1, 0, 0), btVector3(1, 0, 0));
+	dynamicsWorld->addConstraint(lower_leg_ball_hinge);
+	
+	//hinge joint between leg parts (knee)
+	leg_hinge = new btHingeConstraint(*upper_leg->rigidBody, *lower_leg->rigidBody, btVector3(0, 6.5, 0), btVector3(0, -6.5, 0), btVector3(1,0,0), btVector3(1,0,0));
+
+	//slider joint between balls fixed to leg
+	btTransform ballTransform1, ballTransform2;
+	ballTransform1.setIdentity();
+	ballTransform2.setIdentity();
+
+	ballTransform1.setRotation(GLToBtQuat(glm::angleAxis(90.0f, glm::vec3(0, 1, 0))));
+	ballTransform2.setRotation(GLToBtQuat(glm::angleAxis(90.0f, glm::vec3(0, 1, 0))));
+
+	btSliderConstraint* leg_slider;
+	leg_slider = new btSliderConstraint(*upper_leg_ball->rigidBody, *lower_leg_ball->rigidBody, ballTransform1, ballTransform2, true);
+	dynamicsWorld->addConstraint(leg_slider);
+	leg_hinge->setLimit(btScalar(glm::quarter_pi<float>()), btScalar(glm::pi<float>()));
+	dynamicsWorld->addConstraint(leg_hinge);
+
+	return upper_leg;
 }
 
 shared_ptr<PhysicsController> PhysicsFactory::CreateCapsuleRagdoll(glm::vec3 position)
