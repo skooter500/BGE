@@ -378,38 +378,42 @@ shared_ptr<PhysicsController> PhysicsFactory::CreateSpider(glm::vec3 position)
 	*/
 
 	glm::quat q = glm::angleAxis(90.0f, glm::vec3(0, 0, 1));
+	glm::quat q2 = glm::angleAxis(90.0f, glm::vec3(0, 0, 1));
 
 	btHingeConstraint* leg_hinge;
-	shared_ptr<PhysicsController> upper_leg = CreateCapsule(1, 3, glm::vec3(position.x, position.y , position.z), q);
-	//shared_ptr<PhysicsController> upper_leg_ball = CreateSphere(0.5, glm::vec3(position.x, position.y + 1, position.z), glm::quat());
-	shared_ptr<PhysicsController> upper_leg_ball = CreateCylinder(0.5, 0.2, glm::vec3(position.x, position.y + 2, position.z), glm::quat());
+	shared_ptr<PhysicsController> upper_leg = CreateCapsule(1, 3, glm::vec3(position.x, position.y, position.z), q);
+	shared_ptr<PhysicsController> upper_leg_muscle = CreateCylinder(0.5, 0.2, glm::vec3(position.x, position.y + 2, position.z), q2);
 	btHingeConstraint* upper_leg_ball_hinge;
-	upper_leg_ball_hinge = new btHingeConstraint(*upper_leg->rigidBody, *upper_leg_ball->rigidBody, btVector3(-1, 0, 0), btVector3(0, -1, 0), btVector3(1, 0, 0), btVector3(1, 0, 0));
+	upper_leg_ball_hinge = new btHingeConstraint(*upper_leg->rigidBody, *upper_leg_muscle->rigidBody, btVector3(2, 0, 0), btVector3(0, 0, 0), btVector3(0, 0, 1), btVector3(1, 0, 0));
+	upper_leg_ball_hinge->setLimit(btScalar(0), btScalar(glm::half_pi<float>()));
 	dynamicsWorld->addConstraint(upper_leg_ball_hinge);
 
 	shared_ptr<PhysicsController> lower_leg = CreateCapsule(1, 3 , glm::vec3(position.x - 13, position.y, position.z), q);
-	shared_ptr<PhysicsController> lower_leg_ball = CreateCylinder(0.5, 0.2, glm::vec3(position.x - 13, position.y + 2, position.z), glm::quat());
-	//shared_ptr<PhysicsController> lower_leg_ball = CreateSphere(0.5, glm::vec3(position.x - 13, position.y + 1, position.z), glm::quat());
+	shared_ptr<PhysicsController> lower_leg_muscle = CreateCylinder(0.5, 0.2, glm::vec3(position.x - 13, position.y + 2, position.z), q2);
 	btHingeConstraint* lower_leg_ball_hinge;
-	lower_leg_ball_hinge = new btHingeConstraint(*lower_leg->rigidBody, *lower_leg_ball->rigidBody, btVector3(-1, 0 ,0), btVector3(0, -1,0), btVector3(1, 0, 0), btVector3(1, 0, 0));
+	lower_leg_ball_hinge = new btHingeConstraint(*lower_leg->rigidBody, *lower_leg_muscle->rigidBody, btVector3(2, 0, 0), btVector3(0, 0, 0), btVector3(0, 0, 1), btVector3(1, 0, 0));
+	lower_leg_ball_hinge->setLimit(btScalar(0), -btScalar(glm::half_pi<float>()));
 	dynamicsWorld->addConstraint(lower_leg_ball_hinge);
 	
 	//hinge joint between leg parts (knee)
-	leg_hinge = new btHingeConstraint(*upper_leg->rigidBody, *lower_leg->rigidBody, btVector3(0, 6.5, 0), btVector3(0, -6.5, 0), btVector3(1,0,0), btVector3(1,0,0));
-
+	leg_hinge = new btHingeConstraint(*upper_leg->rigidBody, *lower_leg->rigidBody, btVector3(0, 6.5, 0), btVector3(0, -6.5, 0), btVector3(0 , 0, 1), btVector3(0, 0, 1));
+	leg_hinge->setLimit(glm::quarter_pi<float>(), btScalar(glm::pi<float>()));
+	dynamicsWorld->addConstraint(leg_hinge);
 	//slider joint between balls fixed to leg
 	btTransform ballTransform1, ballTransform2;
 	ballTransform1.setIdentity();
 	ballTransform2.setIdentity();
 
-	ballTransform1.setRotation(GLToBtQuat(glm::angleAxis(90.0f, glm::vec3(0, 1, 0))));
-	ballTransform2.setRotation(GLToBtQuat(glm::angleAxis(90.0f, glm::vec3(0, 1, 0))));
+	ballTransform1.setRotation(GLToBtQuat(glm::angleAxis(90.0f, glm::vec3(0, 0, 1))));
+	ballTransform2.setRotation(GLToBtQuat(glm::angleAxis(90.0f, glm::vec3(0, 0, 1))));
 
-	//btSliderConstraint* leg_slider;
-	//leg_slider = new btSliderConstraint(*upper_leg_ball->rigidBody, *lower_leg_ball->rigidBody, ballTransform1, ballTransform2, true);
-	//dynamicsWorld->addConstraint(leg_slider);
-	//leg_hinge->setLimit(btScalar(glm::quarter_pi<float>()), btScalar(glm::pi<float>()));
-	//dynamicsWorld->addConstraint(leg_hinge);
+	btSliderConstraint* leg_slider;
+	leg_slider = new btSliderConstraint(*upper_leg_muscle->rigidBody, *lower_leg_muscle->rigidBody, ballTransform1, ballTransform2, true);
+	dynamicsWorld->addConstraint(leg_slider);
+	leg_slider->setPoweredLinMotor(true);
+	leg_slider->setMaxLinMotorForce(50);
+	//leg_slider->setTargetLinMotorVelocity(-1.0f);    // negative value to contract
+	leg_slider->setTargetAngMotorVelocity(-1.0f);
 
 	return upper_leg;
 }
