@@ -27,7 +27,7 @@ bool Assignment::Initialise()
 {
 	physicsFactory->CreateGroundPhysics();
 	physicsFactory->CreateCameraPhysics();
-	dynamicsWorld->setGravity( btVector3(0, 0, 0));
+	dynamicsWorld->setGravity( btVector3(0, -9.8f, 0));
 	
 	float width = 20.0f, height = 10.0f, depth = 2.0f;
 	int numBlocks = 32, level = height / 2, rowSize = 6;
@@ -45,7 +45,6 @@ bool Assignment::Initialise()
 	}
 	*/
 	physicsFactory->CreateSpider(glm::vec3(0, 10, 0));
-
 	if (!Game::Initialise()) {
 		return false;
 	}
