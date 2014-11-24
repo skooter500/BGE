@@ -11,7 +11,11 @@ namespace BGE
 		public Game
 	{
 	private:
-
+		std::list<btSliderConstraint*> sliders;
+		std::list<btSliderConstraint*>::iterator it;
+		float openingDuration;
+		float speed;
+		float legDirection;
 
 	public:
 		Assignment(void);
@@ -19,7 +23,7 @@ namespace BGE
 		bool Initialise();
 		void Update(float timeDelta);
 		void Cleanup();
-		void CreateWall();
+		void CreateSpider(glm::vec3);
 		shared_ptr<GameComponent> sphere;
 		shared_ptr<GameComponent> box;
 
