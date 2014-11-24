@@ -93,4 +93,7 @@ namespace BGE
 	glm::vec3 RotateVector(glm::vec3, glm::quat);
 	void CheckOverflow(int & x);
 	void SafeDelete(void ** p);
+
+	std::vector<std::string> split(const std::string& s, char delim);
+	void findAndReplace(std::string& subject, const std::string& search, const std::string& replace);
 }

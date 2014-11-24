@@ -20,6 +20,7 @@ Transform::Transform(void)
 	moved = true;
 	scale = glm::vec3(1.0f, 1.0f, 1.0f);
 	parent = nullptr; 
+	test = 10;
 }
 
 Transform::~Transform(void)

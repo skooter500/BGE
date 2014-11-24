@@ -1,521 +1,174 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Camera">
-      <UniqueIdentifier>{33720a02-d1b2-4718-aedc-a17fe65ecbf7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Games">
-      <UniqueIdentifier>{d1e0438f-dba3-40c0-9647-974459789cb8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Content">
-      <UniqueIdentifier>{e12f2193-834b-49fb-ade0-577ca65121c0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Controllers">
-      <UniqueIdentifier>{b8283cc0-8725-4a13-a2c1-fc02e47c494e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scenarios">
-      <UniqueIdentifier>{82919e9f-6727-4dac-9428-1308d1d5e346}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="States">
-      <UniqueIdentifier>{e477bb02-ac64-447a-a4c0-9a1da63c6cf1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Particles">
-      <UniqueIdentifier>{61bc13fa-b49b-4bf6-8dce-6afe521f52a7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Labs">
-      <UniqueIdentifier>{f09f20fd-b65f-4670-9e98-ec489fae4c53}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Kinect2">
-      <UniqueIdentifier>{be702c50-cf5b-403e-bbc9-c798d56d7530}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Leap">
-      <UniqueIdentifier>{46d611a0-6b45-40d8-a7de-7391c26a9a50}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Prefabs">
-      <UniqueIdentifier>{697651d2-0cd7-45c2-b4a6-56fe6f15526c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Kinect1">
-      <UniqueIdentifier>{a87354c5-e358-43d6-9181-2d883053f9db}</UniqueIdentifier>
-    </Filter>
+    <ClCompile Include="AttackingState.cpp" />
+    <ClCompile Include="Buddha.cpp" />
+    <ClCompile Include="Capsule.cpp" />
+    <ClCompile Include="EmptyGame.cpp" />
+    <ClCompile Include="FlockingScenario.cpp" />
+    <ClCompile Include="FountainEffect.cpp" />
+    <ClCompile Include="GravityController.cpp" />
+    <ClCompile Include="GravityGame.cpp" />
+    <ClCompile Include="IdleState.cpp" />
+    <ClCompile Include="KinectAudioStream.cpp" />
+    <ClCompile Include="Lab3.cpp" />
+    <ClCompile Include="Lab4.cpp" />
+    <ClCompile Include="Lab5.cpp" />
+    <ClCompile Include="Lab6.cpp" />
+    <ClCompile Include="Lab7.cpp" />
+    <ClCompile Include="LazerBeam.cpp" />
+    <ClCompile Include="LeapHands.cpp" />
+    <ClCompile Include="ObstacleAvoidanceScenario.cpp" />
+    <ClCompile Include="Particle.cpp" />
+    <ClCompile Include="ParticleEffect.cpp" />
+    <ClCompile Include="PathFollowingScenario.cpp" />
+    <ClCompile Include="Person.cpp" />
+    <ClCompile Include="Person2.cpp" />
+    <ClCompile Include="PhysicsDrawer.cpp" />
+    <ClCompile Include="Route.cpp" />
+    <ClCompile Include="Scenario.cpp" />
+    <ClCompile Include="SceneGraphGame.cpp" />
+    <ClCompile Include="SkeletonMapper.cpp" />
+    <ClCompile Include="SnowEffect.cpp" />
+    <ClCompile Include="State.cpp" />
+    <ClCompile Include="SteeringGame.cpp" />
+    <ClCompile Include="Transform.cpp" />
+    <ClCompile Include="Utils.cpp" />
+    <ClCompile Include="Exception.cpp" />
+    <ClCompile Include="Box.cpp" />
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Content.cpp" />
+    <ClCompile Include="CubeTest.cpp" />
+    <ClCompile Include="Cylinder.cpp" />
+    <ClCompile Include="FPSController.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameComponent.cpp" />
+    <ClCompile Include="Ground.cpp" />
+    <ClCompile Include="KinematicMotionState.cpp" />
+    <ClCompile Include="LineDrawer.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Model.cpp" />
+    <ClCompile Include="ModelTest.cpp" />
+    <ClCompile Include="MotionState.cpp" />
+    <ClCompile Include="Params.cpp" />
+    <ClCompile Include="PhysicsCamera.cpp" />
+    <ClCompile Include="PhysicsFactory.cpp" />
+    <ClCompile Include="PhysicsGame1.cpp" />
+    <ClCompile Include="PhysicsController.cpp" />
+    <ClCompile Include="RiftController.cpp" />
+    <ClCompile Include="SoundSystem.cpp" />
+    <ClCompile Include="Steerable3DController.cpp" />
+    <ClCompile Include="Sphere.cpp" />
+    <ClCompile Include="SteeringControler.cpp" />
+    <ClCompile Include="TexturedCube.cpp" />
+    <ClCompile Include="TriangleTest.cpp" />
+    <ClCompile Include="VectorDrawer.cpp" />
+    <ClCompile Include="VRGame1.cpp" />
+    <ClCompile Include="VRGame2.cpp" />
+    <ClCompile Include="XBoxController.cpp" />
+    <ClCompile Include="Lua.cpp" />
+    <ClCompile Include="ScriptManager.cpp" />
+    <ClCompile Include="Script.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="GameComponent.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="CubeTest.cpp">
-      <Filter>Games</Filter>
-    </ClCompile>
-    <ClCompile Include="TriangleTest.cpp">
-      <Filter>Games</Filter>
-    </ClCompile>
-    <ClCompile Include="TexturedCube.cpp">
-      <Filter>Games</Filter>
-    </ClCompile>
-    <ClCompile Include="ModelTest.cpp">
-      <Filter>Games</Filter>
-    </ClCompile>
-    <ClCompile Include="Content.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Box.cpp">
-      <Filter>Prefabs</Filter>
-    </ClCompile>
-    <ClCompile Include="Sphere.cpp">
-      <Filter>Prefabs</Filter>
-    </ClCompile>
-    <ClCompile Include="Cylinder.cpp">
-      <Filter>Prefabs</Filter>
-    </ClCompile>
-    <ClCompile Include="MotionState.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="PhysicsCamera.cpp">
-      <Filter>Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="PhysicsFactory.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Exception.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="KinematicMotionState.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Steerable3DController.cpp">
-      <Filter>Controllers</Filter>
-    </ClCompile>
-    <ClCompile Include="FPSController.cpp">
-      <Filter>Controllers</Filter>
-    </ClCompile>
-    <ClCompile Include="PhysicsController.cpp">
-      <Filter>Controllers</Filter>
-    </ClCompile>
-    <ClCompile Include="RiftController.cpp">
-      <Filter>Controllers</Filter>
-    </ClCompile>
-    <ClCompile Include="XBoxController.cpp">
-      <Filter>Controllers</Filter>
-    </ClCompile>
-    <ClCompile Include="PhysicsGame1.cpp">
-      <Filter>Games</Filter>
-    </ClCompile>
-    <ClCompile Include="SoundSystem.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="LineDrawer.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="VectorDrawer.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Params.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Utils.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Route.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="SteeringControler.cpp">
-      <Filter>Controllers</Filter>
-    </ClCompile>
-    <ClCompile Include="SteeringGame.cpp">
-      <Filter>Games</Filter>
-    </ClCompile>
-    <ClCompile Include="Scenario.cpp">
-      <Filter>Scenarios</Filter>
-    </ClCompile>
-    <ClCompile Include="FlockingScenario.cpp">
-      <Filter>Scenarios</Filter>
-    </ClCompile>
-    <ClCompile Include="PathFollowingScenario.cpp">
-      <Filter>Scenarios</Filter>
-    </ClCompile>
-    <ClCompile Include="ObstacleAvoidanceScenario.cpp">
-      <Filter>Scenarios</Filter>
-    </ClCompile>
-    <ClCompile Include="State.cpp">
-      <Filter>States</Filter>
-    </ClCompile>
-    <ClCompile Include="IdleState.cpp">
-      <Filter>States</Filter>
-    </ClCompile>
-    <ClCompile Include="AttackingState.cpp">
-      <Filter>States</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneGraphGame.cpp">
-      <Filter>Games</Filter>
-    </ClCompile>
-    <ClCompile Include="FountainEffect.cpp">
-      <Filter>Particles</Filter>
-    </ClCompile>
-    <ClCompile Include="Particle.cpp">
-      <Filter>Particles</Filter>
-    </ClCompile>
-    <ClCompile Include="ParticleEffect.cpp">
-      <Filter>Particles</Filter>
-    </ClCompile>
-    <ClCompile Include="SnowEffect.cpp">
-      <Filter>Particles</Filter>
-    </ClCompile>
-    <ClCompile Include="Buddha.cpp">
-      <Filter>Games</Filter>
-    </ClCompile>
-    <ClCompile Include="PhysicsDrawer.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Transform.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="VRGame2.cpp">
-      <Filter>Games</Filter>
-    </ClCompile>
-    <ClCompile Include="Person2.cpp">
-      <Filter>Kinect2</Filter>
-    </ClCompile>
-    <ClCompile Include="LeapHands.cpp">
-      <Filter>Leap</Filter>
-    </ClCompile>
-    <ClCompile Include="Model.cpp">
-      <Filter>Prefabs</Filter>
-    </ClCompile>
-    <ClCompile Include="SkeletonMapper.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="LazerBeam.cpp">
-      <Filter>Prefabs</Filter>
-    </ClCompile>
-    <ClCompile Include="Ground.cpp">
-      <Filter>Prefabs</Filter>
-    </ClCompile>
-    <ClCompile Include="KinectAudioStream.cpp">
-      <Filter>Kinect2</Filter>
-    </ClCompile>
-    <ClCompile Include="Capsule.cpp">
-      <Filter>Prefabs</Filter>
-    </ClCompile>
-    <ClCompile Include="Lab3.cpp">
-      <Filter>Labs</Filter>
-    </ClCompile>
-    <ClCompile Include="Lab4.cpp">
-      <Filter>Labs</Filter>
-    </ClCompile>
-    <ClCompile Include="Lab5.cpp">
-      <Filter>Labs</Filter>
-    </ClCompile>
-    <ClCompile Include="Lab6.cpp">
-      <Filter>Labs</Filter>
-    </ClCompile>
-    <ClCompile Include="Lab7.cpp">
-      <Filter>Labs</Filter>
-    </ClCompile>
-    <ClCompile Include="EmptyGame.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-<<<<<<< HEAD
-    <ClCompile Include="VRGame1.cpp">
-      <Filter>Games</Filter>
-    </ClCompile>
-    <ClCompile Include="Person.cpp">
-      <Filter>Kinect1</Filter>
-=======
-    <ClCompile Include="GravityGame.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="GravityController.cpp">
-      <Filter>Engine</Filter>
->>>>>>> gravity
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Camera.h">
-      <Filter>Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="CubeTest.h">
-      <Filter>Games</Filter>
-    </ClInclude>
-    <ClInclude Include="TriangleTest.h">
-      <Filter>Games</Filter>
-    </ClInclude>
-    <ClInclude Include="TexturedCube.h">
-      <Filter>Games</Filter>
-    </ClInclude>
-    <ClInclude Include="ModelTest.h">
-      <Filter>Games</Filter>
-    </ClInclude>
-    <ClInclude Include="Box.h">
-      <Filter>Prefabs</Filter>
-    </ClInclude>
-    <ClInclude Include="Content.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="GameComponent.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Sphere.h">
-      <Filter>Prefabs</Filter>
-    </ClInclude>
-    <ClInclude Include="Cylinder.h">
-      <Filter>Prefabs</Filter>
-    </ClInclude>
-    <ClInclude Include="PhysicsCamera.h">
-      <Filter>Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="PhysicsFactory.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="MotionState.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Exception.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Steerable3DController.h">
-      <Filter>Controllers</Filter>
-    </ClInclude>
-    <ClInclude Include="FPSController.h">
-      <Filter>Controllers</Filter>
-    </ClInclude>
-    <ClInclude Include="PhysicsController.h">
-      <Filter>Controllers</Filter>
-    </ClInclude>
-    <ClInclude Include="KinematicMotionState.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="RiftController.h">
-      <Filter>Controllers</Filter>
-    </ClInclude>
-    <ClInclude Include="XBoxController.h">
-      <Filter>Controllers</Filter>
-    </ClInclude>
-    <ClInclude Include="PhysicsGame1.h">
-      <Filter>Games</Filter>
-    </ClInclude>
-    <ClInclude Include="dirent.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="LineDrawer.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="SoundSystem.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Params.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="VectorDrawer.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Route.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="SteeringControler.h">
-      <Filter>Controllers</Filter>
-    </ClInclude>
-    <ClInclude Include="SteeringGame.h">
-      <Filter>Games</Filter>
-    </ClInclude>
-    <ClInclude Include="Scenario.h">
-      <Filter>Scenarios</Filter>
-    </ClInclude>
-    <ClInclude Include="FlockingScenario.h">
-      <Filter>Scenarios</Filter>
-    </ClInclude>
-    <ClInclude Include="PathFollowingScenario.h">
-      <Filter>Scenarios</Filter>
-    </ClInclude>
-    <ClInclude Include="ObstacleAvoidanceScenario.h">
-      <Filter>Scenarios</Filter>
-    </ClInclude>
-    <ClInclude Include="State.h">
-      <Filter>States</Filter>
-    </ClInclude>
-    <ClInclude Include="IdleState.h">
-      <Filter>States</Filter>
-    </ClInclude>
-    <ClInclude Include="AttackingState.h">
-      <Filter>States</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneGraphGame.h">
-      <Filter>Games</Filter>
-    </ClInclude>
-    <ClInclude Include="FountainEffect.h">
-      <Filter>Particles</Filter>
-    </ClInclude>
-    <ClInclude Include="Particle.h">
-      <Filter>Particles</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticleEffect.h">
-      <Filter>Particles</Filter>
-    </ClInclude>
-    <ClInclude Include="SnowEffect.h">
-      <Filter>Particles</Filter>
-    </ClInclude>
-    <ClInclude Include="Buddha.h">
-      <Filter>Games</Filter>
-    </ClInclude>
-    <ClInclude Include="Transform.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="VRGame2.h">
-      <Filter>Games</Filter>
-    </ClInclude>
-    <ClInclude Include="Person2.h">
-      <Filter>Kinect2</Filter>
-    </ClInclude>
-    <ClInclude Include="LeapHands.h">
-      <Filter>Leap</Filter>
-    </ClInclude>
-    <ClInclude Include="Model.h">
-      <Filter>Prefabs</Filter>
-    </ClInclude>
-    <ClInclude Include="LazerBeam.h">
-      <Filter>Prefabs</Filter>
-    </ClInclude>
-    <ClInclude Include="Ground.h">
-      <Filter>Prefabs</Filter>
-    </ClInclude>
-    <ClInclude Include="SkeletonMapper.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="KinectAudioStream.h">
-      <Filter>Kinect2</Filter>
-    </ClInclude>
-    <ClInclude Include="Capsule.h">
-      <Filter>Prefabs</Filter>
-    </ClInclude>
-    <ClInclude Include="Lab3.h">
-      <Filter>Labs</Filter>
-    </ClInclude>
-    <ClInclude Include="Lab4.h">
-      <Filter>Labs</Filter>
-    </ClInclude>
-    <ClInclude Include="Lab5.h">
-      <Filter>Labs</Filter>
-    </ClInclude>
-    <ClInclude Include="Lab6.h">
-      <Filter>Labs</Filter>
-    </ClInclude>
-    <ClInclude Include="Lab7.h">
-      <Filter>Labs</Filter>
-    </ClInclude>
+    <ClInclude Include="AttackingState.h" />
+    <ClInclude Include="Buddha.h" />
+    <ClInclude Include="Capsule.h" />
     <ClInclude Include="EmptyGame.h" />
-    <ClInclude Include="VRGame1.h">
-      <Filter>Games</Filter>
-    </ClInclude>
-    <ClInclude Include="Person.h">
-      <Filter>Kinect1</Filter>
-    </ClInclude>
-    <ClInclude Include="GravityGame.h" />
+    <ClInclude Include="FlockingScenario.h" />
+    <ClInclude Include="FountainEffect.h" />
     <ClInclude Include="GravityController.h" />
+    <ClInclude Include="GravityGame.h" />
+    <ClInclude Include="IdleState.h" />
+    <ClInclude Include="KinectAudioStream.h" />
+    <ClInclude Include="Lab3.h" />
+    <ClInclude Include="Lab4.h" />
+    <ClInclude Include="Lab5.h" />
+    <ClInclude Include="Lab6.h" />
+    <ClInclude Include="Lab7.h" />
+    <ClInclude Include="LazerBeam.h" />
+    <ClInclude Include="LeapHands.h" />
+    <ClInclude Include="ObstacleAvoidanceScenario.h" />
+    <ClInclude Include="Particle.h" />
+    <ClInclude Include="ParticleEffect.h" />
+    <ClInclude Include="PathFollowingScenario.h" />
+    <ClInclude Include="Person.h" />
+    <ClInclude Include="Person2.h" />
+    <ClInclude Include="Route.h" />
+    <ClInclude Include="Scenario.h" />
+    <ClInclude Include="SceneGraphGame.h" />
+    <ClInclude Include="SkeletonMapper.h" />
+    <ClInclude Include="SnowEffect.h" />
+    <ClInclude Include="State.h" />
+    <ClInclude Include="SteeringGame.h" />
+    <ClInclude Include="Transform.h" />
+    <ClInclude Include="Utils.h" />
+    <ClInclude Include="dirent.h" />
+    <ClInclude Include="Exception.h" />
+    <ClInclude Include="Box.h" />
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="Content.h" />
+    <ClInclude Include="CubeTest.h" />
+    <ClInclude Include="Cylinder.h" />
+    <ClInclude Include="FPSController.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="GameComponent.h" />
+    <ClInclude Include="Ground.h" />
+    <ClInclude Include="KinematicMotionState.h" />
+    <ClInclude Include="LineDrawer.h" />
+    <ClInclude Include="Model.h" />
+    <ClInclude Include="ModelTest.h" />
+    <ClInclude Include="MotionState.h" />
+    <ClInclude Include="Params.h" />
+    <ClInclude Include="PhysicsCamera.h" />
+    <ClInclude Include="PhysicsFactory.h" />
+    <ClInclude Include="PhysicsGame1.h" />
+    <ClInclude Include="PhysicsController.h" />
+    <ClInclude Include="RiftController.h" />
+    <ClInclude Include="SoundSystem.h" />
+    <ClInclude Include="Steerable3DController.h" />
+    <ClInclude Include="Sphere.h" />
+    <ClInclude Include="SteeringControler.h" />
+    <ClInclude Include="TexturedCube.h" />
+    <ClInclude Include="TriangleTest.h" />
+    <ClInclude Include="VectorDrawer.h" />
+    <ClInclude Include="VRGame1.h" />
+    <ClInclude Include="VRGame2.h" />
+    <ClInclude Include="XBoxController.h" />
+    <ClInclude Include="Lua.h" />
+    <ClInclude Include="ScriptManager.h" />
+    <ClInclude Include="Script.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Content\CubeShader.fragmentshader">
-      <Filter>Content</Filter>
-    </None>
-    <None Include="Content\diffuse.fragmentshader">
-      <Filter>Content</Filter>
-    </None>
-    <None Include="Content\SimpleShader.fragmentshader">
-      <Filter>Content</Filter>
-    </None>
-    <None Include="Content\StandardShading.fragmentshader">
-      <Filter>Content</Filter>
-    </None>
-    <None Include="Content\TexturedCubeShader.fragmentshader">
-      <Filter>Content</Filter>
-    </None>
-    <None Include="Content\TriangleShader.fragmentshader">
-      <Filter>Content</Filter>
-    </None>
-    <None Include="Content\CubeShader.vertexshader">
-      <Filter>Content</Filter>
-    </None>
-    <None Include="Content\diffuse.vertexshader">
-      <Filter>Content</Filter>
-    </None>
-    <None Include="Content\SimpleShader.vertexshader">
-      <Filter>Content</Filter>
-    </None>
-    <None Include="Content\StandardShading.vertexshader">
-      <Filter>Content</Filter>
-    </None>
-    <None Include="Content\TexturedCubeShader.vertexshader">
-      <Filter>Content</Filter>
-    </None>
-    <None Include="Content\TriangleShader.vertexshader">
-      <Filter>Content</Filter>
-    </None>
-    <None Include="Content\standard_materials.vertexshader">
-      <Filter>Content</Filter>
-    </None>
-    <None Include="Content\standard_materials.fragmentshader">
-      <Filter>Content</Filter>
-    </None>
-    <None Include="Content\standard_texture.fragmentshader">
-      <Filter>Content</Filter>
-    </None>
-    <None Include="Content\standard_texture.vertexshader">
-      <Filter>Content</Filter>
-    </None>
-    <None Include="Content\TextShader.fragmentshader">
-      <Filter>Content</Filter>
-    </None>
-    <None Include="Content\TextShader.vertexshader">
-      <Filter>Content</Filter>
-    </None>
-    <None Include="Content\Lines.fragmentshader">
-      <Filter>Content</Filter>
-    </None>
-    <None Include="Content\Lines.vertexshader">
-      <Filter>Content</Filter>
-    </None>
-    <None Include="Content\default.properties">
-      <Filter>Content</Filter>
-    </None>
-    <None Include="Content\flocking.properties">
-      <Filter>Content</Filter>
-    </None>
     <None Include="Classes.cd" />
-    <None Include="Content\Particles.fragmentshader">
-      <Filter>Content</Filter>
-    </None>
-    <None Include="Content\Particles.vertexshader">
-      <Filter>Content</Filter>
-    </None>
+    <None Include="Content\bge.grxml" />
+    <None Include="Content\CubeShader.fragmentshader" />
+    <None Include="Content\CubeShader.vertexshader" />
+    <None Include="Content\default.properties" />
+    <None Include="Content\diffuse.fragmentshader" />
+    <None Include="Content\diffuse.vertexshader" />
+    <None Include="Content\flocking.properties" />
+    <None Include="Content\Lines.fragmentshader" />
+    <None Include="Content\Lines.vertexshader" />
+    <None Include="Content\Particles.fragmentshader" />
+    <None Include="Content\Particles.vertexshader" />
+    <None Include="Content\SimpleShader.fragmentshader" />
+    <None Include="Content\SimpleShader.vertexshader" />
+    <None Include="Content\standard_materials.fragmentshader" />
+    <None Include="Content\standard_materials.vertexshader" />
+    <None Include="Content\StandardShading.fragmentshader" />
+    <None Include="Content\StandardShading.vertexshader" />
+    <None Include="Content\standard_texture.fragmentshader" />
+    <None Include="Content\standard_texture.vertexshader" />
+    <None Include="Content\TexturedCubeShader.fragmentshader" />
+    <None Include="Content\TexturedCubeShader.vertexshader" />
+    <None Include="Content\TextShader.fragmentshader" />
+    <None Include="Content\TextShader.vertexshader" />
+    <None Include="Content\TriangleShader.fragmentshader" />
+    <None Include="Content\TriangleShader.vertexshader" />
+    <None Include="Content\vrdefault.properties" />
+    <None Include="Content\vrgame.properties" />
     <None Include="Particles.cd" />
-    <None Include="Content\bge.grxml">
-      <Filter>Content</Filter>
-    </None>
-    <None Include="Content\vrgame.properties">
-      <Filter>Content</Filter>
-    </None>
-    <None Include="Content\vrdefault.properties">
-      <Filter>Content</Filter>
-    </None>
+    <None Include="Content\scripts\test.lua" />
   </ItemGroup>
 </Project>

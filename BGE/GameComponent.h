@@ -23,6 +23,8 @@
 #include "Transform.h"
 #include <map>
 
+#include "ScriptManager.h"
+
 using namespace std;
 
 namespace BGE 
@@ -46,6 +48,9 @@ namespace BGE
 		virtual void Cleanup();
 
 		void SetAlive(bool alive);
+
+		ScriptManager scriptManager;
+		void EnableScripting();
 
 		shared_ptr<GameComponent> parent;
 		std::string tag;

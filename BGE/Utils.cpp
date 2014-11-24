@@ -311,3 +311,58 @@ void BGE::CheckOverflow(int & x)
 		x = -x;
 	}
 }
+
+std::vector<std::string> BGE::split(const std::string& s, char delim)
+{
+	std::vector<std::string> elements;
+
+	const char* cstr = s.c_str();
+	int strLen = s.length();
+	int start = 0;
+	int end = 0;
+
+	while(end <= strLen)
+	{
+		while(end <= strLen)
+		{
+			if(cstr[end] == delim)
+			{
+				break;
+			}
+			end++;
+		}
+
+		elements.push_back(s.substr(start, end - start));
+		start = end + 1;
+		end = start;
+	}
+
+	return elements;
+}
+
+void BGE::findAndReplace(std::string& s, const std::string& what, const std::string& with)
+{
+	size_t pos = 0;
+	while((pos = s.find(what, pos)) != std::string::npos)
+	{
+		if(s.at(pos - 1) != with.at(with.length() - what.length() - 1))
+		{
+			char before = s.substr(pos - 1, 1).c_str()[0];
+
+			if(before == ':' ||
+				before == '.' ||
+				before == ',' ||
+				before == '(' ||
+				before == ')' ||
+				(before >= 48 && before <= 57) ||
+				(before >= 65 && before <= 90) ||
+				(before >= 97 && before <= 122))
+			{
+
+			}
+			else
+				s.replace(pos, what.length(), with);
+		}
+		pos += with.length();
+	}
+}

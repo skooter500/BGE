@@ -50,7 +50,7 @@ bool BGE::LeapHands::Initialise()
 	if (Params::GetBool("leapHeadMode"))
 	{
 
-		controller.setPolicyFlags(Leap::Controller::PolicyFlag::POLICY_OPTIMIZE_HMD);
+		//controller.setPolicyFlags(Leap::Controller::PolicyFlag::POLICY_OPTIMIZE_HMD);
 		//controller.config().setBool("head_mounted_splay_mode", true);
 	}
 
