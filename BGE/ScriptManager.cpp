@@ -6,104 +6,94 @@
 
 ScriptManager::ScriptManager()
 {
-	m_L = luaL_newstate();
-	luaL_openlibs(m_L);
-	Lua::registerMembers(m_L);
+	L = luaL_newstate();
+	luaL_openlibs(L);
+	Lua::registerMembers(L);
 }
 
 ScriptManager::~ScriptManager()
 {
 }
 
-void ScriptManager::addFunctionCode(const std::string& code, int function)
+void ScriptManager::AddFunctionCode(const std::string& code, int function)
 {
 	switch(function)
 	{
 	case FUNC_TYPE::UPDATE:
-		m_updateCode.push_back(code);
+		updateCode.push_back(code);
 		break;
 	case FUNC_TYPE::RENDER:
-		m_renderCode.push_back(code);
+		renderCode.push_back(code);
 		break;
 	case FUNC_TYPE::OTHER:
-		m_otherCode.push_back(code);
+		otherCode.push_back(code);
 		break;
 	}
 }
 
-void ScriptManager::addLocalCode(const std::string& code)
+void ScriptManager::AddLocalCode(const std::string& code)
 {
-	m_localCode.push_back(code);
+	localCode.push_back(code);
 }
 
-void ScriptManager::generateFunctionBody(std::ifstream& file, int function, const std::string& functionDeclartion)
+void ScriptManager::GenerateFunctionBody(std::ifstream& file, int function, const std::string& functionDeclartion)
 {
 	std::string s;
 
-	addFunctionCode(functionDeclartion, function);
+	AddFunctionCode(functionDeclartion, function);
 
 	while(s != "end")
 	{
 		getline(file, s);
-		addFunctionCode(s, function);
+		AddFunctionCode(s, function);
 	}
 }
 
-void ScriptManager::generateScriptName(void* object)
+void ScriptManager::GenerateScriptName(void* object)
 {
 	std::ostringstream address;
 	address << (void const *)object << ".lua";
-	m_scriptName = address.str();
+	scriptName = address.str();
 }
 
-void ScriptManager::setFunctionCode(const std::string& code, int index, int function)
+void ScriptManager::SetFunctionCode(const std::string& code, int index, int function)
 {
 	switch(function)
 	{
 	case FUNC_TYPE::UPDATE:
-		m_updateCode[index] = code;
+		updateCode[index] = code;
 		break;
 	case FUNC_TYPE::RENDER:
-		m_renderCode[index] = code;
+		renderCode[index] = code;
 		break;
 	case FUNC_TYPE::OTHER:
-		m_otherCode[index] = code;
+		otherCode[index] = code;
 		break;
 	}
 }
 
-void ScriptManager::setLocalCode(const std::string& code, int index)
+void ScriptManager::SetLocalCode(const std::string& code, int index)
 {
-	m_localCode[index] = code;
+	localCode[index] = code;
 }
 
-lua_State* ScriptManager::getL()
-{
-	return m_L;
-}
-
-std::string ScriptManager::getScriptName() const
-{
-	return m_scriptName;
-}
-
-std::vector<std::string> ScriptManager::getFunctionCode(int function) const
+std::vector<std::string> ScriptManager::GetFunctionCode(int function) const
 {
 	switch(function)
 	{
 	case FUNC_TYPE::UPDATE:
-		return m_updateCode;
+		return updateCode;
 		break;
 	case FUNC_TYPE::RENDER:
-		return m_renderCode;
+		return renderCode;
 		break;
 	case FUNC_TYPE::OTHER:
-		return m_otherCode;
+		return otherCode;
 		break;
 	}
 }
 
 std::vector<std::string> ScriptManager::getLocalCode() const
 {
-	return m_localCode;
+	return localCode;
 }

@@ -13,24 +13,24 @@ std::string FINAL_DRAW_STR = "function final_draw()";
 std::string LUA_UPDATE = "final_update";
 std::string LUA_DRAW = "final_draw";
 
-std::string addParts(std::vector<std::string> s);
-void generateFinalScript(std::ofstream& file, ScriptManager& scriptManager);
-void generateFunctionCode(std::ofstream& file, ScriptManager& scriptManager, int function, bool includeAnyEnds);
-void renameFunctionVariables(ScriptManager& scriptManager, int function, const std::vector<std::string>& old_, const std::vector<std::string>& new_);
+std::string AddParts(std::vector<std::string> s);
+void GenerateFinalScript(std::ofstream& file, ScriptManager& scriptManager);
+void GenerateFunctionCode(std::ofstream& file, ScriptManager& scriptManager, int function, bool includeAnyEnds);
+void RenameFunctionVariables(ScriptManager& scriptManager, int function, const std::vector<std::string>& old_, const std::vector<std::string>& new_);
 
 namespace BGE
 {
 	Script::Script(const std::string& script, ScriptManager& scriptManager) :
 		scriptManager(scriptManager),
-		scriptName("Content/scripts/gen/" + scriptManager.getScriptName())
+		scriptName("Content/scripts/gen/" + scriptManager.scriptName)
 	{
 		finalScript.open(scriptName);
 
-		loadScript(script, scriptManager);
+		LoadScript(script, scriptManager);
 
-		if(luaL_dofile(scriptManager.getL(), scriptName.c_str()))
+		if(luaL_dofile(scriptManager.L, scriptName.c_str()))
 		{
-			const char* err = lua_tostring(scriptManager.getL(), -1);
+			const char* err = lua_tostring(scriptManager.L, -1);
 			printf("%s\n", err);
 		}
 	}
@@ -42,24 +42,24 @@ namespace BGE
 
 	void Script::Update()
 	{
-		lua_getglobal(scriptManager.getL(), LUA_UPDATE.c_str());
+		lua_getglobal(scriptManager.L, LUA_UPDATE.c_str());
 
-		if(lua_isfunction(scriptManager.getL(), lua_gettop(scriptManager.getL())))
+		if(lua_isfunction(scriptManager.L, lua_gettop(scriptManager.L)))
 		{
-			lua_pushnumber(scriptManager.getL(), Time::deltaTime);
-			lua_call(scriptManager.getL(), 1, 0);
+			lua_pushnumber(scriptManager.L, Time::deltaTime);
+			lua_call(scriptManager.L, 1, 0);
 		}
 
-		Transform t = (Transform)luabridge::getGlobal(scriptManager.getL(), "transform");
+		Transform t = (Transform)luabridge::getGlobal(scriptManager.L, "transform");
 		
-		lua_getglobal(scriptManager.getL(), "ttt");
-		float f = lua_tonumber(scriptManager.getL(), -1);
+		lua_getglobal(scriptManager.L, "ttt");
+		float f = lua_tonumber(scriptManager.L, -1);
 		
 		if(transform->position != t.position ||
 			transform->orientation != t.orientation ||
 			transform->scale != t.scale)
 		{
-			scriptManager.setGlobal(*transform, "transform");
+			scriptManager.SetGlobal(*transform, "transform");
 		}
 		
 		transform->position = t.position;
@@ -72,7 +72,7 @@ namespace BGE
 		GameComponent::Draw();
 	}
 
-	void Script::loadScript(const std::string& fileName, ScriptManager& scriptManager)
+	void Script::LoadScript(const std::string& fileName, ScriptManager& scriptManager)
 	{
 		std::ifstream fileIn;
 		std::vector<std::string> old_;
@@ -99,22 +99,22 @@ namespace BGE
 					new_.push_back(parts[1]);
 					parts.erase(parts.begin());
 
-					scriptManager.addLocalCode(addParts(parts));
+					scriptManager.AddLocalCode(AddParts(parts));
 				}
 				else if(parts[0] == "function")
 				{
 					if(parts[1] == UPDATE_STR.c_str())
 					{
-						scriptManager.generateFunctionBody(fileIn, FUNC_TYPE::UPDATE);
+						scriptManager.GenerateFunctionBody(fileIn, FUNC_TYPE::UPDATE);
 					}
 					else if(parts[1] == DRAW_STR.c_str())
 					{
-						scriptManager.generateFunctionBody(fileIn, FUNC_TYPE::RENDER);
+						scriptManager.GenerateFunctionBody(fileIn, FUNC_TYPE::RENDER);
 					}
 					else
 					{
 						parts.erase(parts.begin());
-						std::string line_ = addParts(parts);
+						std::string line_ = AddParts(parts);
 						int paramsStart = line_.find("(");
 						std::string params = line_.substr(paramsStart, line_.length() - paramsStart);
 						line_ = line_.substr(0, paramsStart);
@@ -122,7 +122,7 @@ namespace BGE
 						line_ = seedPrefix + "_" + line_;
 						new_.push_back(line_);
 
-						scriptManager.generateFunctionBody(fileIn, FUNC_TYPE::OTHER, "function " + line_ + params);
+						scriptManager.GenerateFunctionBody(fileIn, FUNC_TYPE::OTHER, "function " + line_ + params);
 					}
 				}
 
@@ -131,12 +131,12 @@ namespace BGE
 				//	old_[i] += seedPrefix;
 				}
 
-				renameFunctionVariables(scriptManager, FUNC_TYPE::OTHER, old_, new_);
-				renameFunctionVariables(scriptManager, FUNC_TYPE::UPDATE, old_, new_);
-				renameFunctionVariables(scriptManager, FUNC_TYPE::RENDER, old_, new_);
+				RenameFunctionVariables(scriptManager, FUNC_TYPE::OTHER, old_, new_);
+				RenameFunctionVariables(scriptManager, FUNC_TYPE::UPDATE, old_, new_);
+				RenameFunctionVariables(scriptManager, FUNC_TYPE::RENDER, old_, new_);
 			}
 
-			generateFinalScript(finalScript, scriptManager);
+			GenerateFinalScript(finalScript, scriptManager);
 		}
 		else
 		{
@@ -151,7 +151,7 @@ namespace BGE
 	}
 };
 
-std::string addParts(std::vector<std::string> s)
+std::string AddParts(std::vector<std::string> s)
 {
 	std::string line;
 	for(int i = 0; i < s.size(); i++)
@@ -162,48 +162,48 @@ std::string addParts(std::vector<std::string> s)
 	return line;
 }
 
-void generateFinalScript(std::ofstream& file, ScriptManager& scriptManager)
+void GenerateFinalScript(std::ofstream& file, ScriptManager& scriptManager)
 {
 	for(int i = 0; i < scriptManager.getLocalCode().size(); i++)
 	{
 		file << scriptManager.getLocalCode()[i] << "\n";
 	}
 
-	generateFunctionCode(file, scriptManager, FUNC_TYPE::OTHER, true);
+	GenerateFunctionCode(file, scriptManager, FUNC_TYPE::OTHER, true);
 
 	file << FINAL_UPDATE_STR << "\n";
-	generateFunctionCode(file, scriptManager, FUNC_TYPE::UPDATE, false);
+	GenerateFunctionCode(file, scriptManager, FUNC_TYPE::UPDATE, false);
 
 	file << FINAL_DRAW_STR << "\n";
-	generateFunctionCode(file, scriptManager, FUNC_TYPE::RENDER, false);
+	GenerateFunctionCode(file, scriptManager, FUNC_TYPE::RENDER, false);
 }
 
-void renameFunctionVariables(ScriptManager& scriptManager, int function, const std::vector<std::string>& old_, const std::vector<std::string>& new_)
+void RenameFunctionVariables(ScriptManager& scriptManager, int function, const std::vector<std::string>& old_, const std::vector<std::string>& new_)
 {
-	for(int i = 0; i < scriptManager.getFunctionCode(function).size(); i++)
+	for(int i = 0; i < scriptManager.GetFunctionCode(function).size(); i++)
 	{
 		for(int j = 0; j < old_.size(); j++)
 		{
-			std::string s = scriptManager.getFunctionCode(function)[i];
+			std::string s = scriptManager.GetFunctionCode(function)[i];
 			BGE::findAndReplace(s, old_[j], new_[j]);
-			scriptManager.setFunctionCode(s, i, function);
+			scriptManager.SetFunctionCode(s, i, function);
 		}
 	}
 }
 
-void generateFunctionCode(std::ofstream& file, ScriptManager& scriptManager, int function, bool includeAnyEnds)
+void GenerateFunctionCode(std::ofstream& file, ScriptManager& scriptManager, int function, bool includeAnyEnds)
 {
-	for(int i = 0; i < scriptManager.getFunctionCode(function).size(); i++)
+	for(int i = 0; i < scriptManager.GetFunctionCode(function).size(); i++)
 	{
-		if(scriptManager.getFunctionCode(function)[i] != "end")
+		if(scriptManager.GetFunctionCode(function)[i] != "end")
 		{
-			file << scriptManager.getFunctionCode(function)[i] << "\n";
+			file << scriptManager.GetFunctionCode(function)[i] << "\n";
 		}
 		else
 		{
 			if(includeAnyEnds)
 			{
-				file << scriptManager.getFunctionCode(function)[i] << "\n";
+				file << scriptManager.GetFunctionCode(function)[i] << "\n";
 			}
 		}
 	}

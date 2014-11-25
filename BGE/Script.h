@@ -17,7 +17,7 @@ namespace BGE
 		Script(const std::string& script, ScriptManager& scriptManager);
 		~Script();
 
-		void loadScript(const std::string& script, ScriptManager& scriptManager);
+		void LoadScript(const std::string& script, ScriptManager& scriptManager);
 
 		template<class T>
 		void addParameter(T t, const std::string& name)
