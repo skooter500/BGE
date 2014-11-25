@@ -24,6 +24,7 @@ namespace BGE
 		void Update(float timeDelta);
 		void Cleanup();
 		void CreateSpider(glm::vec3);
+		shared_ptr<PhysicsController> Assignment::createLeg(glm::vec3, glm::vec3, glm::quat);
 		shared_ptr<GameComponent> sphere;
 		shared_ptr<GameComponent> box;
 
