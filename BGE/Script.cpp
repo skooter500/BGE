@@ -39,6 +39,7 @@ namespace BGE
 		finalScript.open(scriptName);
 
 		LoadScript(script, scriptManager);
+		scriptNumber = ++scriptManager.scriptCount;
 
 		if(luaL_dofile(scriptManager.L, scriptName.c_str()))
 		{
@@ -53,6 +54,11 @@ namespace BGE
 
 	bool Script::Initialise()
 	{
+		if(scriptNumber > 1)
+		{
+			return GameComponent::Initialise();
+		}
+
 		lua_getglobal(scriptManager.L, LUA_INIT.c_str());
 
 		if(lua_isfunction(scriptManager.L, lua_gettop(scriptManager.L)))
@@ -65,6 +71,11 @@ namespace BGE
 
 	void Script::Update()
 	{
+		if(scriptNumber > 1)
+		{
+			return;
+		}
+
 		lua_getglobal(scriptManager.L, LUA_UPDATE.c_str());
 
 		if(lua_isfunction(scriptManager.L, lua_gettop(scriptManager.L)))
@@ -89,6 +100,11 @@ namespace BGE
 
 	void Script::PreDraw()
 	{
+		if(scriptNumber > 1)
+		{
+			return;
+		}
+
 		lua_getglobal(scriptManager.L, LUA_PREDRAW.c_str());
 
 		if(lua_isfunction(scriptManager.L, lua_gettop(scriptManager.L)))
@@ -101,6 +117,11 @@ namespace BGE
 
 	void Script::Draw()
 	{
+		if(scriptNumber > 1)
+		{
+			return;
+		}
+
 		lua_getglobal(scriptManager.L, LUA_DRAW.c_str());
 
 		if(lua_isfunction(scriptManager.L, lua_gettop(scriptManager.L)))
@@ -113,6 +134,11 @@ namespace BGE
 
 	void Script::PostDraw()
 	{
+		if(scriptNumber > 1)
+		{
+			return;
+		}
+
 		lua_getglobal(scriptManager.L, LUA_POSTDRAW.c_str());
 
 		if(lua_isfunction(scriptManager.L, lua_gettop(scriptManager.L)))
@@ -125,6 +151,11 @@ namespace BGE
 
 	void Script::Cleanup()
 	{
+		if(scriptNumber > 1)
+		{
+			return;
+		}
+
 		lua_getglobal(scriptManager.L, LUA_CLEANUP.c_str());
 
 		if(lua_isfunction(scriptManager.L, lua_gettop(scriptManager.L)))

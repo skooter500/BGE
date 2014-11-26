@@ -33,6 +33,8 @@ public:
 	std::vector<std::string> postdrawCode;
 	std::vector<std::string> cleanupCode;
 
+	int scriptCount = 0;
+
 	ScriptManager();
 	~ScriptManager();
 

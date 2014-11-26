@@ -28,7 +28,8 @@ bool ScriptingExample::Initialise()
 	boxObj2->transform->position.x += 20;
 	boxObj2->EnableScripting();
 	boxObj2->Attach(make_shared<Script>("pulse.lua", boxObj2.get()));
-	//boxObj2->scriptManager->SetGlobal("pitch", "action");
+	boxObj2->Attach(make_shared<Script>("roll.lua", boxObj2.get()));
+	boxObj2->scriptManager->SetGlobal("pitch", "action");
 
 
 	//boxObj2->Attach(make_shared<Script>("test.lua", boxObj2.get()));

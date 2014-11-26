@@ -11,6 +11,8 @@ namespace BGE
 	{
 	public:
 		ScriptManager& scriptManager;
+		int scriptNumber;
+
 		std::string scriptName;
 		std::ofstream finalScript;
 
