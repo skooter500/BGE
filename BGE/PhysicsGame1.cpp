@@ -40,11 +40,9 @@ bool PhysicsGame1::Initialise()
 
 	shared_ptr<Box> obj1 = make_shared<Box>(5, 5, 5);
 	obj1->EnableScripting();
-	float global_speed = -90.0f;
 	obj1->Attach(make_shared<Script>("roll.lua", obj1.get()));
 	obj1->Attach(make_shared<Script>("init.lua", obj1.get()));
 	obj1->Attach(make_shared<Script>("template.lua", obj1.get()));
-	obj1->scriptManager->SetGlobal(global_speed, "global_speed");
 	Attach(obj1);
 
 	this->EnableScripting();

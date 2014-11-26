@@ -1,5 +1,5 @@
 local speed = 90
 
 function update(delta)
-	transform:Roll(global_speed * delta)
+	transform:Roll(speed * delta)
 end

@@ -360,28 +360,18 @@ void BGE::FindAndReplace(std::string& subject, const std::string& search, const 
 
 		after = subject.substr(pos + search.length(), 1).c_str()[0];
 
-		if(special.size() == 0)
+		for(int i = 0; i < special.size(); i++)
 		{
-			if(!IsAlphaNumeric(before) && !IsAlphaNumeric(after))
+			if(before == special[i] || after == special[i])
 			{
-				subject.replace(pos, search.length(), replace);
+				isSpecial = true;
+				break;
 			}
 		}
-		else
-		{
-			for(int i = 0; i < special.size(); i++)
-			{
-				if(before == special[i] || after == special[i])
-				{
-					isSpecial = true;
-					break;
-				}
-			}
 
-			if(!(IsAlphaNumeric(before) || IsAlphaNumeric(after)) && !isSpecial)
-			{
-				subject.replace(pos, search.length(), replace);
-			}
+		if(!(IsAlphaNumeric(before) || IsAlphaNumeric(after)) && !isSpecial)
+		{
+			subject.replace(pos, search.length(), replace);
 		}
 
 		pos += replace.length();
