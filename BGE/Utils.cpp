@@ -312,7 +312,7 @@ void BGE::CheckOverflow(int & x)
 	}
 }
 
-std::vector<std::string> BGE::split(const std::string& s, char delim)
+std::vector<std::string> BGE::Split(const std::string& s, char delim)
 {
 	std::vector<std::string> elements;
 
@@ -340,29 +340,54 @@ std::vector<std::string> BGE::split(const std::string& s, char delim)
 	return elements;
 }
 
-void BGE::findAndReplace(std::string& s, const std::string& what, const std::string& with)
+void BGE::FindAndReplace(std::string& subject, const std::string& search, const std::string& replace, std::vector<char> special)
 {
+	char before;
+	char after;
 	size_t pos = 0;
-	while((pos = s.find(what, pos)) != std::string::npos)
+
+	while((pos = subject.find(search, pos)) != std::string::npos)
 	{
-		if(s.at(pos - 1) != with.at(with.length() - what.length() - 1))
+		if(pos == 0)
 		{
-			char before = s.substr(pos - 1, 1).c_str()[0];
-
-			if(before == ':' ||
-				before == '.' ||
-				before == ',' ||
-				before == '(' ||
-				before == ')' ||
-				(before >= 48 && before <= 57) ||
-				(before >= 65 && before <= 90) ||
-				(before >= 97 && before <= 122))
-			{
-
-			}
-			else
-				s.replace(pos, what.length(), with);
+			before = 127;
 		}
-		pos += with.length();
+		else
+		{
+			before = subject.substr(pos - 1, 1).c_str()[0];
+		}
+
+		after = subject.substr(pos + search.length(), 1).c_str()[0];
+
+		if(special.size() == 0)
+		{
+			if(!IsAlphaNumeric(before) && !IsAlphaNumeric(after))
+			{
+				subject.replace(pos, search.length(), replace);
+			}
+		}
+		else
+		{
+			for(int i = 0; i < special.size(); i++)
+			{
+				if(before == special[i] || after == special[i])
+				{
+					break;
+				}
+
+				if(!(IsAlphaNumeric(before) || IsAlphaNumeric(after) || before == special[i] || after == special[i]))
+				{
+					subject.replace(pos, search.length(), replace);
+					break;
+				}
+			}
+		}
+
+		pos += replace.length();
 	}
+}
+
+bool BGE::IsAlphaNumeric(char c)
+{
+	return (c >= 48 && c <= 57) || (c >= 65 && c <= 90) || (c >= 97 && c <= 122);
 }

@@ -94,6 +94,7 @@ namespace BGE
 	void CheckOverflow(int & x);
 	void SafeDelete(void ** p);
 
-	std::vector<std::string> split(const std::string& s, char delim);
-	void findAndReplace(std::string& subject, const std::string& search, const std::string& replace);
+	std::vector<std::string> Split(const std::string& s, char delim);
+	void FindAndReplace(std::string& subject, const std::string& search, const std::string& replace, std::vector<char> special = {});
+	bool IsAlphaNumeric(char c);
 }

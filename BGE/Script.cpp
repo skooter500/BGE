@@ -4,12 +4,15 @@
 #include "Script.h"
 #include "Utils.h"
 
+std::string INIT_STR = "initialise()";
 std::string UPDATE_STR = "update(delta)";
 std::string DRAW_STR = "draw()";
 
+std::string FINAL_INIT_STR = "function final_initialise()";
 std::string FINAL_UPDATE_STR = "function final_update(delta)";
 std::string FINAL_DRAW_STR = "function final_draw()";
 
+std::string LUA_INIT = "final_initialise";
 std::string LUA_UPDATE = "final_update";
 std::string LUA_DRAW = "final_draw";
 
@@ -20,8 +23,8 @@ void RenameFunctionVariables(ScriptManager& scriptManager, int function, const s
 
 namespace BGE
 {
-	Script::Script(const std::string& script, ScriptManager& scriptManager) :
-		scriptManager(scriptManager),
+	Script::Script(const std::string& script, GameComponent* component) :
+		scriptManager(component->scriptManager),
 		scriptName("Content/scripts/gen/" + scriptManager.scriptName)
 	{
 		finalScript.open(scriptName);
@@ -40,6 +43,18 @@ namespace BGE
 		remove(scriptName.c_str());
 	}
 
+	bool Script::Initialise()
+	{
+		lua_getglobal(scriptManager.L, LUA_INIT.c_str());
+
+		if(lua_isfunction(scriptManager.L, lua_gettop(scriptManager.L)))
+		{
+			lua_call(scriptManager.L, 0, 0);
+		}
+
+		return GameComponent::Initialise();
+	}
+
 	void Script::Update()
 	{
 		lua_getglobal(scriptManager.L, LUA_UPDATE.c_str());
@@ -52,14 +67,11 @@ namespace BGE
 
 		Transform t = (Transform)luabridge::getGlobal(scriptManager.L, "transform");
 		
-		lua_getglobal(scriptManager.L, "ttt");
-		float f = lua_tonumber(scriptManager.L, -1);
-		
 		if(transform->position != t.position ||
 			transform->orientation != t.orientation ||
 			transform->scale != t.scale)
 		{
-			scriptManager.SetGlobal(*transform, "transform");
+			scriptManager.SetGlobal(t, "transform");
 		}
 		
 		transform->position = t.position;
@@ -82,7 +94,7 @@ namespace BGE
 
 		std::string line;
 		int seed = rand();
-		std::string seedPrefix = "b_" + std::to_string(seed);
+		std::string seedPrefix = "b" + std::to_string(seed);
 
 		if(fileIn.is_open())
 		{
@@ -90,12 +102,12 @@ namespace BGE
 			{
 				getline(fileIn, line);
 
-				std::vector<std::string> parts = split(line, ' ');
+				std::vector<std::string> parts = Split(line, ' ');
 
 				if(parts[0] == "local")
 				{
 					old_.push_back(parts[1]);
-					parts[1] = seedPrefix + "_" + parts[1];
+					parts[1] = seedPrefix + parts[1];
 					new_.push_back(parts[1]);
 					parts.erase(parts.begin());
 
@@ -103,7 +115,11 @@ namespace BGE
 				}
 				else if(parts[0] == "function")
 				{
-					if(parts[1] == UPDATE_STR.c_str())
+					if(parts[1] == INIT_STR.c_str())
+					{
+						scriptManager.GenerateFunctionBody(fileIn, FUNC_TYPE::INIT);
+					}
+					else if(parts[1] == UPDATE_STR.c_str())
 					{
 						scriptManager.GenerateFunctionBody(fileIn, FUNC_TYPE::UPDATE);
 					}
@@ -119,19 +135,15 @@ namespace BGE
 						std::string params = line_.substr(paramsStart, line_.length() - paramsStart);
 						line_ = line_.substr(0, paramsStart);
 						old_.push_back(line_);
-						line_ = seedPrefix + "_" + line_;
+						line_ = seedPrefix + line_;
 						new_.push_back(line_);
 
 						scriptManager.GenerateFunctionBody(fileIn, FUNC_TYPE::OTHER, "function " + line_ + params);
 					}
 				}
 
-				for(int i = 0; i < old_.size(); i++)
-				{
-				//	old_[i] += seedPrefix;
-				}
-
 				RenameFunctionVariables(scriptManager, FUNC_TYPE::OTHER, old_, new_);
+				RenameFunctionVariables(scriptManager, FUNC_TYPE::INIT, old_, new_);
 				RenameFunctionVariables(scriptManager, FUNC_TYPE::UPDATE, old_, new_);
 				RenameFunctionVariables(scriptManager, FUNC_TYPE::RENDER, old_, new_);
 			}
@@ -171,6 +183,9 @@ void GenerateFinalScript(std::ofstream& file, ScriptManager& scriptManager)
 
 	GenerateFunctionCode(file, scriptManager, FUNC_TYPE::OTHER, true);
 
+	file << FINAL_INIT_STR << "\n";
+	GenerateFunctionCode(file, scriptManager, FUNC_TYPE::INIT, false);
+
 	file << FINAL_UPDATE_STR << "\n";
 	GenerateFunctionCode(file, scriptManager, FUNC_TYPE::UPDATE, false);
 
@@ -185,7 +200,7 @@ void RenameFunctionVariables(ScriptManager& scriptManager, int function, const s
 		for(int j = 0; j < old_.size(); j++)
 		{
 			std::string s = scriptManager.GetFunctionCode(function)[i];
-			BGE::findAndReplace(s, old_[j], new_[j]);
+			BGE::FindAndReplace(s, old_[j], new_[j], { '.', ':' });
 			scriptManager.SetFunctionCode(s, i, function);
 		}
 	}

@@ -69,6 +69,7 @@
     <ClCompile Include="Lua.cpp" />
     <ClCompile Include="ScriptManager.cpp" />
     <ClCompile Include="Script.cpp" />
+    <ClCompile Include="LuaWrapper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AttackingState.h" />
@@ -138,6 +139,7 @@
     <ClInclude Include="Lua.h" />
     <ClInclude Include="ScriptManager.h" />
     <ClInclude Include="Script.h" />
+    <ClInclude Include="LuaWrapper.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Classes.cd" />
@@ -170,5 +172,6 @@
     <None Include="Content\vrgame.properties" />
     <None Include="Particles.cd" />
     <None Include="Content\scripts\test.lua" />
+    <None Include="Content\scripts\init.lua" />
   </ItemGroup>
 </Project>

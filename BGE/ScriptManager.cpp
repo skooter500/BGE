@@ -8,7 +8,7 @@ ScriptManager::ScriptManager()
 {
 	L = luaL_newstate();
 	luaL_openlibs(L);
-	Lua::registerMembers(L);
+	Lua::RegisterMembers(L);
 }
 
 ScriptManager::~ScriptManager()
@@ -19,6 +19,9 @@ void ScriptManager::AddFunctionCode(const std::string& code, int function)
 {
 	switch(function)
 	{
+	case FUNC_TYPE::INIT:
+		initCode.push_back(code);
+		break;
 	case FUNC_TYPE::UPDATE:
 		updateCode.push_back(code);
 		break;
@@ -60,6 +63,9 @@ void ScriptManager::SetFunctionCode(const std::string& code, int index, int func
 {
 	switch(function)
 	{
+	case FUNC_TYPE::INIT:
+		initCode[index] = code;
+		break;
 	case FUNC_TYPE::UPDATE:
 		updateCode[index] = code;
 		break;
@@ -81,6 +87,9 @@ std::vector<std::string> ScriptManager::GetFunctionCode(int function) const
 {
 	switch(function)
 	{
+	case FUNC_TYPE::INIT:
+		return initCode;
+		break;
 	case FUNC_TYPE::UPDATE:
 		return updateCode;
 		break;

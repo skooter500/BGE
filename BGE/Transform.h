@@ -13,7 +13,7 @@ namespace BGE
 	public:
 		Transform(void);
 		~Transform(void);
-		float test;
+		
 		glm::vec3 position;
 		glm::vec3 look;
 		glm::vec3 up;

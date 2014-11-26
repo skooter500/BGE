@@ -38,10 +38,11 @@ bool PhysicsGame1::Initialise()
 
 	setGravity(glm::vec3(0, -0, 0));
 
-	shared_ptr<Box> obj = make_shared<Box>(5, 5, 5);
-	obj->EnableScripting();
-	obj->Attach(make_shared<Script>("test.lua", obj->scriptManager));
-	Attach(obj);
+	shared_ptr<Box> obj1 = make_shared<Box>(5, 5, 5);
+	obj1->EnableScripting();
+	obj1->Attach(make_shared<Script>("test.lua", obj1.get()));
+	obj1->Attach(make_shared<Script>("init.lua", obj1.get()));
+	Attach(obj1);
 
 	if (!Game::Initialise()) {
 		return false;

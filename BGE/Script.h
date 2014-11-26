@@ -14,17 +14,12 @@ namespace BGE
 		std::string scriptName;
 		std::ofstream finalScript;
 
-		Script(const std::string& script, ScriptManager& scriptManager);
+		Script(const std::string& script, GameComponent* component);
 		~Script();
 
 		void LoadScript(const std::string& script, ScriptManager& scriptManager);
 
-		template<class T>
-		void addParameter(T t, const std::string& name)
-		{
-			scriptManager.setGlobal(t, name);
-		}
-
+		virtual bool Initialise();
 		virtual void Update();
 		virtual void Draw();
 	};

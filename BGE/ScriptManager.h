@@ -8,6 +8,7 @@
 
 enum FUNC_TYPE
 {
+	INIT,
 	UPDATE,
 	RENDER,
 	OTHER
@@ -21,6 +22,7 @@ public:
 
 	std::vector<std::string> otherCode;
 	std::vector<std::string> localCode;
+	std::vector<std::string> initCode;
 	std::vector<std::string> inputCode;
 	std::vector<std::string> updateCode;
 	std::vector<std::string> renderCode;
