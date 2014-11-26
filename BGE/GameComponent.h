@@ -49,7 +49,7 @@ namespace BGE
 
 		void SetAlive(bool alive);
 
-		ScriptManager scriptManager;
+		shared_ptr<ScriptManager> scriptManager;
 		void EnableScripting();
 
 		shared_ptr<GameComponent> parent;

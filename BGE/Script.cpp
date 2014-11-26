@@ -24,7 +24,7 @@ void RenameFunctionVariables(ScriptManager& scriptManager, int function, const s
 namespace BGE
 {
 	Script::Script(const std::string& script, GameComponent* component) :
-		scriptManager(component->scriptManager),
+		scriptManager(*component->scriptManager),
 		scriptName("Content/scripts/gen/" + scriptManager.scriptName)
 	{
 		finalScript.open(scriptName);
