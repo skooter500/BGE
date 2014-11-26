@@ -169,7 +169,10 @@
     <None Include="Content\vrdefault.properties" />
     <None Include="Content\vrgame.properties" />
     <None Include="Particles.cd" />
-    <None Include="Content\scripts\test.lua" />
     <None Include="Content\scripts\init.lua" />
+    <None Include="Content\scripts\roll.lua" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Content\scripts\template.lua" />
   </ItemGroup>
 </Project>

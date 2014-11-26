@@ -6,15 +6,24 @@
 
 std::string INIT_STR = "initialise()";
 std::string UPDATE_STR = "update(delta)";
+std::string PREDRAW_STR = "predraw()";
 std::string DRAW_STR = "draw()";
+std::string POSTDRAW_STR = "postdraw()";
+std::string CLEANUP_STR = "cleanup()";
 
 std::string FINAL_INIT_STR = "function final_initialise()";
 std::string FINAL_UPDATE_STR = "function final_update(delta)";
+std::string FINAL_PREDRAW_STR = "function final_predraw()";
 std::string FINAL_DRAW_STR = "function final_draw()";
+std::string FINAL_POSTDRAW_STR = "function final_postdraw()";
+std::string FINAL_CLEANUP_STR = "function final_cleanup()";
 
 std::string LUA_INIT = "final_initialise";
 std::string LUA_UPDATE = "final_update";
+std::string LUA_PREDRAW = "final_predraw";
 std::string LUA_DRAW = "final_draw";
+std::string LUA_POSTDRAW = "final_postdraw";
+std::string LUA_CLEANUP = "final_cleanup";
 
 std::string AddParts(std::vector<std::string> s);
 void GenerateFinalScript(std::ofstream& file, ScriptManager& scriptManager);
@@ -40,7 +49,6 @@ namespace BGE
 
 	Script::~Script()
 	{
-		remove(scriptName.c_str());
 	}
 
 	bool Script::Initialise()
@@ -79,9 +87,53 @@ namespace BGE
 		transform->scale = t.scale;
 	}
 
+	void Script::PreDraw()
+	{
+		lua_getglobal(scriptManager.L, LUA_PREDRAW.c_str());
+
+		if(lua_isfunction(scriptManager.L, lua_gettop(scriptManager.L)))
+		{
+			lua_call(scriptManager.L, 0, 0);
+		}
+
+		GameComponent::PreDraw();
+	}
+
 	void Script::Draw()
 	{
+		lua_getglobal(scriptManager.L, LUA_DRAW.c_str());
+
+		if(lua_isfunction(scriptManager.L, lua_gettop(scriptManager.L)))
+		{
+			lua_call(scriptManager.L, 0, 0);
+		}
+
 		GameComponent::Draw();
+	}
+
+	void Script::PostDraw()
+	{
+		lua_getglobal(scriptManager.L, LUA_POSTDRAW.c_str());
+
+		if(lua_isfunction(scriptManager.L, lua_gettop(scriptManager.L)))
+		{
+			lua_call(scriptManager.L, 0, 0);
+		}
+
+		GameComponent::PostDraw();
+	}
+
+	void Script::Cleanup()
+	{
+		lua_getglobal(scriptManager.L, LUA_CLEANUP.c_str());
+
+		if(lua_isfunction(scriptManager.L, lua_gettop(scriptManager.L)))
+		{
+			lua_call(scriptManager.L, 0, 0);
+		}
+
+		remove(scriptName.c_str());
+		GameComponent::Cleanup();
 	}
 
 	void Script::LoadScript(const std::string& fileName, ScriptManager& scriptManager)
@@ -123,9 +175,21 @@ namespace BGE
 					{
 						scriptManager.GenerateFunctionBody(fileIn, FUNC_TYPE::UPDATE);
 					}
+					else if(parts[1] == PREDRAW_STR.c_str())
+					{
+						scriptManager.GenerateFunctionBody(fileIn, FUNC_TYPE::PREDRAW);
+					}
 					else if(parts[1] == DRAW_STR.c_str())
 					{
-						scriptManager.GenerateFunctionBody(fileIn, FUNC_TYPE::RENDER);
+						scriptManager.GenerateFunctionBody(fileIn, FUNC_TYPE::DRAW);
+					}
+					else if(parts[1] == POSTDRAW_STR.c_str())
+					{
+						scriptManager.GenerateFunctionBody(fileIn, FUNC_TYPE::POSTDRAW);
+					}
+					else if(parts[1] == CLEANUP_STR.c_str())
+					{
+						scriptManager.GenerateFunctionBody(fileIn, FUNC_TYPE::CLEANUP);
 					}
 					else
 					{
@@ -145,7 +209,10 @@ namespace BGE
 				RenameFunctionVariables(scriptManager, FUNC_TYPE::OTHER, old_, new_);
 				RenameFunctionVariables(scriptManager, FUNC_TYPE::INIT, old_, new_);
 				RenameFunctionVariables(scriptManager, FUNC_TYPE::UPDATE, old_, new_);
-				RenameFunctionVariables(scriptManager, FUNC_TYPE::RENDER, old_, new_);
+				RenameFunctionVariables(scriptManager, FUNC_TYPE::PREDRAW, old_, new_);
+				RenameFunctionVariables(scriptManager, FUNC_TYPE::DRAW, old_, new_);
+				RenameFunctionVariables(scriptManager, FUNC_TYPE::POSTDRAW, old_, new_);
+				RenameFunctionVariables(scriptManager, FUNC_TYPE::CLEANUP, old_, new_);
 			}
 
 			GenerateFinalScript(finalScript, scriptManager);
@@ -189,8 +256,17 @@ void GenerateFinalScript(std::ofstream& file, ScriptManager& scriptManager)
 	file << FINAL_UPDATE_STR << "\n";
 	GenerateFunctionCode(file, scriptManager, FUNC_TYPE::UPDATE, false);
 
+	file << FINAL_PREDRAW_STR << "\n";
+	GenerateFunctionCode(file, scriptManager, FUNC_TYPE::PREDRAW, false);
+
 	file << FINAL_DRAW_STR << "\n";
-	GenerateFunctionCode(file, scriptManager, FUNC_TYPE::RENDER, false);
+	GenerateFunctionCode(file, scriptManager, FUNC_TYPE::DRAW, false);
+
+	file << FINAL_POSTDRAW_STR << "\n";
+	GenerateFunctionCode(file, scriptManager, FUNC_TYPE::POSTDRAW, false);
+
+	file << FINAL_CLEANUP_STR << "\n";
+	GenerateFunctionCode(file, scriptManager, FUNC_TYPE::CLEANUP, false);
 }
 
 void RenameFunctionVariables(ScriptManager& scriptManager, int function, const std::vector<std::string>& old_, const std::vector<std::string>& new_)
@@ -200,7 +276,7 @@ void RenameFunctionVariables(ScriptManager& scriptManager, int function, const s
 		for(int j = 0; j < old_.size(); j++)
 		{
 			std::string s = scriptManager.GetFunctionCode(function)[i];
-			BGE::FindAndReplace(s, old_[j], new_[j], { '.', ':' });
+			BGE::FindAndReplace(s, old_[j], new_[j], { '.', ':', '_' });
 			scriptManager.SetFunctionCode(s, i, function);
 		}
 	}

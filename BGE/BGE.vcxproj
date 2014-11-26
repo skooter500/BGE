@@ -252,7 +252,7 @@
     <None Include="Content\Particles.fragmentshader" />
     <None Include="Content\Particles.vertexshader" />
     <None Include="Content\scripts\init.lua" />
-    <None Include="Content\scripts\test.lua" />
+    <None Include="Content\scripts\roll.lua" />
     <None Include="Content\SimpleShader.fragmentshader" />
     <None Include="Content\SimpleShader.vertexshader" />
     <None Include="Content\standard_materials.fragmentshader" />
@@ -272,6 +272,9 @@
     <None Include="Particles.cd">
       <SubType>Designer</SubType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Content\scripts\template.lua" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

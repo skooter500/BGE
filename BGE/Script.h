@@ -21,6 +21,9 @@ namespace BGE
 
 		virtual bool Initialise();
 		virtual void Update();
+		virtual void PreDraw();
 		virtual void Draw();
+		virtual void PostDraw();
+		virtual void Cleanup();
 	};
 };

@@ -10,7 +10,10 @@ enum FUNC_TYPE
 {
 	INIT,
 	UPDATE,
-	RENDER,
+	PREDRAW,
+	DRAW,
+	POSTDRAW,
+	CLEANUP,
 	OTHER
 };
 
@@ -25,7 +28,10 @@ public:
 	std::vector<std::string> initCode;
 	std::vector<std::string> inputCode;
 	std::vector<std::string> updateCode;
-	std::vector<std::string> renderCode;
+	std::vector<std::string> predrawCode;
+	std::vector<std::string> drawCode;
+	std::vector<std::string> postdrawCode;
+	std::vector<std::string> cleanupCode;
 
 	ScriptManager();
 	~ScriptManager();

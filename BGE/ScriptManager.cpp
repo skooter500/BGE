@@ -25,8 +25,17 @@ void ScriptManager::AddFunctionCode(const std::string& code, int function)
 	case FUNC_TYPE::UPDATE:
 		updateCode.push_back(code);
 		break;
-	case FUNC_TYPE::RENDER:
-		renderCode.push_back(code);
+	case FUNC_TYPE::PREDRAW:
+		predrawCode.push_back(code);
+		break;
+	case FUNC_TYPE::DRAW:
+		drawCode.push_back(code);
+		break;
+	case FUNC_TYPE::POSTDRAW:
+		postdrawCode.push_back(code);
+		break;
+	case FUNC_TYPE::CLEANUP:
+		cleanupCode.push_back(code);
 		break;
 	case FUNC_TYPE::OTHER:
 		otherCode.push_back(code);
@@ -69,8 +78,17 @@ void ScriptManager::SetFunctionCode(const std::string& code, int index, int func
 	case FUNC_TYPE::UPDATE:
 		updateCode[index] = code;
 		break;
-	case FUNC_TYPE::RENDER:
-		renderCode[index] = code;
+	case FUNC_TYPE::PREDRAW:
+		predrawCode[index] = code;
+		break;
+	case FUNC_TYPE::DRAW:
+		drawCode[index] = code;
+		break;
+	case FUNC_TYPE::POSTDRAW:
+		postdrawCode[index] = code;
+		break;
+	case FUNC_TYPE::CLEANUP:
+		cleanupCode[index] = code;
 		break;
 	case FUNC_TYPE::OTHER:
 		otherCode[index] = code;
@@ -93,8 +111,17 @@ std::vector<std::string> ScriptManager::GetFunctionCode(int function) const
 	case FUNC_TYPE::UPDATE:
 		return updateCode;
 		break;
-	case FUNC_TYPE::RENDER:
-		return renderCode;
+	case FUNC_TYPE::PREDRAW:
+		return predrawCode;
+		break;
+	case FUNC_TYPE::DRAW:
+		return drawCode;
+		break;
+	case FUNC_TYPE::POSTDRAW:
+		return postdrawCode;
+		break;
+	case FUNC_TYPE::CLEANUP:
+		return cleanupCode;
 		break;
 	case FUNC_TYPE::OTHER:
 		return otherCode;

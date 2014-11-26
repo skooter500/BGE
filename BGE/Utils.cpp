@@ -345,6 +345,7 @@ void BGE::FindAndReplace(std::string& subject, const std::string& search, const 
 	char before;
 	char after;
 	size_t pos = 0;
+	bool isSpecial = false;
 
 	while((pos = subject.find(search, pos)) != std::string::npos)
 	{
@@ -372,14 +373,14 @@ void BGE::FindAndReplace(std::string& subject, const std::string& search, const 
 			{
 				if(before == special[i] || after == special[i])
 				{
+					isSpecial = true;
 					break;
 				}
+			}
 
-				if(!(IsAlphaNumeric(before) || IsAlphaNumeric(after) || before == special[i] || after == special[i]))
-				{
-					subject.replace(pos, search.length(), replace);
-					break;
-				}
+			if(!(IsAlphaNumeric(before) || IsAlphaNumeric(after)) && !isSpecial)
+			{
+				subject.replace(pos, search.length(), replace);
 			}
 		}
 

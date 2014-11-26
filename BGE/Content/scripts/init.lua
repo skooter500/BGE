@@ -1,3 +1,3 @@
 function initialise()
-	transform.scale = glm.vec3(100, 10, 50)
+	transform.scale = glm.vec3(10, 50, 5)
 end
