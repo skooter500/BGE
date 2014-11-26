@@ -1,8 +1,8 @@
 local scale = 0
 
 function update(delta)
-	scale = scale + delta
-	s = glm.sin(scale) * 25
+	scale = scale + delta * 5
+	s = glm.sin(scale) * 20
 
 	if s < 0 then
 		s = s * -1
