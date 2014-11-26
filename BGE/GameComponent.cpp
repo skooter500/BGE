@@ -308,13 +308,3 @@ void BGE::GameComponent::InverseTransformChildren(shared_ptr<Transform> childTra
 	}
 }
 
-
-
-void BGE::GameComponent::EnableScripting()
-{
-	scriptManager = make_shared<ScriptManager>();
-	scriptManager->GenerateScriptName(this);
-	scriptManager->SetGlobal(*this->transform, "transform");
-}
-
-
