@@ -5,6 +5,10 @@
 
 void RegisterKeys(lua_State* l);
 
+float sinWrapper(float x);
+float cosWrapper(float x);
+float tanWrapper(float x);
+
 void Lua::RegisterMembers(lua_State* l)
 {
 	char* nsCore = "bge";
@@ -12,6 +16,11 @@ void Lua::RegisterMembers(lua_State* l)
 	char* nsInput = "io";
 	luabridge::getGlobalNamespace(l)
 		.beginNamespace(nsMath)
+
+		.addFunction("sin", &sinWrapper)
+		.addFunction("cos", &cosWrapper)
+		.addFunction("tan", &tanWrapper)
+
 		.beginClass<glm::vec3>("vec3")
 		.addConstructor<void(*)(const float&, const float&, const float&)>()
 		.addData("x", &glm::vec3::x)
@@ -288,4 +297,19 @@ void registerKeys(lua_State* l)
 	luabridge::setGlobal(l, static_cast<int>(SDL_SCANCODE_SLEEP), "SDL_SCANCODE_SLEEP");
 	luabridge::setGlobal(l, static_cast<int>(SDL_SCANCODE_APP1), "SDL_SCANCODE_APP1");
 	luabridge::setGlobal(l, static_cast<int>(SDL_SCANCODE_APP2), "SDL_SCANCODE_APP2");
+}
+
+float sinWrapper(float x)
+{
+	return sin(x);
+}
+
+float cosWrapper(float x)
+{
+	return cos(x);
+}
+
+float tanWrapper(float x)
+{
+	return tan(x);
 }

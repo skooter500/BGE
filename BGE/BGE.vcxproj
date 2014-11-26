@@ -103,6 +103,7 @@
     <ClCompile Include="AttackingState.cpp" />
     <ClCompile Include="Buddha.cpp" />
     <ClCompile Include="Capsule.cpp" />
+    <ClCompile Include="ScriptingExample.cpp" />
     <ClCompile Include="EmptyGame.cpp" />
     <ClCompile Include="FlockingScenario.cpp" />
     <ClCompile Include="FountainEffect.cpp" />
@@ -173,6 +174,7 @@
     <ClInclude Include="AttackingState.h" />
     <ClInclude Include="Buddha.h" />
     <ClInclude Include="Capsule.h" />
+    <ClInclude Include="ScriptingExample.h" />
     <ClInclude Include="EmptyGame.h" />
     <ClInclude Include="FlockingScenario.h" />
     <ClInclude Include="FountainEffect.h" />
@@ -251,8 +253,10 @@
     <None Include="Content\Lines.vertexshader" />
     <None Include="Content\Particles.fragmentshader" />
     <None Include="Content\Particles.vertexshader" />
-    <None Include="Content\scripts\init.lua" />
+    <None Include="Content\scripts\pulse.lua" />
     <None Include="Content\scripts\roll.lua" />
+    <None Include="Content\scripts\test.lua" />
+    <None Include="Content\scripts\test2.lua" />
     <None Include="Content\SimpleShader.fragmentshader" />
     <None Include="Content\SimpleShader.vertexshader" />
     <None Include="Content\standard_materials.fragmentshader" />

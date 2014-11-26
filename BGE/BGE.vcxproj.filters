@@ -69,6 +69,7 @@
     <ClCompile Include="Lua.cpp" />
     <ClCompile Include="ScriptManager.cpp" />
     <ClCompile Include="Script.cpp" />
+    <ClCompile Include="ScriptingExample.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AttackingState.h" />
@@ -138,6 +139,7 @@
     <ClInclude Include="Lua.h" />
     <ClInclude Include="ScriptManager.h" />
     <ClInclude Include="Script.h" />
+    <ClInclude Include="ScriptingExample.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Classes.cd" />
@@ -169,8 +171,10 @@
     <None Include="Content\vrdefault.properties" />
     <None Include="Content\vrgame.properties" />
     <None Include="Particles.cd" />
-    <None Include="Content\scripts\init.lua" />
     <None Include="Content\scripts\roll.lua" />
+    <None Include="Content\scripts\pulse.lua" />
+    <None Include="Content\scripts\test.lua" />
+    <None Include="Content\scripts\test2.lua" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Content\scripts\template.lua" />
