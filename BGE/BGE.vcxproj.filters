@@ -68,7 +68,6 @@
     <ClCompile Include="XBoxController.cpp" />
     <ClCompile Include="Lua.cpp" />
     <ClCompile Include="ScriptManager.cpp" />
-    <ClCompile Include="Script.cpp" />
     <ClCompile Include="ScriptingExample.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -138,7 +137,6 @@
     <ClInclude Include="XBoxController.h" />
     <ClInclude Include="Lua.h" />
     <ClInclude Include="ScriptManager.h" />
-    <ClInclude Include="Script.h" />
     <ClInclude Include="ScriptingExample.h" />
   </ItemGroup>
   <ItemGroup>

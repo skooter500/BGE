@@ -29,13 +29,18 @@ void RenameFunctionVariables(BGE::ScriptManager& scriptManager, int function, co
 
 namespace BGE
 {
-	ScriptManager::ScriptManager()
+	ScriptManager::ScriptManager(std::vector<std::string> scripts)
 	{
 		L = luaL_newstate();
 		luaL_openlibs(L);
 		Lua::RegisterMembers(L);
 
 		GenerateScriptName(this);
+
+		for(int i = 0; i < scripts.size(); i++)
+		{
+			AddScript(scripts[i]);
+		}
 	}
 
 	ScriptManager::~ScriptManager()

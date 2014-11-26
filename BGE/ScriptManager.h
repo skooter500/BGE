@@ -40,7 +40,7 @@ namespace BGE
 
 		int scriptCount = 0;
 
-		ScriptManager();
+		ScriptManager(std::vector<std::string> scripts = {});
 		~ScriptManager();
 
 		virtual bool Initialise();

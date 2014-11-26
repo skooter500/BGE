@@ -129,7 +129,6 @@
     <ClCompile Include="Route.cpp" />
     <ClCompile Include="Scenario.cpp" />
     <ClCompile Include="SceneGraphGame.cpp" />
-    <ClCompile Include="Script.cpp" />
     <ClCompile Include="ScriptManager.cpp" />
     <ClCompile Include="SkeletonMapper.cpp" />
     <ClCompile Include="SnowEffect.cpp" />
@@ -199,7 +198,6 @@
     <ClInclude Include="Route.h" />
     <ClInclude Include="Scenario.h" />
     <ClInclude Include="SceneGraphGame.h" />
-    <ClInclude Include="Script.h" />
     <ClInclude Include="ScriptManager.h" />
     <ClInclude Include="SkeletonMapper.h" />
     <ClInclude Include="SnowEffect.h" />
