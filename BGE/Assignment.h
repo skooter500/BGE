@@ -16,6 +16,7 @@ namespace BGE
 		float openingDuration;
 		float speed;
 		float legDirection;
+		float counter;
 
 	public:
 		Assignment(void);
