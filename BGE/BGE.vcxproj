@@ -251,6 +251,7 @@
     <None Include="Content\Lines.vertexshader" />
     <None Include="Content\Particles.fragmentshader" />
     <None Include="Content\Particles.vertexshader" />
+    <None Include="Content\scripts\global.lua" />
     <None Include="Content\scripts\pulse.lua" />
     <None Include="Content\scripts\roll.lua" />
     <None Include="Content\scripts\test.lua" />

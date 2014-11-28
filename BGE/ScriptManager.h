@@ -23,6 +23,8 @@ namespace BGE
 {
 	class ScriptManager : public GameComponent
 	{
+	private:
+		void LoadScript(const std::string& script);
 	public:
 		lua_State* L;
 		std::string scriptName;
@@ -50,7 +52,6 @@ namespace BGE
 		virtual void PostDraw();
 		virtual void Cleanup();
 
-		void LoadScript(const std::string& script);
 		void AddScript(const std::string& script);
 
 		void AddFunctionCode(const std::string& code, int function);

@@ -1,6 +1,9 @@
 #include "Utils.h"
 #include "ScriptManager.h"
 
+std::string SCRIPT_DIR = "Content/scripts/";
+std::string SCRIPT_GEN = SCRIPT_DIR + "gen/";
+
 std::string INIT_STR = "initialise()";
 std::string UPDATE_STR = "update(delta)";
 std::string PREDRAW_STR = "predraw()";
@@ -138,7 +141,7 @@ namespace BGE
 	void ScriptManager::AddScript(const std::string& script)
 	{
 		finalScript.open(scriptName);
-		LoadScript("Content/scripts/" + script);
+		LoadScript(SCRIPT_DIR + script);
 		finalScript.close();
 
 		if(luaL_dofile(L, scriptName.c_str()))
@@ -198,7 +201,7 @@ namespace BGE
 	{
 		std::ostringstream address;
 		address << (void const *)object << ".lua";
-		scriptName = "Content/scripts/gen/" + address.str();
+		scriptName = SCRIPT_GEN + address.str();
 	}
 
 	void ScriptManager::SetFunctionCode(const std::string& code, int index, int function)

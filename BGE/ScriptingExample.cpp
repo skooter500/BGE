@@ -1,3 +1,8 @@
+/*
+	An example game demonstrating how to use lua scripts
+*/
+
+
 #include "ScriptingExample.h"
 
 #include "Box.h"
@@ -17,22 +22,19 @@ ScriptingExample::~ScriptingExample(void)
 
 bool ScriptingExample::Initialise()
 {
-	shared_ptr<ScriptManager> scriptMngr = make_shared<ScriptManager>();
-	scriptMngr->AddScript("roll.lua");
-	scriptMngr->AddScript("template.lua");
+	shared_ptr<ScriptManager> scriptMngr = make_shared<ScriptManager>();		// Declare Scripting Manager
+	scriptMngr->AddScript("roll.lua");											// Call to add scripts
+	scriptMngr->AddScript("template.lua");										// Call to add scripts
 
-	shared_ptr<Box> boxObj = make_shared<Box>(10, 10, 10);
+	shared_ptr<Box> boxObj = make_shared<Box>(10, 10, 10);						// Make an object
 	boxObj->transform->position.x -= 50;
 
-	boxObj->Attach(scriptMngr);
-	Attach(boxObj);
+	boxObj->Attach(scriptMngr);													// Attach the Script Manager to the object
+	Attach(boxObj);																// Attach the object to the world
 	
 	shared_ptr<ScriptManager> scriptMngr2 = make_shared<ScriptManager>();
 	scriptMngr2->AddScript("roll.lua");
 	scriptMngr2->AddScript("pulse.lua");
-
-	//scriptMngr2->AddScript("test.lua");
-	//scriptMngr2->AddScript("test2.lua");
 
 	shared_ptr<Box> boxObj2 = make_shared<Box>(10, 10, 10);
 	boxObj2->transform->position.x += 20;
@@ -40,8 +42,15 @@ bool ScriptingExample::Initialise()
 	boxObj2->Attach(scriptMngr2);
 	Attach(boxObj2);
 
-	//scriptMngr->SetGlobal("pitch", "action");
-	//scriptMngr2->SetGlobal("yaw", "action");
+	scriptMngr->AddScript("global.lua");										// Loads a script with a global variable
+	scriptMngr2->AddScript("global.lua");
+
+	scriptMngr->SetGlobal("pitch", "action");									// Assign value to the global
+	scriptMngr2->SetGlobal(1234, "action");										// Assign value to the global
+
+	//shared_ptr<ScriptManager> scriptMngr3 = make_shared<ScriptManager>();
+	//scriptMngr3->AddScript("roll.lua");
+	//Attach(scriptMngr3);
 
 	return Game::Initialise();
 }

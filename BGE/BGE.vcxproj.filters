@@ -173,6 +173,7 @@
     <None Include="Content\scripts\pulse.lua" />
     <None Include="Content\scripts\test.lua" />
     <None Include="Content\scripts\test2.lua" />
+    <None Include="Content\scripts\global.lua" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Content\scripts\template.lua" />
