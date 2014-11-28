@@ -308,8 +308,8 @@ shared_ptr<PhysicsController> PhysicsFactory::CreateRandomObject(glm::vec3 point
 
 shared_ptr<PhysicsController> PhysicsFactory::CreateCapsule(float radius, float height, glm::vec3 pos, glm::quat quat)
 {
-	btCollisionShape* capsuleShape = new btCapsuleShape(btScalar(radius), btScalar(height * ( 2 + radius)));
-	btScalar mass = 1;
+	btCollisionShape* capsuleShape = new btCapsuleShape(btScalar(radius), btScalar(height * (2 + radius)));
+	btScalar mass = 20;
 	btVector3 inertia(0, 0, 0);
 	capsuleShape->calculateLocalInertia(mass, inertia);
 
