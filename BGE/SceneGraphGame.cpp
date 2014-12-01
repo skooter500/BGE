@@ -55,6 +55,8 @@ void SceneGraphGame::Update()
 
 void SceneGraphGame::CreateScene()
 {
+
+	Attach(make_shared<SnowEffect>(true));
 	float componentCount = 11.0f;
 	float current = 0.0f;
 	shared_ptr<GameComponent> partFollower = make_shared<GameComponent>(true);
