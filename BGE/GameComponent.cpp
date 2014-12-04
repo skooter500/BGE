@@ -221,7 +221,7 @@ void GameComponent::Attach(shared_ptr<GameComponent> child)
 		child->transform = transform; 
 	}
 	// Set up transform parenting
-	if (transformOwner && child->transformOwner)
+	if (child->transformOwner)
 	{
 		child->transform->parent = transform;
 	}
