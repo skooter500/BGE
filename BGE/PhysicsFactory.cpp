@@ -168,7 +168,7 @@ shared_ptr<PhysicsController> PhysicsFactory::CreateCylinder(float radius, float
 
 	// This is a container for the box model
 	shared_ptr<GameComponent> cyl = make_shared<Cylinder>(radius, height);
-	cyl->Initialise();
+	//cyl->Initialise();
 	if (attachToGame)
 	{
 		Game::Instance()->Attach(cyl);

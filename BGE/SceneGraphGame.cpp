@@ -56,6 +56,12 @@ void SceneGraphGame::Update()
 void SceneGraphGame::CreateScene()
 {
 
+	// Cylinder stuff for Darren
+	shared_ptr<PhysicsController> cycC = physicsFactory->CreateCylinder(10, 2, glm::vec3(0, 0, 0), glm::quat());
+	shared_ptr<GameComponent> c = make_shared<Box>(10, 10, 10);
+	c->transform->position = glm::vec3(0, 10, 0);
+	cycC->parent->Attach(c);
+
 	Attach(make_shared<SnowEffect>(true));
 	float componentCount = 11.0f;
 	float current = 0.0f;
