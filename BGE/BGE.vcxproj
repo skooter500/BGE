@@ -103,6 +103,7 @@
     <ClCompile Include="AttackingState.cpp" />
     <ClCompile Include="Buddha.cpp" />
     <ClCompile Include="Capsule.cpp" />
+    <ClCompile Include="LuaWrapper.cpp" />
     <ClCompile Include="ScriptingExample.cpp" />
     <ClCompile Include="EmptyGame.cpp" />
     <ClCompile Include="FlockingScenario.cpp" />
@@ -173,6 +174,7 @@
     <ClInclude Include="AttackingState.h" />
     <ClInclude Include="Buddha.h" />
     <ClInclude Include="Capsule.h" />
+    <ClInclude Include="LuaWrapper.h" />
     <ClInclude Include="ScriptingExample.h" />
     <ClInclude Include="EmptyGame.h" />
     <ClInclude Include="FlockingScenario.h" />
@@ -251,6 +253,7 @@
     <None Include="Content\Lines.vertexshader" />
     <None Include="Content\Particles.fragmentshader" />
     <None Include="Content\Particles.vertexshader" />
+    <None Include="Content\scripts\input.lua" />
     <None Include="Content\scripts\global.lua" />
     <None Include="Content\scripts\pulse.lua" />
     <None Include="Content\scripts\roll.lua" />

@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "Lua.h"
+#include "Game.h"
 #include "GameComponent.h"
 
 enum FUNC_TYPE
@@ -40,8 +41,6 @@ namespace BGE
 		std::vector<std::string> postdrawCode;
 		std::vector<std::string> cleanupCode;
 
-		int scriptCount = 0;
-
 		ScriptManager(std::vector<std::string> scripts = {});
 		~ScriptManager();
 
@@ -71,6 +70,6 @@ namespace BGE
 		void SetLocalCode(const std::string& code, int index);
 
 		std::vector<std::string> GetFunctionCode(int function) const;
-		std::vector<std::string> getLocalCode() const;
+		std::vector<std::string> GetLocalCode() const;
 	};
 }

@@ -25,6 +25,7 @@ bool ScriptingExample::Initialise()
 	shared_ptr<ScriptManager> scriptMngr = make_shared<ScriptManager>();		// Declare Scripting Manager
 	scriptMngr->AddScript("roll.lua");											// Call to add scripts
 	scriptMngr->AddScript("template.lua");										// Call to add scripts
+	scriptMngr->AddScript("pulse.lua");
 
 	shared_ptr<Box> boxObj = make_shared<Box>(10, 10, 10);						// Make an object
 	boxObj->transform->position.x -= 50;
@@ -34,7 +35,7 @@ bool ScriptingExample::Initialise()
 	
 	shared_ptr<ScriptManager> scriptMngr2 = make_shared<ScriptManager>();
 	scriptMngr2->AddScript("roll.lua");
-	scriptMngr2->AddScript("pulse.lua");
+	scriptMngr2->AddScript("input.lua");
 
 	shared_ptr<Box> boxObj2 = make_shared<Box>(10, 10, 10);
 	boxObj2->transform->position.x += 20;

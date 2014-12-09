@@ -4,22 +4,20 @@
 #include "LuaWrapper.h"
 
 void RegisterKeys(lua_State* l);
-
-float sinWrapper(float x);
-float cosWrapper(float x);
-float tanWrapper(float x);
+bool KeyStateWrapper(int key);
 
 void Lua::RegisterMembers(lua_State* l)
 {
-	char* nsCore = "bge";
-	char* nsMath = "glm";
-	char* nsInput = "io";
-	luabridge::getGlobalNamespace(l)
-		.beginNamespace(nsMath)
+	char* nsBGE = "bge";
+	char* nsGLM = "glm";
 
-		.addFunction("sin", &sinWrapper)
-		.addFunction("cos", &cosWrapper)
-		.addFunction("tan", &tanWrapper)
+	luabridge::getGlobalNamespace(l)
+
+		.addFunction("sin", &sinf)
+		.addFunction("cos", &cosf)
+		.addFunction("tan", &tanf)
+
+		.beginNamespace(nsGLM)
 
 		.beginClass<glm::vec3>("vec3")
 		.addConstructor<void(*)(const float&, const float&, const float&)>()
@@ -38,7 +36,8 @@ void Lua::RegisterMembers(lua_State* l)
 		.endNamespace();
 
 	luabridge::getGlobalNamespace(l)
-		.beginNamespace(nsCore)
+		.beginNamespace(nsBGE)
+
 		.beginClass<BGE::Transform>("Transform")
 		.addConstructor<void(*)()>()
 		.addData("position", &BGE::Transform::position)
@@ -52,10 +51,16 @@ void Lua::RegisterMembers(lua_State* l)
 		.endClass()
 		.endNamespace();
 
+	RegisterKeys(l);
 }
 
-void registerKeys(lua_State* l)
+void RegisterKeys(lua_State* l)
 {
+	luabridge::getGlobalNamespace(l)
+		.beginNamespace("io")
+		.addFunction("keyState", &KeyStateWrapper)
+		.endNamespace();
+
 	luabridge::setGlobal(l, static_cast<int>(SDL_SCANCODE_UNKNOWN), "SDL_SCANCODE_UNKNOWN");
 	luabridge::setGlobal(l, static_cast<int>(SDL_SCANCODE_A), "SDL_SCANCODE_A");
 	luabridge::setGlobal(l, static_cast<int>(SDL_SCANCODE_B), "SDL_SCANCODE_B");
@@ -299,17 +304,7 @@ void registerKeys(lua_State* l)
 	luabridge::setGlobal(l, static_cast<int>(SDL_SCANCODE_APP2), "SDL_SCANCODE_APP2");
 }
 
-float sinWrapper(float x)
+bool KeyStateWrapper(int key)
 {
-	return sin(x);
-}
-
-float cosWrapper(float x)
-{
-	return cos(x);
-}
-
-float tanWrapper(float x)
-{
-	return tan(x);
+	return BGE::Game::Instance()->keyState[key];
 }

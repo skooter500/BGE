@@ -69,6 +69,7 @@
     <ClCompile Include="Lua.cpp" />
     <ClCompile Include="ScriptManager.cpp" />
     <ClCompile Include="ScriptingExample.cpp" />
+    <ClCompile Include="LuaWrapper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AttackingState.h" />
@@ -138,6 +139,7 @@
     <ClInclude Include="Lua.h" />
     <ClInclude Include="ScriptManager.h" />
     <ClInclude Include="ScriptingExample.h" />
+    <ClInclude Include="LuaWrapper.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Classes.cd" />
@@ -174,6 +176,7 @@
     <None Include="Content\scripts\test.lua" />
     <None Include="Content\scripts\test2.lua" />
     <None Include="Content\scripts\global.lua" />
+    <None Include="Content\scripts\input.lua" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Content\scripts\template.lua" />

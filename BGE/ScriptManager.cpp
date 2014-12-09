@@ -265,7 +265,7 @@ namespace BGE
 		}
 	}
 
-	std::vector<std::string> ScriptManager::getLocalCode() const
+	std::vector<std::string> ScriptManager::GetLocalCode() const
 	{
 		return localCode;
 	}
@@ -376,9 +376,9 @@ std::string AddParts(std::vector<std::string> s)
 
 void GenerateFinalScript(std::ofstream& file, BGE::ScriptManager& scriptManager)
 {
-	for(int i = 0; i < scriptManager.getLocalCode().size(); i++)
+	for(int i = 0; i < scriptManager.GetLocalCode().size(); i++)
 	{
-		file << scriptManager.getLocalCode()[i] << "\n";
+		file << scriptManager.GetLocalCode()[i] << "\n";
 	}
 
 	GenerateFunctionCode(file, scriptManager, FUNC_TYPE::OTHER, true);
