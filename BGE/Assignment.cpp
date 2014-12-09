@@ -64,9 +64,7 @@ void Assignment::Update(float timeDelta)
 		movementDuration = 0;
 
 	animateLegs(timeDelta);
-	Game::Update(timeDelta);
-	
-
+	Game::Update();
 }
 
 shared_ptr<PhysicsController> Assignment::CreateSpider(glm::vec3 position)

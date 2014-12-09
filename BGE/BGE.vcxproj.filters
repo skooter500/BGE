@@ -230,7 +230,6 @@
     <ClCompile Include="GravityController.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="GravityGame.cpp">
     <ClCompile Include="EmptyGame.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
@@ -239,8 +238,10 @@
     </ClCompile>
     <ClCompile Include="Person.cpp">
       <Filter>Kinect1</Filter>
+	</ClCompile>
     <ClCompile Include="GravityGame.cpp">
       <Filter>Engine</Filter>
+	 </ClCompile>
     <ClCompile Include="Assignment.cpp">
       <Filter>Games</Filter>
     </ClCompile>
@@ -426,32 +427,21 @@
     <ClInclude Include="Lab7.h">
       <Filter>Labs</Filter>
     </ClInclude>
-<<<<<<< HEAD
-<<<<<<< HEAD
     <ClInclude Include="GravityController.h">
       <Filter>Engine</Filter>
     </ClInclude>
     <ClInclude Include="GravityGame.h">
       <Filter>Engine</Filter>
-=======
+	</ClInclude>
     <ClInclude Include="Assignment.h">
       <Filter>Games</Filter>
->>>>>>> assignment
     </ClInclude>
-=======
-    <ClInclude Include="EmptyGame.h" />
-<<<<<<< HEAD
->>>>>>> upstream/master
-=======
     <ClInclude Include="VRGame1.h">
       <Filter>Games</Filter>
     </ClInclude>
     <ClInclude Include="Person.h">
       <Filter>Kinect1</Filter>
     </ClInclude>
-    <ClInclude Include="GravityGame.h" />
-    <ClInclude Include="GravityController.h" />
->>>>>>> upstream/master
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\CubeShader.fragmentshader">

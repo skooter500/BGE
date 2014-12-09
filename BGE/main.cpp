@@ -52,7 +52,7 @@ int main(int argc, char *argv[])
 	Params::Load("default");
 
 	//shared_ptr<Game> game = make_shared<Lab3>();
-	//shared_ptr<Game> game = make_shared<Assignment>();
+	shared_ptr<Game> game = make_shared<Assignment>();
 
 	game->Run();
 	

@@ -2,11 +2,8 @@
 #include "Content.h"
 #include "VectorDrawer.h"
 #include "LazerBeam.h"
-<<<<<<< HEAD
 #include <math.h>
-=======
 #include "Utils.h"
->>>>>>> upstream/master
 
 using namespace BGE;
 
@@ -80,21 +77,21 @@ void Lab3::Update()
 
 	if (keyState[SDL_SCANCODE_U])
 	{
-		ship1->transform->position += ship1->transform->look * speed * timeDelta;
+		ship1->transform->position += ship1->transform->look * speed * Time::deltaTime;
 	}
 	if (keyState[SDL_SCANCODE_J])
 	{
-		ship1->transform->position -= ship1->transform->look * speed * timeDelta;
+		ship1->transform->position -= ship1->transform->look * speed * Time::deltaTime;
 	}
 	if (keyState[SDL_SCANCODE_H])
 	{
-		ship1->transform->Yaw(timeDelta * speed * 5);
+		ship1->transform->Yaw(Time::deltaTime * speed * 5);
 	}
 	if (keyState[SDL_SCANCODE_K])
 	{
-		ship1->transform->Yaw(-timeDelta * speed * 5);
+		ship1->transform->Yaw(-Time::deltaTime * speed * 5);
 	}
-	elapsed += timeDelta;
+	elapsed += Time::deltaTime;
 
 	glm::vec3 distance =
 		ship1->transform->position - ship2->transform->position;
@@ -111,7 +108,7 @@ void Lab3::Update()
 	float dotted = glm::dot(v1, v2);
 	float angle = acos(dotted) * 180 / 3.14;
 
-	fireTimer += timeDelta;
+	fireTimer += Time::deltaTime;
 
 	if ( angle > 45)
 		PrintText("Ship is behind!", glm::vec2(400, 200));
