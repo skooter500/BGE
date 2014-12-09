@@ -4,7 +4,8 @@
 #include "Box.h"
 #include "Steerable3DController.h"
 #include "Content.h"
-
+#include "Game.h"
+#include "GameComponent.h"
 
 BGE::GravityGame::GravityGame()
 {
@@ -13,6 +14,7 @@ BGE::GravityGame::GravityGame()
 
 BGE::GravityGame::~GravityGame()
 {
+	elapsed = 10000;
 }
 
 bool BGE::GravityGame::Initialise()

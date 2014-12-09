@@ -225,13 +225,13 @@ shared_ptr<PhysicsController> PhysicsFactory::CreateVehicle(glm::vec3 position)
 	shared_ptr<PhysicsController> chassis = CreateBox(width, height, length, position, glm::quat());
 
 	shared_ptr<PhysicsController> wheel;
-	glm::quat q =  glm::angleAxis(glm::half_pi<float>(), glm::vec3(1, 0, 0));
+	glm::quat q =  glm::angleAxis(90.0f, glm::vec3(1,0, 0));
 
 	glm::vec3 offset;
 	btHingeConstraint * hinge;
 
 	offset = glm::vec3(- (width / 2 - wheelRadius), 0, - (length / 2 + wheelOffset));
-	wheel = CreateCylinder(wheelRadius, wheelWidth, position + offset, q);	 
+	wheel = CreateCylinder(wheelRadius, wheelWidth, position + offset, q);
 	hinge = new btHingeConstraint(* chassis->rigidBody, * wheel->rigidBody, GLToBtVector(offset),btVector3(0,0, 0), btVector3(0,0,1), btVector3(0,1,0), true);
 	dynamicsWorld->addConstraint(hinge);
 
@@ -339,7 +339,6 @@ shared_ptr<PhysicsController> PhysicsFactory::CreateCapsule(float radius, float 
 shared_ptr<PhysicsController> PhysicsFactory::CreateCapsuleRagdoll(glm::vec3 position)
 {
 
-
 	btHingeConstraint* spine_pelvis;
 	btHingeConstraint* left_upper_leg_left_lower_leg;
 	btHingeConstraint* right_upper_leg_right_lower_leg;
@@ -440,3 +439,4 @@ shared_ptr<PhysicsController> PhysicsFactory::CreateCapsuleRagdoll(glm::vec3 pos
 
 	return bodypart_spine;
 }
+

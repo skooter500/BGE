@@ -1,6 +1,8 @@
 #include "GravityController.h"
 #include "Utils.h"
-
+#include "Game.h"
+#include "GameComponent.h"
+using namespace BGE;
 
 BGE::GravityController::GravityController()
 {

@@ -42,6 +42,7 @@
 #include "VRGame2.h"
 #include "SDL_syswm.h"
 #include "GravityGame.h"
+#include "Assignment.h"
 
 using namespace BGE;
 
@@ -50,8 +51,8 @@ int main(int argc, char *argv[])
 	// http://www.youtube.com/watch?v=EEbVHxOkTxw
 	Params::Load("default");
 
-
-	shared_ptr<Game> game = make_shared<SceneGraphGame>();
+	//shared_ptr<Game> game = make_shared<Lab3>();
+	//shared_ptr<Game> game = make_shared<Assignment>();
 
 	game->Run();
 	
