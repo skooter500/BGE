@@ -33,9 +33,9 @@ bool Assignment::Initialise()
 
 	//used for controlling opening and closing legs
 	counter = 0;
-	openingDuration = 10;
+	openingDuration = 8;
 	legDirection = 1; //negative closes leg, positive opens
-	speed = 4;
+	speed = 5;
 
 	body = CreateSpider(glm::vec3(0, 10, 0));
 
@@ -51,9 +51,10 @@ bool Assignment::Initialise()
 
 
 
-void Assignment::Update(float timeDelta)
+void Assignment::Update()
 {
-	movementDuration += timeDelta;
+	/*
+	movementDuration += Time::deltaTime;
 	btVector3 walk_direction = GLToBtVector(body->transform->look);
 	float speed = 4500;
 	if ( movementDuration < 10)
@@ -62,8 +63,8 @@ void Assignment::Update(float timeDelta)
 		body->rigidBody->applyCentralForce(btVector3(-speed, 0, -speed) * walk_direction);
 	else
 		movementDuration = 0;
-
-	animateLegs(timeDelta);
+	*/
+	animateLegs(Time::deltaTime);
 	Game::Update();
 }
 
@@ -72,7 +73,7 @@ shared_ptr<PhysicsController> Assignment::CreateSpider(glm::vec3 position)
 
 	float thorax_radius = 4.0f;
 	shared_ptr<PhysicsController> body_part_thorax = physicsFactory->CreateSphere(thorax_radius, position, glm::quat());
-	btScalar mass = 80;
+	btScalar mass = 300;
 	btVector3 inertia(0, 0, 0);
 	body_part_thorax->rigidBody->setMassProps(mass, inertia);
 	body_part_thorax->rigidBody->updateInertiaTensor();
@@ -82,22 +83,44 @@ shared_ptr<PhysicsController> Assignment::CreateSpider(glm::vec3 position)
 	//body_part_thorax->rigidBody->setAngularFactor(btVector3(0, 1, 0));
 
 	//divided by number of legs
-	num_legs = 10;
+	num_legs = 12;
 	float theta = (glm::pi<float>() * 2) / num_legs;
 
 	//legs will move in two groups. Each pair (going from front to back) move in opposing motions.
 	bool legGroup = true;
+	bool frontGroup;
 
-	for (int i = 0; i < num_legs; i++)
+	for (int i = 1; i < num_legs; i++)
 	{
-		if (i % 5 != 0)
+		/*The movement of the front legs differs from that of the rear legs. 
+		The front legs should elevate as they open and descend as they close to create a pulling motion
+		The movement of the rear legs should open as they descend and raise as they open to create a pushing motion
+		so we need to seperate them into two groups*/
+
+		switch (i)
+		{
+		case FRONT_RIGHT:
+		case FRONT_LEFT:
+		case MID_FRONT_LEFT:
+		case MID_FRONT_RIGHT:
+			frontGroup = true;
+			break;
+		case HIND_LEFT:
+		case HIND_RIGHT:
+		case MID_HIND_LEFT:
+		case MID_HIND_RIGHT:
+			frontGroup = false;
+			break;
+		}
+
+		if (i % 3 != 0)
 		{
 			glm::vec3 coxa_position;
 			coxa_position = glm::vec3(position.x + (glm::sin(theta * i) * (thorax_radius)), position.y, position.z + (glm::cos(theta * i) * (thorax_radius)));
 
 			glm::vec3 leg_direction = position - coxa_position;
 			leg_direction = glm::normalize(leg_direction);
-			shared_ptr<PhysicsController> leg = createLeg(coxa_position, leg_direction, glm::angleAxis(90.0f, glm::vec3(0, 1, 0)), legGroup);
+			shared_ptr<PhysicsController> leg = createLeg(coxa_position, leg_direction, glm::angleAxis(90.0f, glm::vec3(0, 1, 0)), legGroup, frontGroup);
 
 			btTransform localA, localB;
 			localA.setIdentity();
@@ -108,24 +131,26 @@ shared_ptr<PhysicsController> Assignment::CreateSpider(glm::vec3 position)
 			localB.setOrigin(btVector3(0, 3.5, 0));
 
 			btConeTwistConstraint* coxa_leg = new btConeTwistConstraint(*leg->rigidBody, *body_part_thorax->rigidBody, localB, localA);
-			coxa_leg->setLimit(glm::radians(10.0f), glm::radians(30.0f), glm::radians(10.0f)); //cone twist limits only allowing small movements
+			coxa_leg->setLimit(glm::radians(30.0f), glm::radians(10.0f), glm::radians(10.0f)); //cone twist limits only allowing small movements
 			coxa_leg->setOverrideNumSolverIterations(150);
+
 			dynamicsWorld->addConstraint(coxa_leg, true);
 			legGroup = (legGroup) ? false : true;	//switch leg group (for alternating movement)
 		}
+		
 	}
 
 	return body_part_thorax;
 	
 }
 
-shared_ptr<PhysicsController> Assignment::createLeg(glm::vec3 position, glm::vec3 direction, glm::quat orientation, bool group)
+shared_ptr<PhysicsController> Assignment::createLeg(glm::vec3 position, glm::vec3 direction, glm::quat orientation, bool group, bool frontGroup)
 {
 	glm::quat q = orientation * glm::angleAxis(90.0f, direction);
 
 	float leg_offset = 6.50f / 6.0f;
 	float muscle_offset = 1;
-	btScalar mass = 20;
+	btScalar mass = 30;
 	btVector3 inertia(0, 0, 0);
 
 	//upper leg 
@@ -134,6 +159,11 @@ shared_ptr<PhysicsController> Assignment::createLeg(glm::vec3 position, glm::vec
 	upper_leg->rigidBody->setMassProps(mass, inertia);
 	upper_leg->rigidBody->updateInertiaTensor();
 	reColour(upper_leg, 128, 90, 51);
+
+	/*The upper leg will be the object that will have upward force applied to it in order to lift and lower the leg
+	assigned to group based on parameter passed in*/
+	(frontGroup) ? front_legs.push_back(upper_leg) : hind_legs.push_back(upper_leg);
+
 	//muscle to connect upper leg and middle leg
 	shared_ptr<PhysicsController> upper_leg_muscle = physicsFactory->CreateCylinder(0.25, 0.1, position - (direction * leg_offset ) + glm::vec3(0,-1,0), q);
 	reColour(upper_leg_muscle, 0,0,0);
@@ -144,7 +174,7 @@ shared_ptr<PhysicsController> Assignment::createLeg(glm::vec3 position, glm::vec
 	
 
 	upper_leg_muscle_hinge->setLimit(btScalar(0), btScalar(glm::half_pi<float>()));
-	upper_leg_muscle_hinge->setOverrideNumSolverIterations(20);
+	upper_leg_muscle_hinge->setOverrideNumSolverIterations(50);
 	dynamicsWorld->addConstraint(upper_leg_muscle_hinge, true);
 	
 
@@ -195,7 +225,7 @@ shared_ptr<PhysicsController> Assignment::createLeg(glm::vec3 position, glm::vec
 	lower_leg->rigidBody->updateInertiaTensor();
 	//reduce leg bouncing when it drops to ground
 	lower_leg->rigidBody->setRestitution(0.01f);
-	lower_leg->rigidBody->setFriction(100.0f);
+	lower_leg->rigidBody->setFriction(2500.0f);
 	reColour(lower_leg, 33, 23, 14);
 
 	//hinge joint between mid leg part and lower
@@ -237,13 +267,13 @@ shared_ptr<PhysicsController> Assignment::createLeg(glm::vec3 position, glm::vec
 	//controls for motion limits of the sliders
 	upper_mid_leg_slider->setOverrideNumSolverIterations(50);
 	upper_mid_leg_slider->setPoweredLinMotor(true);
-	upper_mid_leg_slider->setMaxLinMotorForce(2);
+	upper_mid_leg_slider->setMaxLinMotorForce(8);
 	upper_mid_leg_slider->setLowerLinLimit(2.0f);
 	upper_mid_leg_slider->setUpperLinLimit(4.0f);
 
 	mid_lower_leg_slider->setOverrideNumSolverIterations(50);
 	mid_lower_leg_slider->setPoweredLinMotor(true);
-	mid_lower_leg_slider->setMaxLinMotorForce(10);
+	mid_lower_leg_slider->setMaxLinMotorForce(6);
 	mid_lower_leg_slider->setLowerLinLimit(2.0f);
 	mid_lower_leg_slider->setUpperLinLimit(4.0f);
 
@@ -291,6 +321,16 @@ void Assignment::animateLegs(float timeDelta)
 
 		(*it_group_1)->setTargetLinMotorVelocity(legDirection * speed);
 		(*it_group_2)->setTargetLinMotorVelocity(legDirection * speed * -1);
+	}
+
+	int x = 0;
+
+	for (it_front_legs = front_legs.begin(), it_hind_legs = hind_legs.begin();
+		it_front_legs != front_legs.end(), it_hind_legs != hind_legs.end();
+		++it_front_legs, ++it_hind_legs)
+	{
+		(*it_front_legs)->rigidBody->applyForce(btVector3(0, 4000 * legDirection, 0), btVector3(0, 0, 0));
+		(*it_hind_legs)->rigidBody->applyForce(btVector3(0, 4000 * -legDirection, 0), btVector3(0, 0, 0));
 	}
 }
 
