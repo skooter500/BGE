@@ -69,7 +69,6 @@
     <ClCompile Include="Lua.cpp" />
     <ClCompile Include="ScriptManager.cpp" />
     <ClCompile Include="ScriptingExample.cpp" />
-    <ClCompile Include="LuaWrapper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AttackingState.h" />
@@ -139,7 +138,6 @@
     <ClInclude Include="Lua.h" />
     <ClInclude Include="ScriptManager.h" />
     <ClInclude Include="ScriptingExample.h" />
-    <ClInclude Include="LuaWrapper.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Classes.cd" />

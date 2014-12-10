@@ -103,7 +103,6 @@
     <ClCompile Include="AttackingState.cpp" />
     <ClCompile Include="Buddha.cpp" />
     <ClCompile Include="Capsule.cpp" />
-    <ClCompile Include="LuaWrapper.cpp" />
     <ClCompile Include="ScriptingExample.cpp" />
     <ClCompile Include="EmptyGame.cpp" />
     <ClCompile Include="FlockingScenario.cpp" />
@@ -174,7 +173,6 @@
     <ClInclude Include="AttackingState.h" />
     <ClInclude Include="Buddha.h" />
     <ClInclude Include="Capsule.h" />
-    <ClInclude Include="LuaWrapper.h" />
     <ClInclude Include="ScriptingExample.h" />
     <ClInclude Include="EmptyGame.h" />
     <ClInclude Include="FlockingScenario.h" />

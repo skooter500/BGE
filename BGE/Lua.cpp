@@ -1,7 +1,6 @@
 #include "Lua.h"
 #include "Transform.h"
 #include "Game.h"
-#include "LuaWrapper.h"
 
 void RegisterKeys(lua_State* l);
 bool KeyStateWrapper(int key);
