@@ -1,5 +1,6 @@
 #include "SceneGraphGame.h"
 #include "Sphere.h"
+#include "Utils.h"
 
 using namespace BGE;
 
@@ -55,6 +56,31 @@ void SceneGraphGame::Update()
 
 void SceneGraphGame::CreateScene()
 {
+	// Cylinder stuff for Darren
+	shared_ptr<PhysicsController> cycC = physicsFactory->CreateCylinder(10, 2, glm::vec3(0, 20, 0), glm::quat());
+	shared_ptr<GameComponent> c = make_shared<Box>(10, 10, 10);
+	c->transform->position = glm::vec3(0, 10, 0);
+	cycC->Attach(c);
+
+
+	setGravity(glm::vec3(0, 0, 0));
+
+
+	// Fixed joint with rotation
+	shared_ptr<PhysicsController> b1 = physicsFactory->CreateBox(10, 1, 20, glm::vec3(0, 0, 0), glm::quat());
+	glm::quat q = glm::angleAxis(30.0f, glm::vec3(0, 1, 0));
+	shared_ptr<PhysicsController> b2 = physicsFactory->CreateBox(10, 10, 1, glm::vec3(0, 10, 0), q);
+	btTransform t1, t2;
+	t1.setIdentity();
+	t2.setIdentity();
+	t1.setOrigin(btVector3(0, 1, 0));
+	t2.setRotation(GLToBtQuat(glm::angleAxis(-30.0f, glm::vec3(0, 1, 0)))); // No
+	t2.setOrigin(btVector3(0, -6, 0));
+
+	btFixedConstraint * fixed = new btFixedConstraint(* b1->rigidBody, * b2->rigidBody, t1, t2);
+	//dynamicsWorld->addConstraint(fixed);
+
+	Attach(make_shared<SnowEffect>(true));
 	float componentCount = 11.0f;
 	float current = 0.0f;
 	shared_ptr<GameComponent> partFollower = make_shared<GameComponent>(true);

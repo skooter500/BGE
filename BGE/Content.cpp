@@ -349,7 +349,6 @@ GLuint Content::LoadShaderPair(string name) {
 	string vertexFilePath = Content::prefix + name + ".vertexshader";
 	string fragmentFilePath = Content::prefix + name + ".fragmentshader";
 	
-	
 	// Create the shaders
 	GLuint VertexShaderID = glCreateShader(GL_VERTEX_SHADER);
 	GLuint FragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);

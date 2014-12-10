@@ -29,13 +29,13 @@ bool Spider::Initialise()
 	physicsFactory->CreateGroundPhysics();
 
 	physicsFactory->CreateCameraPhysics();
-	dynamicsWorld->setGravity( btVector3(0, -9.8, 0));
+	dynamicsWorld->setGravity(btVector3(0, -9.8, 0));
 
 	//used for controlling opening and closing legs
 	counter = 0;
 	openingDuration = 8;
 	legDirection = 1; //negative closes leg, positive opens
-	speed = 3;
+	speed = 1.5;
 
 	body = createSpider(glm::vec3(0, 10, 0));
 
@@ -49,8 +49,6 @@ bool Spider::Initialise()
 }
 
 
-
-
 void Spider::Update()
 {
 	/*
@@ -58,11 +56,11 @@ void Spider::Update()
 	btVector3 walk_direction = GLToBtVector(body->transform->look);
 	float speed = 4500;
 	if ( movementDuration < 10)
-		body->rigidBody->applyCentralForce(btVector3(speed, 0, speed) * walk_direction);
+	body->rigidBody->applyCentralForce(btVector3(speed, 0, speed) * walk_direction);
 	else if (movementDuration < 20)
-		body->rigidBody->applyCentralForce(btVector3(-speed, 0, -speed) * walk_direction);
+	body->rigidBody->applyCentralForce(btVector3(-speed, 0, -speed) * walk_direction);
 	else
-		movementDuration = 0;
+	movementDuration = 0;
 	*/
 	animateLegs(Time::deltaTime);
 	Game::Update();
@@ -92,7 +90,7 @@ shared_ptr<PhysicsController> Spider::createSpider(glm::vec3 position)
 
 	for (int i = 1; i < num_legs; i++)
 	{
-		/*The movement of the front legs differs from that of the rear legs. 
+		/*The movement of the front legs differs from that of the rear legs.
 		The front legs should elevate as they open and descend as they close to create a pulling motion
 		The movement of the rear legs should open as they descend and raise as they open to create a pushing motion
 		so we need to seperate them into two groups*/
@@ -137,7 +135,7 @@ shared_ptr<PhysicsController> Spider::createSpider(glm::vec3 position)
 			dynamicsWorld->addConstraint(coxa_leg, true);
 			legGroup = (legGroup) ? false : true;	//switch leg group (for alternating movement)
 		}
-		
+
 	}
 
 	return body_part_thorax;
@@ -164,21 +162,21 @@ shared_ptr<PhysicsController> Spider::createLeg(glm::vec3 position, glm::vec3 di
 	(frontGroup) ? front_legs.push_back(upper_leg) : hind_legs.push_back(upper_leg);
 
 	//muscle to connect upper leg and middle leg
-	shared_ptr<PhysicsController> upper_leg_muscle = physicsFactory->CreateCylinder(0.25, 0.1, position - (direction * leg_offset ) + glm::vec3(0,-1,0), q);
-	reColour(upper_leg_muscle, 0,0,0);
+	shared_ptr<PhysicsController> upper_leg_muscle = physicsFactory->CreateCylinder(0.25, 0.1, position - (direction * leg_offset) + glm::vec3(0, -1, 0), q);
+	reColour(upper_leg_muscle, 0, 0, 0);
 	btHingeConstraint* upper_leg_muscle_hinge;
-	upper_leg_muscle_hinge = new btHingeConstraint(*upper_leg_muscle->rigidBody, *upper_leg->rigidBody, 
-													btVector3(0, 0, 0), btVector3(direction.x * muscle_offset, -leg_offset, direction.z * muscle_offset),
-													btVector3(direction.x, 0, direction.z), btVector3(-direction.z, 0, direction.x));	//perpendicular vector (swap points and negate one)
-	
+	upper_leg_muscle_hinge = new btHingeConstraint(*upper_leg_muscle->rigidBody, *upper_leg->rigidBody,
+		btVector3(0, 0, 0), btVector3(direction.x * muscle_offset, -leg_offset, direction.z * muscle_offset),
+		btVector3(direction.x, 0, direction.z), btVector3(-direction.z, 0, direction.x));	//perpendicular vector (swap points and negate one)
+
 
 	upper_leg_muscle_hinge->setLimit(btScalar(0), btScalar(glm::half_pi<float>()));
 	upper_leg_muscle_hinge->setOverrideNumSolverIterations(50);
 	dynamicsWorld->addConstraint(upper_leg_muscle_hinge, true);	//passing in true to disable collision between bodies of hinge
-	
+
 
 	//middle leg 
-	shared_ptr<PhysicsController> mid_leg = physicsFactory->CreateCapsule(0.5, 1.5, glm::vec3(position.x, position.y, position.z) - (direction * ( leg_offset * 4) ), q);
+	shared_ptr<PhysicsController> mid_leg = physicsFactory->CreateCapsule(0.5, 1.5, glm::vec3(position.x, position.y, position.z) - (direction * (leg_offset * 4)), q);
 	mid_leg->shape->calculateLocalInertia(mass, inertia);
 	mid_leg->rigidBody->setMassProps(mass, inertia);
 	mid_leg->rigidBody->updateInertiaTensor();
@@ -187,32 +185,32 @@ shared_ptr<PhysicsController> Spider::createLeg(glm::vec3 position, glm::vec3 di
 	//hinge joint between upper leg part and mid leg
 	btHingeConstraint* upper_mid_leg_hinge;
 	upper_mid_leg_hinge = new btHingeConstraint(*mid_leg->rigidBody, *upper_leg->rigidBody,
-												btVector3(0, 3.25, 0), btVector3(0, -3.25, 0),
-												btVector3(direction.x, 0, direction.z), btVector3(-direction.z, 0, direction.x));
-	upper_mid_leg_hinge->setLimit(btScalar(0) ,btScalar(glm::pi<float>()));
+		btVector3(0, 3.25, 0), btVector3(0, -3.25, 0),
+		btVector3(direction.x, 0, direction.z), btVector3(-direction.z, 0, direction.x));
+	upper_mid_leg_hinge->setLimit(btScalar(0), btScalar(glm::pi<float>()));
 
 	upper_mid_leg_hinge->setOverrideNumSolverIterations(50);
 	dynamicsWorld->addConstraint(upper_mid_leg_hinge, true);
 
 	//muscle to connect middle leg to upper
 	shared_ptr<PhysicsController> mid_upper_leg_muscle = physicsFactory->CreateCylinder(0.25, 0.1, position - (direction * (leg_offset * 3)) + glm::vec3(0, -1, 0), q);
-	reColour(mid_upper_leg_muscle, 0,0,0);
+	reColour(mid_upper_leg_muscle, 0, 0, 0);
 	btHingeConstraint* mid_upper_leg_muscle_hinge;
 
 	mid_upper_leg_muscle_hinge = new btHingeConstraint(*mid_leg->rigidBody, *mid_upper_leg_muscle->rigidBody,
-														btVector3(muscle_offset * direction.z, leg_offset, direction.x * -muscle_offset), btVector3(0, 0, 0),
-														btVector3(direction.x, 0, direction.z), btVector3(-direction.z, 0, direction.x));
+		btVector3(muscle_offset * direction.z, leg_offset, direction.x * -muscle_offset), btVector3(0, 0, 0),
+		btVector3(direction.x, 0, direction.z), btVector3(-direction.z, 0, direction.x));
 	mid_upper_leg_muscle_hinge->setLimit(btScalar(0), btScalar(glm::half_pi<float>()));
 	mid_upper_leg_muscle_hinge->setOverrideNumSolverIterations(20);
 	dynamicsWorld->addConstraint(mid_upper_leg_muscle_hinge, true);
 
 	//muscle to connect middle leg to lower leg
-	shared_ptr<PhysicsController> mid_lower_leg_muscle = physicsFactory->CreateCylinder(0.25, 0.1, position - (direction * (leg_offset * 5) ) + glm::vec3(0, -1, 0), q);
-	reColour(mid_lower_leg_muscle, 0,0,0);
+	shared_ptr<PhysicsController> mid_lower_leg_muscle = physicsFactory->CreateCylinder(0.25, 0.1, position - (direction * (leg_offset * 5)) + glm::vec3(0, -1, 0), q);
+	reColour(mid_lower_leg_muscle, 0, 0, 0);
 	btHingeConstraint* mid_lower_leg_muscle_hinge;
 	mid_lower_leg_muscle_hinge = new btHingeConstraint(*mid_lower_leg_muscle->rigidBody, *mid_leg->rigidBody,
-														btVector3(0, 0, 0), btVector3(muscle_offset * direction.z, -leg_offset, -direction.x * muscle_offset),
-														btVector3(-direction.z, 0, direction.x), btVector3(direction.x, 0, direction.z));
+		btVector3(0, 0, 0), btVector3(muscle_offset * direction.z, -leg_offset, -direction.x * muscle_offset),
+		btVector3(-direction.z, 0, direction.x), btVector3(direction.x, 0, direction.z));
 	mid_lower_leg_muscle_hinge->setLimit(btScalar(0), btScalar(glm::half_pi<float>()));
 	mid_lower_leg_muscle_hinge->setOverrideNumSolverIterations(20);
 	dynamicsWorld->addConstraint(mid_lower_leg_muscle_hinge, true);
@@ -230,19 +228,19 @@ shared_ptr<PhysicsController> Spider::createLeg(glm::vec3 position, glm::vec3 di
 	//hinge joint between mid leg part and lower
 	btHingeConstraint* mid_lower_leg_hinge;
 	mid_lower_leg_hinge = new btHingeConstraint(*lower_leg->rigidBody, *mid_leg->rigidBody,
-												btVector3(0, 3.25, 0), btVector3(0, -3.25, 0),
-												btVector3(direction.x, 0, direction.z), btVector3(direction.x, 0, direction.z));
+		btVector3(0, 3.25, 0), btVector3(0, -3.25, 0),
+		btVector3(direction.x, 0, direction.z), btVector3(direction.x, 0, direction.z));
 	mid_lower_leg_hinge->setLimit(btScalar(0), btScalar(glm::pi<float>()));
 	mid_lower_leg_hinge->setOverrideNumSolverIterations(50);
 	dynamicsWorld->addConstraint(mid_lower_leg_hinge, true);
 
 	//muscle to connect lower leg to middle leg
 	shared_ptr<PhysicsController> lower_leg_muscle = physicsFactory->CreateCylinder(0.25, 0.1, position - (direction * (leg_offset * 7)) + glm::vec3(0, -1, 0), q);
-	reColour(lower_leg_muscle, 0,0,0);
+	reColour(lower_leg_muscle, 0, 0, 0);
 	btHingeConstraint* lower_leg_muscle_hinge;
-	lower_leg_muscle_hinge = new btHingeConstraint(*lower_leg->rigidBody, *lower_leg_muscle->rigidBody, 
-													btVector3(muscle_offset * direction.z, leg_offset, direction.x * -muscle_offset), btVector3(0, 0, 0),
-													btVector3(direction.x, 0, direction.z), btVector3(-direction.z, 0, direction.x));
+	lower_leg_muscle_hinge = new btHingeConstraint(*lower_leg->rigidBody, *lower_leg_muscle->rigidBody,
+		btVector3(muscle_offset * direction.z, leg_offset, direction.x * -muscle_offset), btVector3(0, 0, 0),
+		btVector3(direction.x, 0, direction.z), btVector3(-direction.z, 0, direction.x));
 
 	lower_leg_muscle_hinge->setLimit(btScalar(0), btScalar(glm::half_pi<float>()));
 	lower_leg_muscle_hinge->setOverrideNumSolverIterations(20);
@@ -288,7 +286,7 @@ shared_ptr<PhysicsController> Spider::createLeg(glm::vec3 position, glm::vec3 di
 	}
 
 	return upper_leg;
-	
+
 }
 
 //Method to recolor game components taking values (0-255) for red, green, blue

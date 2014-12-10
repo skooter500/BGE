@@ -1,6 +1,4 @@
 #pragma once
-#include "PhysicsFactory.h"
-#include "Game.h"
 #include "GameComponent.h"
 
 namespace BGE

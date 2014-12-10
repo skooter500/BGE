@@ -21,7 +21,7 @@ namespace BGE
 		std::list<btSliderConstraint*>::iterator it_group_2;
 
 		static const int FRONT_RIGHT = 1, MID_FRONT_RIGHT = 2, MID_HIND_RIGHT = 4, HIND_RIGHT = 5,
-				HIND_LEFT = 7, MID_HIND_LEFT = 8, MID_FRONT_LEFT = 10, FRONT_LEFT = 11;
+			HIND_LEFT = 7, MID_HIND_LEFT = 8, MID_FRONT_LEFT = 10, FRONT_LEFT = 11;
 
 		shared_ptr<PhysicsController> body;
 		void reColour(shared_ptr<GameComponent>, float, float, float);
@@ -35,7 +35,7 @@ namespace BGE
 		float leg_offset;
 		float muscle_offset;
 		float direction_duration;
-				
+
 
 	public:
 		Spider(void);

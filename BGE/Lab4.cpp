@@ -43,15 +43,10 @@ bool Lab4::Initialise()
 	fountainTheta = 0.0f; 
 	for (int i = 0 ; i < NUM_FOUNTAINS ; i ++)
 	{
-		//radians in a circle divided by num fountains times i gives an
-		//evenly placed point on the circle starting at 0 
 		fountainTheta = ((glm::pi<float>() * 2.0f) / NUM_FOUNTAINS) * i;
-
-		//2 parameters, number of particles and 
-		shared_ptr<FountainEffect> fountain = make_shared<FountainEffect>(200, true);
+		shared_ptr<FountainEffect> fountain = make_shared<FountainEffect>(500, true);
 		if (i % 2 == 0)
 		{
-			//diffuse takes value of vec3 for rgb
 			fountain->transform->diffuse = glm::vec3(1,0,0);
 		}
 		else
@@ -127,10 +122,10 @@ void Lab4::Update()
 	glm::vec3 toShip2 = ship2->transform->position - ship1->transform->position;
 	toShip2 = glm::normalize(toShip2);
 	theta = glm::acos(glm::dot(Transform::basisLook, toShip2));
-	if (toShip2.x > 0)
-	{
-		theta = - theta;
-	}
+	//if (toShip2.x > 0)
+	//{
+	//	theta = - theta;
+	//}
 
 	ship1->transform->world = glm::translate(glm::mat4(1), ship1->transform->position) * glm::rotate(glm::mat4(1), glm::degrees(theta), glm::vec3(0,1,0));
 }

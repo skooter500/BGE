@@ -99,7 +99,6 @@
     </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Spider.cpp" />
     <ClCompile Include="AttackingState.cpp" />
     <ClCompile Include="Buddha.cpp" />
     <ClCompile Include="Capsule.cpp" />
@@ -127,6 +126,7 @@
     <ClCompile Include="SceneGraphGame.cpp" />
     <ClCompile Include="SkeletonMapper.cpp" />
     <ClCompile Include="SnowEffect.cpp" />
+    <ClCompile Include="Spider.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="SteeringGame.cpp" />
     <ClCompile Include="Transform.cpp" />
@@ -165,7 +165,6 @@
     <ClCompile Include="XBoxController.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Spider.h" />
     <ClInclude Include="AttackingState.h" />
     <ClInclude Include="Buddha.h" />
     <ClInclude Include="Capsule.h" />
@@ -192,6 +191,7 @@
     <ClInclude Include="SceneGraphGame.h" />
     <ClInclude Include="SkeletonMapper.h" />
     <ClInclude Include="SnowEffect.h" />
+    <ClInclude Include="Spider.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="SteeringGame.h" />
     <ClInclude Include="Transform.h" />
@@ -230,7 +230,6 @@
     <ClInclude Include="XBoxController.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram.cd" />
     <None Include="Classes.cd" />
     <None Include="Content\bge.grxml" />
     <None Include="Content\CubeShader.fragmentshader" />
