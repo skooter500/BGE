@@ -306,6 +306,27 @@ shared_ptr<PhysicsController> PhysicsFactory::CreateRandomObject(glm::vec3 point
 	return CreateFromModel(name, point, q, scale);
 }
 
+/*	There is an issue with how the capsule is scaled. 
+*
+*	A capsule is made up of a cylinder and two hemispheres. It takes a radius for the spheres and a height 
+*	for the cyclinder.
+*	From bullet docs :"The total height is height+2*radius, so the height is just the height between the center of 
+*	each 'sphere' of the capsule caps."
+*	http://bulletphysics.org/Bullet/BulletFull/classbtCapsuleShape.html
+*	The Capsule game component is a single object that when given a height, scales the capsule on the Y axis in 
+*	it's entirety as well as scaling the radius on the X and Z axis. 
+*	An example:
+*	If the base values for the capsule object are a radius of 1 and height of 1, then the total length of a capsule should be 
+*	3 ( 1R + 1L + 1R ) where R is radius and L is length.
+*	If we passed in the values 2 for radius and 2 for length we would expect a total length of 6 and this is the 
+*	shape of the rigid body that bullet is expecting and providing. However, we get a total length of 10. 
+*	(2R + 1L + 2R) * 2
+*
+*	You may come across this when values required to position joints reqiures higher values than those provided
+*	when creating the capsule,capsules looked pointed or longer than the values provided.
+*	
+*/
+
 shared_ptr<PhysicsController> PhysicsFactory::CreateCapsule(float radius, float height, glm::vec3 pos, glm::quat quat)
 {
 	btCollisionShape* capsuleShape = new btCapsuleShape(btScalar(radius), btScalar(height));

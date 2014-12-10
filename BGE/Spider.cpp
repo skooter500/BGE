@@ -11,20 +11,20 @@
 #include <gtx/norm.hpp>
 #include "VectorDrawer.h"
 #include "Utils.h"
-#include "Assignment.h"
+#include "Spider.h"
 
 using namespace BGE;
 
-Assignment::Assignment(void)
+Spider::Spider(void)
 {
 	float movementDuration = 0;
 }
 
-Assignment::~Assignment(void)
+Spider::~Spider(void)
 {
 }
 
-bool Assignment::Initialise()
+bool Spider::Initialise()
 {
 	physicsFactory->CreateGroundPhysics();
 
@@ -35,9 +35,9 @@ bool Assignment::Initialise()
 	counter = 0;
 	openingDuration = 8;
 	legDirection = 1; //negative closes leg, positive opens
-	speed = 5;
+	speed = 3;
 
-	body = CreateSpider(glm::vec3(0, 10, 0));
+	body = createSpider(glm::vec3(0, 10, 0));
 
 	if (!Game::Initialise()) {
 		return false;
@@ -51,7 +51,7 @@ bool Assignment::Initialise()
 
 
 
-void Assignment::Update()
+void Spider::Update()
 {
 	/*
 	movementDuration += Time::deltaTime;
@@ -68,7 +68,7 @@ void Assignment::Update()
 	Game::Update();
 }
 
-shared_ptr<PhysicsController> Assignment::CreateSpider(glm::vec3 position)
+shared_ptr<PhysicsController> Spider::createSpider(glm::vec3 position)
 {
 
 	float thorax_radius = 4.0f;
@@ -141,10 +141,9 @@ shared_ptr<PhysicsController> Assignment::CreateSpider(glm::vec3 position)
 	}
 
 	return body_part_thorax;
-	
 }
 
-shared_ptr<PhysicsController> Assignment::createLeg(glm::vec3 position, glm::vec3 direction, glm::quat orientation, bool group, bool frontGroup)
+shared_ptr<PhysicsController> Spider::createLeg(glm::vec3 position, glm::vec3 direction, glm::quat orientation, bool group, bool frontGroup)
 {
 	glm::quat q = orientation * glm::angleAxis(90.0f, direction);
 
@@ -175,7 +174,7 @@ shared_ptr<PhysicsController> Assignment::createLeg(glm::vec3 position, glm::vec
 
 	upper_leg_muscle_hinge->setLimit(btScalar(0), btScalar(glm::half_pi<float>()));
 	upper_leg_muscle_hinge->setOverrideNumSolverIterations(50);
-	dynamicsWorld->addConstraint(upper_leg_muscle_hinge, true);
+	dynamicsWorld->addConstraint(upper_leg_muscle_hinge, true);	//passing in true to disable collision between bodies of hinge
 	
 
 	//middle leg 
@@ -292,14 +291,15 @@ shared_ptr<PhysicsController> Assignment::createLeg(glm::vec3 position, glm::vec
 	
 }
 
-void Assignment::reColour(shared_ptr<GameComponent> o, float r, float g, float b)
+//Method to recolor game components taking values (0-255) for red, green, blue
+void Spider::reColour(shared_ptr<GameComponent> o, float r, float g, float b)
 {
 	o->transform->diffuse.r = ((1.0f / 255) * r);
 	o->transform->diffuse.g = ((1.0f / 255) * g);
 	o->transform->diffuse.b = ((1.0f / 255) * b);
 }
 
-void Assignment::animateLegs(float timeDelta)
+void Spider::animateLegs(float timeDelta)
 {
 	for (it_group_1 = slider_group_1.begin(), it_group_2 = slider_group_2.begin();
 		it_group_1 != slider_group_1.end() || it_group_2 != slider_group_2.end();
@@ -323,7 +323,6 @@ void Assignment::animateLegs(float timeDelta)
 		(*it_group_2)->setTargetLinMotorVelocity(legDirection * speed * -1);
 	}
 
-	int x = 0;
 
 	for (it_front_legs = front_legs.begin(), it_hind_legs = hind_legs.begin();
 		it_front_legs != front_legs.end(), it_hind_legs != hind_legs.end();
@@ -335,7 +334,7 @@ void Assignment::animateLegs(float timeDelta)
 }
 
 
-void Assignment::Cleanup()
+void Spider::Cleanup()
 {
 	Game::Cleanup();
 }

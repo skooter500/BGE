@@ -7,7 +7,7 @@
 
 namespace BGE
 {
-	class Assignment :
+	class Spider :
 		public Game
 	{
 	private:
@@ -24,7 +24,7 @@ namespace BGE
 				HIND_LEFT = 7, MID_HIND_LEFT = 8, MID_FRONT_LEFT = 10, FRONT_LEFT = 11;
 
 		shared_ptr<PhysicsController> body;
-		void Assignment::reColour(shared_ptr<GameComponent>, float, float, float);
+		void reColour(shared_ptr<GameComponent>, float, float, float);
 		void animateLegs(float);
 		float movementDuration;
 		float openingDuration;
@@ -38,13 +38,13 @@ namespace BGE
 				
 
 	public:
-		Assignment(void);
-		~Assignment(void);
+		Spider(void);
+		~Spider(void);
 		bool Initialise();
 		void Update();
 		void Cleanup();
-		shared_ptr<PhysicsController> CreateSpider(glm::vec3);
-		shared_ptr<PhysicsController> Assignment::createLeg(glm::vec3, glm::vec3, glm::quat, bool, bool);
+		shared_ptr<PhysicsController> createSpider(glm::vec3);
+		shared_ptr<PhysicsController> createLeg(glm::vec3, glm::vec3, glm::quat, bool, bool);
 		shared_ptr<GameComponent> sphere;
 		shared_ptr<GameComponent> box;
 

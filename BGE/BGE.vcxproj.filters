@@ -227,9 +227,6 @@
     <ClCompile Include="Lab7.cpp">
       <Filter>Labs</Filter>
     </ClCompile>
-    <ClCompile Include="GravityController.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
     <ClCompile Include="EmptyGame.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
@@ -238,15 +235,12 @@
     </ClCompile>
     <ClCompile Include="Person.cpp">
       <Filter>Kinect1</Filter>
-	</ClCompile>
-    <ClCompile Include="GravityGame.cpp">
-      <Filter>Engine</Filter>
-	 </ClCompile>
-    <ClCompile Include="Assignment.cpp">
-      <Filter>Games</Filter>
     </ClCompile>
     <ClCompile Include="GravityController.cpp">
       <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Spider.cpp">
+      <Filter>Games</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -427,20 +421,15 @@
     <ClInclude Include="Lab7.h">
       <Filter>Labs</Filter>
     </ClInclude>
-    <ClInclude Include="GravityController.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="GravityGame.h">
-      <Filter>Engine</Filter>
-	</ClInclude>
-    <ClInclude Include="Assignment.h">
-      <Filter>Games</Filter>
-    </ClInclude>
     <ClInclude Include="VRGame1.h">
       <Filter>Games</Filter>
     </ClInclude>
     <ClInclude Include="Person.h">
       <Filter>Kinect1</Filter>
+    </ClInclude>
+    <ClInclude Include="EmptyGame.h" />
+    <ClInclude Include="Spider.h">
+      <Filter>Games</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
