@@ -99,6 +99,7 @@
     </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Assignment.cpp" />
     <ClCompile Include="AssignmentSample.cpp" />
     <ClCompile Include="AttackingState.cpp" />
     <ClCompile Include="Buddha.cpp" />
@@ -162,6 +163,7 @@
     <ClCompile Include="XBoxController.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Assignment.h" />
     <ClInclude Include="AssignmentSample.h" />
     <ClInclude Include="AttackingState.h" />
     <ClInclude Include="Buddha.h" />

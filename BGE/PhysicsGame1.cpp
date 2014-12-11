@@ -53,7 +53,7 @@ bool PhysicsGame1::Initialise()
 
 	// A Ball and socket
 	box1 = physicsFactory->CreateBox(1,1,4, glm::vec3(20, 5, 0), glm::quat()); 
-	box2 = physicsFactory->CreateBox(1,1,4, glm::vec3(20, 5, 5), glm::quat()); 
+	box2 = physicsFactory->CreateBox(1, 1, 4, glm::vec3(20, 5, 5), glm::quat()); 
 
 	btPoint2PointConstraint * ptpConstraint = new btPoint2PointConstraint(*box1->rigidBody, *box2->rigidBody, btVector3(0,0,2.5f),btVector3(0,0,-2.5f));
 	dynamicsWorld->addConstraint(ptpConstraint);
