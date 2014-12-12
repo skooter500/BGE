@@ -41,9 +41,13 @@ void FPSController::Jump(float height, float duration)
 void FPSController::Update()
 {
 	const Uint8 * keyState = Game::Instance()->GetKeyState();
+	btScalar MotoMax = 0.0f;
 
 	float moveSpeed = speed;
-
+	if (keyState[SDL_SCANCODE_P])
+	{
+		MotoMax = 3.0f;
+	}
 	if (keyState[SDL_SCANCODE_LSHIFT])
 	{
 		moveSpeed *= 10.0f;

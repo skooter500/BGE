@@ -66,7 +66,7 @@ void SceneGraphGame::CreateScene()
 	setGravity(glm::vec3(0, 0, 0));
 
 
-	// Fixed joint with rotation for Darren
+	// Fixed joint with rotation
 	shared_ptr<PhysicsController> b1 = physicsFactory->CreateBox(10, 1, 20, glm::vec3(0, 0, 0), glm::quat());
 	glm::quat q = glm::angleAxis(30.0f, glm::vec3(0, 1, 0));
 	shared_ptr<PhysicsController> b2 = physicsFactory->CreateBox(10, 10, 1, glm::vec3(0, 10, 0), q);
@@ -74,11 +74,11 @@ void SceneGraphGame::CreateScene()
 	t1.setIdentity();
 	t2.setIdentity();
 	t1.setOrigin(btVector3(0, 1, 0));
-	t2.setRotation(GLToBtQuat(glm::angleAxis(-30.0f, glm::vec3(0, 1, 0)))); // Not sure but this needs to be a minus angle
+	t2.setRotation(GLToBtQuat(glm::angleAxis(-30.0f, glm::vec3(0, 1, 0)))); // No
 	t2.setOrigin(btVector3(0, -6, 0));
+
 	btFixedConstraint * fixed = new btFixedConstraint(* b1->rigidBody, * b2->rigidBody, t1, t2);
-	dynamicsWorld->addConstraint(fixed);
-	// End
+	//dynamicsWorld->addConstraint(fixed);
 
 	Attach(make_shared<SnowEffect>(true));
 	float componentCount = 11.0f;

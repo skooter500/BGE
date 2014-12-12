@@ -28,6 +28,6 @@ The engine supports:
 
 To build:
 
-* Download the dependencies from here: http://1drv.ms/1wew5VT
+* Download the dependencies from here: http://1drv.ms/1olPefQ
 * Unzip to the folder Dependencies in your project 
 * Use the included Visual Studio 2013 project files
