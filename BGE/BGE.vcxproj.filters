@@ -236,6 +236,9 @@
     <ClCompile Include="Person.cpp">
       <Filter>Kinect1</Filter>
     </ClCompile>
+    <ClCompile Include="Assignment.cpp">
+      <Filter>Games</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -421,6 +424,9 @@
     </ClInclude>
     <ClInclude Include="Person.h">
       <Filter>Kinect1</Filter>
+    </ClInclude>
+    <ClInclude Include="Assignment.h">
+      <Filter>Games</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

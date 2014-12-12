@@ -83,7 +83,7 @@ bool GameComponent::Initialise()
 		while (it != children.end())
 		{
 			(*it)->initialised = (*it)->Initialise();
-			++ it;
+			*it++;
 		}
 	}
 	catch (BGE::Exception e)
