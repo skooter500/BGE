@@ -1,6 +1,30 @@
 Game Engines 1 Assignment
 =========================
 
+Assignment results:
+
+C09299858	46
+C11424748	70
+C11386356	87
+c11347281	67
+C11710699	95
+C11733511	81
+C11343056	66
+C11405038	78
+D11124846	59
+C11442692	77
+D12124126	63
+C11443118	50
+C11561447	64
+D11124850	63
+C11401898	64
+C11360201	80
+C10315971	75
+C11743571	84
+D05110596	64
+C10363227	41
+C07716567	62
+
 ## Interm Assignment
 Please subit through [this Google Docs link](https://docs.google.com/forms/d/13J_laob3a-Eixw2u1QRjK4eHsgKQ5hJ9F9smu0n-wdw/viewform) the following:
 
