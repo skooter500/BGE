@@ -52,7 +52,7 @@ int main(int argc, char *argv[])
 	// http://www.youtube.com/watch?v=EEbVHxOkTxw
 	Params::Load("default");
 
-	shared_ptr<Game> game = make_shared<Assignment>();
+	shared_ptr<Game> game = make_shared<SceneGraphGame>();
 	game->Run();
 	
 	return 0;
