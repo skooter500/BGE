@@ -1,5 +1,7 @@
 ![Alt text](https://raw.github.com/skooter500/BGE/master/Logo/BGE_Logo_01.png)
 
+Click the image below for a video:
+
 [![YouTube](http://img.youtube.com/vi/EEbVHxOkTxw/0.jpg)](https://www.youtube.com/watch?v=EEbVHxOkTxw)
 
 * [Course Notes](Course/index.md)
